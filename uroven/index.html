@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Уровень — ремонт квартир в Батуми (демо open-sites.io)</title>
+<meta name="description" content="Демо-сайт студии open-sites.io: бригада ремонта квартир «Уровень» в Батуми. Прикидка сметы по метражу, этапы работ, прайс по работам, договор с фиксированной суммой. Бизнес вымышленный.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#E8E4DE">
+<link rel="canonical" href="https://fr33roman.github.io/uroven/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="open-sites.io">
+<meta property="og:title" content="Уровень — ремонт квартир в Батуми">
+<meta property="og:description" content="Сначала смета, потом молоток. Прикидка по метражу: вилка цены, срок в неделях и разбивка по этапам.">
+<meta property="og:url" content="https://fr33roman.github.io/uroven/">
+<meta property="og:image" content="https://fr33roman.github.io/uroven/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E8E4DE'/%3E%3Crect x='3' y='12' width='26' height='9' rx='2' fill='none' stroke='%231C1B19' stroke-width='2'/%3E%3Crect x='13' y='14.5' width='6' height='4' rx='2' fill='%23B5432A'/%3E%3C/svg%3E">
+<script>document.documentElement.className += ' js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600;700&display=swap">
+<style>
+/* ============ токены (см. DESIGN.md) ============ */
+:root{
+  --cement:#E8E4DE;  /* фон — свежая штукатурка */
+  --paper:#F6F4F0;   /* плашки сметы и полей */
+  --ink:#1C1B19;     /* текст */
+  --dust:#63605A;    /* подписи, единицы, 5,6:1 */
+  --brick:#B5432A;   /* единственный акцент: итог, номера этапов, кнопка */
+  --brick-d:#8F3520;
+  --line:rgba(28,27,25,.18);
+  --f:"Commissioner","Segoe UI",system-ui,sans-serif;
+  --gut:40px;
+  --sec:84px;
+}
+@media (max-width:1000px){:root{--gut:24px}}
+@media (max-width:700px){:root{--gut:16px}}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--cement);color:var(--ink);
+  font:400 17px/1.55 var(--f);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{list-style:none;padding:0}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.nw{white-space:nowrap}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--brick);outline-offset:2px}
+[id]{scroll-margin-top:80px}
+.skip{position:absolute;left:12px;top:-80px;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:60}
+.skip:focus{top:12px}
+.num{font-variant-numeric:lining-nums tabular-nums}
+
+/* ============ кнопки ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;
+  border:1px solid var(--brick);border-radius:6px;background:var(--brick);color:#fff;
+  font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;transition:background .16s,border-color .16s}
+.btn:hover{background:var(--brick-d);border-color:var(--brick-d)}
+.btn:disabled{background:transparent;border-color:var(--line);color:var(--dust);cursor:not-allowed}
+.btn--line{background:transparent;color:var(--brick)}
+.btn--line:hover{background:rgba(181,67,42,.08)}
+.link{color:var(--brick);text-underline-offset:4px}
+
+/* ============ закреплённая строка ============ */
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
+  padding:10px var(--gut);background:rgba(232,228,222,.94);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(8px)}
+.mark{font-weight:700;font-size:19px;letter-spacing:.04em;text-decoration:none}
+.nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--dust)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.top .btn{margin-left:auto;min-height:44px;padding:0 18px;font-size:15px}
+@media (min-width:1080px){.nav{display:flex}.top .btn{margin-left:0}}
+
+/* ============ секции ============ */
+.sec{border-top:1px solid var(--line)}
+.sec__in{max-width:1300px;margin:0 auto;padding:clamp(40px,5.5vw,var(--sec)) var(--gut)}
+h2{font-weight:700;font-size:clamp(24px,3.2vw,42px);line-height:1.06;letter-spacing:-.02em}
+h3{font-weight:600;font-size:18px;line-height:1.3}
+.note{color:var(--dust);font-size:15px;line-height:1.5;max-width:74ch}
+.lbl{font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--dust)}
+
+/* ============ 1. герой ============ */
+.hero{max-width:1300px;margin:0 auto;padding:clamp(26px,4vw,56px) var(--gut) 0}
+h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spacing:-.03em;max-width:15ch}
+.hero__lead{margin-top:20px;font-size:clamp(17px,1.5vw,20px);line-height:1.5;max-width:58ch;color:var(--dust)}
+.hero__lead b{color:var(--ink);font-weight:600}
+
+/* ============ 2. прикидка ============ */
+.calc{display:grid;grid-template-columns:1fr;gap:20px;margin-top:clamp(26px,3.4vw,44px)}
+@media (min-width:980px){.calc{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:start}}
+.panel{background:var(--paper);border:1px solid var(--line);padding:clamp(18px,2.4vw,28px)}
+.q + .q{margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
+.q > .lbl{display:block;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:inline-flex;align-items:center;min-height:46px;padding:0 16px;border:1px solid var(--dust);
+  border-radius:6px;font-size:15px;cursor:pointer;background:transparent}
+.opt input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--paper);font-weight:600}
+.opt input:focus-visible + span{outline:2px solid var(--brick);outline-offset:2px}
+.area{display:flex;align-items:center;gap:10px}
+.area button{width:48px;height:48px;flex:none;border:1px solid var(--dust);border-radius:6px;background:transparent;
+  font-size:22px;line-height:1;cursor:pointer}
+.area button:hover{background:rgba(28,27,25,.06)}
+.area input{width:110px;min-height:48px;padding:0 12px;border:1px solid var(--dust);border-radius:6px;
+  background:#fff;font-size:20px;font-weight:600;text-align:center}
+.area .u{color:var(--dust);font-size:15px}
+.chipsline{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chipsline button{min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;
+  background:transparent;font-size:14px;color:var(--dust);cursor:pointer}
+.chipsline button:hover{border-color:var(--dust);color:var(--ink)}
+
+.out{background:var(--paper);border:1px solid var(--line);padding:clamp(18px,2.4vw,28px)}
+.out__sum{font-weight:700;font-size:clamp(26px,3.6vw,50px);line-height:1.05;letter-spacing:-.03em;
+  color:var(--brick);font-variant-numeric:tabular-nums}
+.out__term{margin-top:8px;font-size:18px;font-weight:600}
+.out__fine{margin-top:14px;color:var(--dust);font-size:14px;line-height:1.5}
+.stages{margin-top:20px;border-top:1px solid var(--ink)}
+.st{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;padding:10px 0;
+  border-bottom:1px solid var(--line);align-items:baseline}
+.st__i{color:var(--brick);font-weight:600;font-size:13px;font-variant-numeric:tabular-nums}
+.st__n{font-size:16px}
+.st__p{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.excl{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.excl li{padding:5px 0;color:var(--dust);font-size:15px}
+.excl li::before{content:"— ";color:var(--ink)}
+
+/* ============ этапы ============ */
+.steps{border-top:1px solid var(--ink);margin-top:24px}
+.step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 18px;padding:18px 0;border-bottom:1px solid var(--line)}
+.step__i{color:var(--brick);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.step__d{color:var(--dust);font-size:14px;font-weight:500}
+.step p{margin-top:5px;color:var(--dust);font-size:15px;line-height:1.5;grid-column:2}
+@media (min-width:760px){.step{grid-template-columns:44px 260px minmax(0,1fr)}.step p{grid-column:3;margin-top:0}
+  .step__d{grid-column:2}}
+
+/* ============ прайс ============ */
+.price{border-top:1px solid var(--ink);margin-top:24px}
+.phead{display:none}
+.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "u u";
+  column-gap:16px;row-gap:2px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.r__n{grid-area:n;font-size:17px;line-height:1.3}
+.r__u{grid-area:u;color:var(--dust);font-size:13px}
+.r__s{grid-area:s;font-weight:700;font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (min-width:700px){
+  .r{grid-template-columns:minmax(0,1fr) 150px 140px;grid-template-areas:"n u s";row-gap:0;padding:13px 0}
+  .r__u{font-size:14px}
+  .r__s{text-align:right}
+  .phead{display:grid;grid-template-columns:minmax(0,1fr) 150px 140px;column-gap:16px;padding-bottom:8px}
+  .phead span:last-child{text-align:right}
+}
+
+/* ============ договор ============ */
+.deal{display:grid;grid-template-columns:1fr;gap:0;margin-top:24px}
+@media (min-width:880px){.deal{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px}}
+.deal li{padding:16px 0;border-bottom:1px solid var(--line)}
+.deal p{margin-top:5px;color:var(--dust);font-size:15px;line-height:1.5}
+
+/* ============ до и после ============ */
+.ba{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
+@media (min-width:760px){.ba{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+.ba img{width:100%;height:clamp(200px,26vw,340px);object-fit:cover;background:var(--line);filter:saturate(.94)}
+.ba .lbl{display:block;margin-bottom:8px}
+.bacap{margin-top:14px;color:var(--dust);font-size:14px;line-height:1.5;max-width:76ch}
+
+/* ============ форма ============ */
+.book{display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px}
+@media (min-width:1000px){.book{grid-template-columns:minmax(0,1fr) 280px;gap:44px}}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.f{display:flex;flex-direction:column;gap:7px;grid-column:span 2}
+@media (min-width:600px){.f--half{grid-column:span 1}}
+.f label{font-size:14px;color:var(--dust)}
+.inp{width:100%;min-height:48px;padding:11px 14px;background:#fff;border:1px solid var(--dust);
+  border-radius:6px;font-size:16px}
+.inp::placeholder{color:#918d86}
+.consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:12px}
+.consent input{flex:none;width:24px;height:24px;margin:11px 0 0;accent-color:var(--brick);cursor:pointer}
+.consent label{padding:10px 0;font-size:15px;line-height:1.5;cursor:pointer}
+.send{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.send__hint{color:var(--dust);font-size:14px}
+.done{background:var(--paper);border:1px solid var(--line);padding:28px}
+.done__b{font-weight:700;font-size:clamp(22px,3vw,32px);letter-spacing:-.02em;line-height:1.1}
+.done p+p{margin-top:12px}
+.noscript{grid-column:1/-1;color:var(--dust);font-size:15px}
+.side dl{border-top:1px solid var(--ink)}
+.side div{padding:12px 0;border-bottom:1px solid var(--line)}
+.side dt{color:var(--dust);font-size:13px}
+.side dd{margin-top:3px;font-size:16px;line-height:1.4}
+
+/* ============ подвал ============ */
+.foot{border-top:1px solid var(--ink);background:var(--paper)}
+.foot__in{max-width:1300px;margin:0 auto;padding:clamp(32px,4vw,52px) var(--gut);
+  display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:900px){.foot__in{grid-template-columns:260px minmax(0,1fr);gap:40px}}
+.plate{border:1px solid var(--line);padding:16px 18px;font-size:15px;line-height:1.5;background:var(--cement)}
+.credits{color:var(--dust);font-size:13px}
+</style>
+</head>
+<body>
+<a class="skip" href="#prikidka">К прикидке сметы</a>
+
+<header class="top">
+  <a class="mark" href="#top">УРОВЕНЬ</a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#prikidka">Прикидка</a>
+    <a href="#etapy">Этапы</a>
+    <a href="#prais">Прайс</a>
+    <a href="#dogovor">Договор</a>
+    <a href="#zamer">Контакты</a>
+  </nav>
+  <a class="btn" href="#zamer">Вызвать замерщика</a>
+</header>
+
+<main id="top">
+  <!-- ============ 1. герой и прикидка ============ -->
+  <section class="hero" aria-labelledby="h1">
+    <h1 id="h1">Сначала смета, потом молоток</h1>
+    <p class="hero__lead">Считаем до начала работ и <b>не меняем сумму по ходу</b>. Ответьте на четыре
+      вопроса — увидите вилку, срок и из чего складывается цена. Замер бесплатный, после него
+      смета становится точной.</p>
+
+    <div class="calc" id="prikidka">
+      <div class="panel">
+        <h2 class="sr">Прикидка сметы</h2>
+        <div class="q">
+          <span class="lbl" id="l-area">Площадь квартиры</span>
+          <div class="area">
+            <button type="button" id="aMinus" aria-label="Уменьшить площадь на 5 метров">−</button>
+            <input class="num" id="area" type="number" inputmode="numeric" min="20" max="200" step="5" value="55" aria-labelledby="l-area">
+            <span class="u">м²</span>
+            <button type="button" id="aPlus" aria-label="Увеличить площадь на 5 метров">+</button>
+          </div>
+          <div class="chipsline">
+            <button type="button" data-area="35">35 м²</button>
+            <button type="button" data-area="50">50 м²</button>
+            <button type="button" data-area="65">65 м²</button>
+            <button type="button" data-area="85">85 м²</button>
+          </div>
+        </div>
+
+        <fieldset class="q" style="border:0;padding:0;margin:22px 0 0">
+          <legend class="lbl" style="padding:0">Тип ремонта</legend>
+          <div class="opts" style="margin-top:10px">
+            <label class="opt"><input type="radio" name="type" value="cos"><span>Косметический</span></label>
+            <label class="opt"><input type="radio" name="type" value="cap" checked><span>Капитальный</span></label>
+            <label class="opt"><input type="radio" name="type" value="key"><span>Под ключ с материалами</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="q" style="border:0;padding:22px 0 0;margin:22px 0 0">
+          <legend class="lbl" style="padding:0">Санузлов</legend>
+          <div class="opts" style="margin-top:10px">
+            <label class="opt"><input type="radio" name="bath" value="1" checked><span>Один</span></label>
+            <label class="opt"><input type="radio" name="bath" value="2"><span>Два</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="q" style="border:0;padding:22px 0 0;margin:22px 0 0">
+          <legend class="lbl" style="padding:0">Квартира</legend>
+          <div class="opts" style="margin-top:10px">
+            <label class="opt"><input type="radio" name="house" value="new"><span>Новостройка без отделки</span></label>
+            <label class="opt"><input type="radio" name="house" value="old" checked><span>Вторичка с демонтажом</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="out" aria-live="polite">
+        <p class="lbl">Работа</p>
+        <p class="out__sum" id="sum">—</p>
+        <p class="out__term" id="term">—</p>
+        <p class="out__fine">Это прикидка, ±20%. Точную смету считаем после замера — он бесплатный
+          и занимает час. На замере смотрим стены уровнем, проверяем электрику и считаем по факту,
+          а не по среднему.</p>
+        <p class="lbl" style="margin-top:20px">Из чего складывается</p>
+        <ul class="stages" id="stages"></ul>
+        <div class="excl">
+          <p class="lbl">Что не входит</p>
+          <ul style="margin-top:8px">
+            <li>Мебель и техника</li>
+            <li>Дизайн-проект — 250 лари отдельно</li>
+            <li>Вывоз мусора сверх двух машин</li>
+            <li>Узаконивание перепланировки</li>
+          </ul>
+        </div>
+        <a class="btn" href="#zamer" id="toZamer" style="margin-top:20px">Вызвать замерщика</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. этапы ============ -->
+  <section class="sec" id="etapy" aria-labelledby="h-e" style="margin-top:clamp(40px,5vw,72px)">
+    <div class="sec__in">
+      <h2 id="h-e">Как идёт работа</h2>
+      <ol class="steps">
+        <li class="step"><span class="step__i">01</span><h3>Замер и смета</h3><span class="step__d">1 день</span>
+          <p>Приезжаем с уровнем и дальномером, считаем по факту. Смета на бумаге и в мессенджере.</p></li>
+        <li class="step"><span class="step__i">02</span><h3>Договор и график</h3><span class="step__d">1 день</span>
+          <p>Фиксируем сумму, срок и порядок оплаты по этапам.</p></li>
+        <li class="step"><span class="step__i">03</span><h3>Демонтаж и вывоз</h3><span class="step__d">3–5 дней</span>
+          <p>Считаем машины мусора заранее. Лишнего не пишем: если уложились в одну — вернём за вторую.</p></li>
+        <li class="step"><span class="step__i">04</span><h3>Электрика и сантехника</h3><span class="step__d">5–8 дней</span>
+          <p>Фотографируем все трассы до штукатурки. Потом эти фото пригодятся, когда будете вешать полку.</p></li>
+        <li class="step"><span class="step__i">05</span><h3>Стяжка, штукатурка, плитка</h3><span class="step__d">2–4 недели</span>
+          <p>Самый долгий этап. Стяжка сохнет по своим срокам, торопить нельзя — потом вздуется пол.</p></li>
+        <li class="step"><span class="step__i">06</span><h3>Малярка, полы, двери</h3><span class="step__d">1–2 недели</span>
+          <p>Здесь уже видно результат, и здесь чаще всего просят что-то поменять. Меняем письменно, до начала.</p></li>
+        <li class="step"><span class="step__i">07</span><h3>Уборка и сдача</h3><span class="step__d">2 дня</span>
+          <p>Сдаём с уборкой, а не «подметите сами». Мусор вывозим весь.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 3. прайс ============ -->
+  <section class="sec" id="prais" aria-labelledby="h-p">
+    <div class="sec__in">
+      <h2 id="h-p">Прайс по работам</h2>
+      <div class="price">
+        <div class="phead lbl" aria-hidden="true"><span>Работа</span><span>Единица</span><span>Цена</span></div>
+        <ul>
+          <li class="r"><span class="r__n">Демонтаж перегородки из пеноблока</span><span class="r__u">м²</span><span class="r__s">18 лари</span></li>
+          <li class="r"><span class="r__n">Вывоз мусора</span><span class="r__u">машина</span><span class="r__s">250 лари</span></li>
+          <li class="r"><span class="r__n">Штукатурка стен по маякам</span><span class="r__u">м²</span><span class="r__s">22 лари</span></li>
+          <li class="r"><span class="r__n">Шпаклёвка под покраску, два слоя</span><span class="r__u">м²</span><span class="r__s">16 лари</span></li>
+          <li class="r"><span class="r__n">Покраска стен, два слоя</span><span class="r__u">м²</span><span class="r__s">12 лари</span></li>
+          <li class="r"><span class="r__n">Поклейка обоев</span><span class="r__u">м²</span><span class="r__s">10 лари</span></li>
+          <li class="r"><span class="r__n">Стяжка пола</span><span class="r__u">м²</span><span class="r__s">20 лари</span></li>
+          <li class="r"><span class="r__n">Укладка плитки на пол</span><span class="r__u">м²</span><span class="r__s">35 лари</span></li>
+          <li class="r"><span class="r__n">Укладка плитки на стену</span><span class="r__u">м²</span><span class="r__s">40 лари</span></li>
+          <li class="r"><span class="r__n">Ламинат с подложкой</span><span class="r__u">м²</span><span class="r__s">14 лари</span></li>
+          <li class="r"><span class="r__n">Установка межкомнатной двери</span><span class="r__u">штука</span><span class="r__s">120 лари</span></li>
+          <li class="r"><span class="r__n">Точка электрики: розетка или выключатель</span><span class="r__u">точка</span><span class="r__s">30 лари</span></li>
+          <li class="r"><span class="r__n">Перенос точки водоснабжения</span><span class="r__u">точка</span><span class="r__s">80 лари</span></li>
+          <li class="r"><span class="r__n">Монтаж подвесного потолка</span><span class="r__u">м²</span><span class="r__s">32 лари</span></li>
+        </ul>
+      </div>
+      <p class="note" style="margin-top:20px">Цены на работу без материалов. Материалы можно купить
+        самим — дадим список с количеством и запасом; или привезём сами и отдадим чеки.</p>
+    </div>
+  </section>
+
+  <!-- ============ 4. договор ============ -->
+  <section class="sec" id="dogovor" aria-labelledby="h-d">
+    <div class="sec__in">
+      <h2 id="h-d">Что в договоре</h2>
+      <ul class="deal">
+        <li><h3>Сумма зафиксирована</h3><p>Меняется, только если вы сами меняете состав работ —
+          письменно и до начала этапа, а не задним числом.</p></li>
+        <li><h3>Оплата по этапам</h3><p>Не вперёд. Первый платёж после демонтажа, а не до него.</p></li>
+        <li><h3>Отчёт раз в неделю</h3><p>Фотографии и что сделано. Ездить на объект каждый вечер не нужно.</p></li>
+        <li><h3>Скрытые работы фотографируем</h3><p>Трассы, гидроизоляцию, стяжку — до того, как закроем.</p></li>
+        <li><h3>Гарантия два года на работы</h3><p>На сантехнику и электрику — три. Приезжаем и переделываем.</p></li>
+        <li><h3>Материалы по чекам</h3><p>Если покупаем мы, чеки отдаём вместе с остатками материалов.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5. до и после ============ -->
+  <section class="sec" id="dopoosle" aria-labelledby="h-b">
+    <div class="sec__in">
+      <h2 id="h-b">Как это выглядит</h2>
+      <div class="ba">
+        <figure>
+          <span class="lbl">До</span>
+          <img src="https://images.unsplash.com/photo-1757742690834-aa581b9f53b2?auto=format&fit=crop&w=1100&q=74" alt="Пустая комната со старым полом и окнами до ремонта" width="1100" height="734" loading="lazy" decoding="async">
+        </figure>
+        <figure>
+          <span class="lbl">После</span>
+          <img src="https://images.unsplash.com/photo-1713832139677-a03a41b602e3?auto=format&fit=crop&w=1100&q=74" alt="Светлая гостиная после ремонта" width="1100" height="734" loading="lazy" decoding="async">
+        </figure>
+      </div>
+      <p class="bacap">Честно: это <b>разные квартиры из фотобанка</b>, а не наш объект — демо-сайт
+        не показывает чужие работы как свои. На сайте вашей бригады здесь будут ваши фотографии
+        до и после, снятые с одной точки: так их и нужно снимать.</p>
+    </div>
+  </section>
+
+  <!-- ============ 6. замер ============ -->
+  <section class="sec" id="zamer" aria-labelledby="h-z">
+    <div class="sec__in">
+      <div class="book">
+        <div>
+          <h2 id="h-z">Вызвать замерщика</h2>
+          <form class="form" id="form" action="#zamer" method="post" novalidate style="margin-top:20px">
+            <div class="f f--half">
+              <label for="f-name">Имя</label>
+              <input class="inp" id="f-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="f f--half">
+              <label for="f-phone">Телефон</label>
+              <input class="inp" id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+995 555 00 00 00" required>
+            </div>
+            <div class="f">
+              <label for="f-addr">Адрес объекта</label>
+              <input class="inp" id="f-addr" name="address" type="text" placeholder="Район, улица, дом">
+            </div>
+            <div class="f">
+              <label for="f-what">Что нужно</label>
+              <input class="inp" id="f-what" name="what" type="text" placeholder="Заполнится из прикидки">
+            </div>
+            <div class="consent">
+              <input type="checkbox" id="f-agree" name="agree" aria-describedby="send-hint">
+              <label for="f-agree">Соглашаюсь с <a class="link" href="#zamer" id="policy">политикой обработки персональных данных</a></label>
+            </div>
+            <div class="send">
+              <button class="btn" type="submit" id="send" disabled>Отправить заявку</button>
+              <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
+            </div>
+            <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
+              Сайт для своей бригады: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
+          </form>
+
+          <div class="done" id="done" role="status" tabindex="-1" hidden>
+            <p class="done__b">Это демо-сайт.</p>
+            <p>Заявка никуда не ушла — форма показывает, как это будет выглядеть у вас.</p>
+            <p>Хотите такой же сайт для своей бригады?
+              <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+            <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к форме</button></p>
+          </div>
+        </div>
+
+        <div class="side">
+          <dl>
+            <div><dt>Район работы</dt><dd>Батуми и Кобулети</dd></div>
+            <div><dt>Замер</dt><dd>Бесплатно, в течение двух дней</dd></div>
+            <div><dt>Часы</dt><dd>Пн–сб 9:00–19:00</dd></div>
+            <div><dt>Оплата</dt><dd>Картой, наличными, безнал</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <div>
+      <span class="mark">УРОВЕНЬ</span>
+      <p class="note" style="margin-top:8px">Ремонт квартир.<br>Батуми и Кобулети · пн–сб 9:00–19:00</p>
+    </div>
+    <div>
+      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
+        Бизнес вымышленный, цены — ориентир по рынку Батуми.
+        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своей бригады: t.me/open_sites</a></p>
+      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"Уровень","description":"Бригада ремонта квартир в Батуми. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/uroven/","image":"https://fr33roman.github.io/uroven/og.jpg","priceRange":"90–650 GEL за м²","areaServed":["Батуми","Кобулети"],"address":{"@type":"PostalAddress","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":"Mo-Sa 09:00-19:00"}
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var TYPE = {
+    cos: { name: 'косметический', min: 90, max: 130, bath: [900, 1400], speed: 22,
+      stages: [['Подготовка и защита', .08], ['Выравнивание стен и потолка', .30],
+               ['Малярка и обои', .32], ['Полы и плинтус', .18],
+               ['Мелкая электрика', .08], ['Уборка и сдача', .04]] },
+    cap: { name: 'капитальный', min: 180, max: 260, bath: [2500, 3800], speed: 11,
+      stages: [['Демонтаж и вывоз', .07], ['Электрика и сантехника', .18],
+               ['Стяжка и штукатурка', .22], ['Санузел под ключ', .20],
+               ['Полы, двери, плинтус', .15], ['Малярка и обои', .14], ['Уборка и сдача', .04]] },
+    key: { name: 'под ключ с материалами', min: 420, max: 650, bath: [4200, 6000], speed: 8,
+      stages: [['Демонтаж и вывоз', .05], ['Электрика и сантехника', .14],
+               ['Стяжка и штукатурка', .17], ['Санузел под ключ', .18],
+               ['Материалы: плитка, двери, сантехника', .22], ['Полы, двери, плинтус', .12],
+               ['Малярка и обои', .09], ['Уборка и сдача', .03]] }
+  };
+  var DEMO = [25, 35];   // демонтаж и вывоз на вторичке, лари за м²
+
+  var area = document.getElementById('area');
+  var sum = document.getElementById('sum');
+  var term = document.getElementById('term');
+  var stages = document.getElementById('stages');
+  var whatField = document.getElementById('f-what');
+
+  function val(name) { var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; }
+  function clampArea() {
+    var a = parseInt(area.value, 10);
+    if (isNaN(a)) a = 55;
+    a = Math.min(200, Math.max(20, a));
+    area.value = a;
+    return a;
+  }
+  function round50(n) { return Math.round(n / 50) * 50; }
+  function space(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); } // узкий пробел: не рвёт число
+  function plural(n, a, b, c) {
+    var n10 = n % 10, n100 = n % 100;
+    if (n10 === 1 && n100 !== 11) return a;
+    if (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) return b;
+    return c;
+  }
+
+  function calc() {
+    var a = clampArea(), t = TYPE[val('type')] || TYPE.cap, baths = +val('bath') || 1;
+    var old = val('house') === 'old';
+    var lo = a * t.min + t.bath[0] * baths + (old ? a * DEMO[0] : 0);
+    var hi = a * t.max + t.bath[1] * baths + (old ? a * DEMO[1] : 0);
+    lo = round50(lo); hi = round50(hi);
+    sum.textContent = 'от ' + space(lo) + ' до ' + space(hi) + ' лари';
+
+    var w = Math.max(1, Math.ceil(a / t.speed) + (baths - 1));
+    var w2 = w + (t === TYPE.cos ? 1 : 2);
+    term.textContent = 'Срок: ' + w + '–' + w2 + ' ' + plural(w2, 'неделя', 'недели', 'недель');
+
+    var mid = (lo + hi) / 2;
+    stages.innerHTML = '';
+    t.stages.forEach(function (s, i) {
+      if (s[0].indexOf('Демонтаж') === 0 && !old) return;
+      var li = document.createElement('li');
+      li.className = 'st';
+      li.innerHTML = '<span class="st__i">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</span>' +
+        '<span class="st__n">' + s[0] + '</span>' +
+        '<span class="st__p">≈ ' + space(round50(mid * s[1])) + ' лари</span>';
+      stages.appendChild(li);
+    });
+
+    if (whatField) {
+      whatField.value = a + ' м², ремонт ' + t.name + ', ' +
+        (baths === 2 ? 'два санузла' : 'один санузел') + ', ' +
+        (old ? 'вторичка' : 'новостройка');
+    }
+  }
+
+  document.getElementById('aMinus').addEventListener('click', function () { area.value = clampArea() - 5; calc(); });
+  document.getElementById('aPlus').addEventListener('click', function () { area.value = clampArea() + 5; calc(); });
+  area.addEventListener('input', calc);
+  area.addEventListener('blur', calc);
+  [].forEach.call(document.querySelectorAll('.chipsline button'), function (b) {
+    b.addEventListener('click', function () { area.value = b.getAttribute('data-area'); calc(); });
+  });
+  [].forEach.call(document.querySelectorAll('.opt input'), function (i) { i.addEventListener('change', calc); });
+  document.getElementById('toZamer').addEventListener('click', function () {
+    setTimeout(function () { document.getElementById('f-name').focus(); }, 420);
+  });
+  calc();
+
+  /* ---- форма ---- */
+  var form = document.getElementById('form');
+  var agree = document.getElementById('f-agree');
+  var send = document.getElementById('send');
+  var hint = document.getElementById('send-hint');
+  var done = document.getElementById('done');
+  function sync() {
+    send.disabled = !agree.checked;
+    hint.textContent = agree.checked ? 'Это демо-сайт: заявка никуда не уйдёт.'
+                                     : 'Кнопка заработает, когда отметите согласие.';
+  }
+  agree.addEventListener('change', sync);
+  sync();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!agree.checked) return;
+    form.hidden = true; done.hidden = false; done.focus();
+  });
+  document.getElementById('again').addEventListener('click', function () {
+    done.hidden = true; form.hidden = false; document.getElementById('f-name').focus();
+  });
+  document.getElementById('policy').addEventListener('click', function (e) {
+    e.preventDefault();
+    alert('Это демонстрационный сайт. На настоящем сайте бригады здесь открывается страница ' +
+          'с политикой обработки персональных данных — её текст даёт сам владелец.');
+  });
+})();
+</script>
+</body>
+</html>

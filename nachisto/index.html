@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Начисто — клининг в Батуми (демо open-sites.io)</title>
+<meta name="description" content="Демо-сайт студии open-sites.io: клининг «Начисто» в Батуми. Свободные окна выезда на сегодня и завтра, фиксированные цены по метражу, список того, что входит. Бизнес вымышленный.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="canonical" href="https://fr33roman.github.io/nachisto/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="open-sites.io">
+<meta property="og:title" content="Начисто — клининг в Батуми">
+<meta property="og:description" content="Приедем сегодня. Свободные окна считаются по настоящему времени, цена фиксированная по метражу.">
+<meta property="og:url" content="https://fr33roman.github.io/nachisto/">
+<meta property="og:image" content="https://fr33roman.github.io/nachisto/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Cpath d='M6 23L14 9l4 7 3-4 5 11z' fill='none' stroke='%23101214' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>document.documentElement.className += ' js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Onest:wght@400;500;600&display=swap">
+<style>
+/* ============ токены (см. DESIGN.md) ============ */
+:root{
+  --paper:#fff;
+  --ink:#101214;
+  --soft:#6B7075;    /* 5,4:1 на белом */
+  --hair:#E4E6E7;
+  --wash:#F6F7F7;
+  --disp:"Tenor Sans","Segoe UI",system-ui,sans-serif;
+  --text:"Onest","Segoe UI",system-ui,sans-serif;
+  --gut:40px;
+  --col:760px;
+}
+@media (max-width:1000px){:root{--gut:24px}}
+@media (max-width:700px){:root{--gut:16px}}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 17px/1.6 var(--text);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{list-style:none;padding:0}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.nw{white-space:nowrap}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+[id]{scroll-margin-top:78px}
+.skip{position:absolute;left:12px;top:-80px;background:var(--ink);color:#fff;padding:12px 18px;z-index:60}
+.skip:focus{top:12px}
+
+/* ============ кнопки ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;
+  border:1px solid var(--ink);border-radius:2px;background:var(--ink);color:#fff;
+  font-weight:500;font-size:16px;text-decoration:none;cursor:pointer;transition:background .16s,color .16s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn:disabled{background:var(--wash);border-color:var(--hair);color:var(--soft);cursor:not-allowed}
+.btn--line{background:transparent;color:var(--ink)}
+.btn--line:hover{background:var(--ink);color:#fff}
+.link{color:inherit;text-underline-offset:4px}
+
+/* ============ закреплённая строка ============ */
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
+  padding:10px var(--gut);background:rgba(255,255,255,.94);border-bottom:1px solid var(--hair);
+  backdrop-filter:blur(8px)}
+.mark{font-family:var(--disp);font-size:19px;letter-spacing:.14em;text-decoration:none}
+.nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--soft)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.top .btn{margin-left:auto;min-height:44px;padding:0 18px;font-size:15px}
+@media (min-width:1080px){.nav{display:flex}.top .btn{margin-left:0}}
+
+/* ============ лист ============ */
+.sheet{max-width:var(--col);margin:0 auto;padding:0 var(--gut)}
+.sec{padding:clamp(48px,8vw,112px) 0 0}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(24px,3vw,40px);line-height:1.15}
+h3{font-family:var(--text);font-weight:600;font-size:17px;line-height:1.35}
+.note{color:var(--soft);font-size:15px;line-height:1.6}
+.lbl{font-weight:500;font-size:13px;color:var(--soft)}
+.rule{height:1px;background:var(--hair);margin:clamp(40px,6vw,80px) 0 0}
+
+/* ============ 1. герой ============ */
+.hero{padding:clamp(40px,7vw,104px) 0 0}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,72px);line-height:1.06;letter-spacing:-.01em}
+.hero p{margin-top:22px;font-size:clamp(17px,1.4vw,20px);line-height:1.55;color:var(--soft)}
+.hero p b{color:var(--ink);font-weight:500}
+
+/* ============ доска окон ============ */
+.board{margin-top:clamp(30px,4vw,48px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;
+  background:var(--hair);border:1px solid var(--hair)}
+.board__col{background:var(--paper);padding:14px 14px 16px}
+.board__h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding-bottom:10px;
+  border-bottom:1px solid var(--hair)}
+.board__d{font-family:var(--disp);font-size:18px}
+.board__w{color:var(--soft);font-size:13px}
+.slot{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:60px;
+  padding:10px 8px;background:none;border:0;border-bottom:1px solid var(--hair);cursor:pointer;text-align:left;
+  transition:background .14s}
+.slot:last-child{border-bottom:0}
+.slot__t{font-family:var(--disp);font-size:21px;font-variant-numeric:tabular-nums}
+.slot__s{font-size:13px;color:var(--soft)}
+.slot:hover:not(:disabled){background:var(--wash)}
+.slot:disabled{cursor:not-allowed;background:var(--wash);color:var(--soft)}
+.slot:disabled .slot__t{opacity:.45}
+.slot[aria-pressed="true"]{background:var(--ink);color:#fff}
+.slot[aria-pressed="true"] .slot__s{color:rgba(255,255,255,.72)}
+.board__cap{margin-top:14px;color:var(--soft);font-size:14px;line-height:1.55}
+.board__pick{margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+@media (prefers-reduced-motion:reduce){.slot{transition:none}}
+
+/* ============ фото ============ */
+.wide{margin-top:clamp(40px,6vw,88px)}
+.wide img{width:100%;height:clamp(200px,32vw,440px);object-fit:cover;background:var(--wash)}
+.wide figcaption{max-width:var(--col);margin:10px auto 0;padding:0 var(--gut);color:var(--soft);font-size:13px}
+.duo{display:grid;grid-template-columns:1fr;gap:12px;margin-top:26px}
+@media (min-width:640px){.duo{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.duo img{width:100%;height:clamp(160px,22vw,240px);object-fit:cover;background:var(--wash)}
+
+/* ============ цены ============ */
+.pg{margin-top:34px}
+.pg__h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--ink)}
+.pg__h h3{font-family:var(--disp);font-weight:400;font-size:22px}
+.pg__h span{color:var(--soft);font-size:14px}
+.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "d d";
+  column-gap:16px;row-gap:2px;padding:12px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.r__n{grid-area:n;font-size:17px}
+.r__d{grid-area:d;color:var(--soft);font-size:13px}
+.r__s{grid-area:s;font-weight:600;font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (min-width:640px){
+  .r{grid-template-columns:minmax(0,1fr) 210px 120px;grid-template-areas:"n d s";row-gap:0}
+  .r__d{font-size:14px}
+  .r__s{text-align:right}
+}
+.extra{margin-top:30px}
+.extra ul{border-top:1px solid var(--ink)}
+
+/* ============ что входит ============ */
+.rooms{margin-top:24px}
+.room{padding:18px 0;border-bottom:1px solid var(--hair)}
+.room p{margin-top:6px;color:var(--soft);font-size:16px;line-height:1.55}
+.how li{padding:14px 0;border-bottom:1px solid var(--hair);font-size:16px;line-height:1.55}
+.how{margin-top:24px;border-top:1px solid var(--ink)}
+
+/* ============ форма ============ */
+.book{margin-top:24px}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.f{display:flex;flex-direction:column;gap:7px;grid-column:span 2}
+@media (min-width:600px){.f--half{grid-column:span 1}}
+.f label{font-size:14px;color:var(--soft)}
+.inp{width:100%;min-height:48px;padding:11px 14px;background:var(--wash);border:1px solid var(--hair);
+  border-radius:2px;font-size:16px}
+.inp:focus-visible{border-color:var(--ink);outline:2px solid var(--ink);outline-offset:0}
+.consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:12px}
+.consent input{flex:none;width:24px;height:24px;margin:11px 0 0;accent-color:var(--ink);cursor:pointer}
+.consent label{padding:10px 0;font-size:15px;line-height:1.5;cursor:pointer}
+.send{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.send__hint{color:var(--soft);font-size:14px}
+.done{border:1px solid var(--hair);background:var(--wash);padding:28px}
+.done__b{font-family:var(--disp);font-size:clamp(22px,3vw,30px);line-height:1.2}
+.done p+p{margin-top:12px}
+.noscript{grid-column:1/-1;color:var(--soft);font-size:15px}
+.side{margin-top:34px;border-top:1px solid var(--ink)}
+.side div{padding:12px 0;border-bottom:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:4px 16px;
+  justify-content:space-between}
+.side dt{color:var(--soft);font-size:14px}
+.side dd{font-size:16px;text-align:right}
+
+/* ============ подвал ============ */
+.foot{margin-top:clamp(56px,8vw,112px);border-top:1px solid var(--hair);background:var(--wash)}
+.foot__in{max-width:var(--col);margin:0 auto;padding:clamp(32px,4vw,52px) var(--gut)}
+.plate{margin-top:16px;border:1px solid var(--hair);background:var(--paper);padding:16px 18px;
+  font-size:15px;line-height:1.55}
+.credits{margin-top:14px;color:var(--soft);font-size:13px}
+</style>
+</head>
+<body>
+<a class="skip" href="#okna">К окнам выезда</a>
+
+<header class="top">
+  <a class="mark" href="#top">НАЧИСТО</a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#okna">Окна выезда</a>
+    <a href="#tseny">Цены</a>
+    <a href="#vhodit">Что входит</a>
+    <a href="#rabota">Как работаем</a>
+    <a href="#zayavka">Контакты</a>
+  </nav>
+  <a class="btn" href="#zayavka">Вызвать бригаду</a>
+</header>
+
+<main id="top">
+  <!-- ============ 1. герой и окна ============ -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="sheet">
+      <h1 id="h1">Приедем сегодня</h1>
+      <p>Ниже — свободные окна на сегодня и завтра. Они считаются <b>по настоящему времени</b>,
+        а не нарисованы для красоты. Цена фиксированная по метражу: за лишний час работы
+        доплачивать не придётся.</p>
+
+      <div id="okna">
+        <h2 class="sr">Окна выезда</h2>
+        <div class="board" id="board" hidden></div>
+        <p class="board__cap" id="boardCap" hidden></p>
+        <div class="board__pick" id="pick" hidden></div>
+        <p class="note" id="noJs" style="margin-top:24px">Доска свободных окон работает со включённым
+          JavaScript. Без него звоните: заявки принимаем с 8:00 до 21:00.</p>
+      </div>
+    </div>
+  </section>
+
+  <figure class="wide">
+    <img src="https://images.unsplash.com/photo-1765801838054-b32f0fb14184?auto=format&fit=crop&w=2000&q=74"
+      alt="Солнечный свет на плитке в ванной после уборки" width="2000" height="1333" loading="lazy" decoding="async">
+    <figcaption>Кадр из фотобанка, подобран под концепт. На сайте вашей компании здесь будет своя съёмка.</figcaption>
+  </figure>
+
+  <!-- ============ 2. цены ============ -->
+  <section class="sec" id="tseny" aria-labelledby="h-t">
+    <div class="sheet">
+      <h2 id="h-t">Цены по метражу</h2>
+      <p class="note" style="margin-top:12px">Цена фиксированная: сколько бы времени ни заняло,
+        платите столько, сколько в строке.</p>
+
+      <div class="pg">
+        <div class="pg__h"><h3>Поддерживающая</h3><span>раз в неделю или две, когда дома в целом порядок</span></div>
+        <ul>
+          <li class="r"><span class="r__n">До 40 м²</span><span class="r__d">3 часа · два человека</span><span class="r__s">70 лари</span></li>
+          <li class="r"><span class="r__n">40–60 м²</span><span class="r__d">3,5 часа · два человека</span><span class="r__s">90 лари</span></li>
+          <li class="r"><span class="r__n">60–90 м²</span><span class="r__d">4,5 часа · два человека</span><span class="r__s">120 лари</span></li>
+          <li class="r"><span class="r__n">Больше 90 м²</span><span class="r__d">считаем по факту</span><span class="r__s">от 150 лари</span></li>
+        </ul>
+      </div>
+
+      <div class="pg">
+        <div class="pg__h"><h3>Генеральная</h3><span>раз в сезон, с окнами и техникой снаружи</span></div>
+        <ul>
+          <li class="r"><span class="r__n">До 40 м²</span><span class="r__d">5 часов · два человека</span><span class="r__s">150 лари</span></li>
+          <li class="r"><span class="r__n">40–60 м²</span><span class="r__d">6 часов · два человека</span><span class="r__s">190 лари</span></li>
+          <li class="r"><span class="r__n">60–90 м²</span><span class="r__d">7 часов · три человека</span><span class="r__s">250 лари</span></li>
+          <li class="r"><span class="r__n">Больше 90 м²</span><span class="r__d">считаем по факту</span><span class="r__s">от 320 лари</span></li>
+        </ul>
+      </div>
+
+      <div class="pg">
+        <div class="pg__h"><h3>После ремонта</h3><span>со строительной пылью, в два прохода</span></div>
+        <ul>
+          <li class="r"><span class="r__n">До 40 м²</span><span class="r__d">6 часов · три человека</span><span class="r__s">220 лари</span></li>
+          <li class="r"><span class="r__n">40–60 м²</span><span class="r__d">7 часов · три человека</span><span class="r__s">280 лари</span></li>
+          <li class="r"><span class="r__n">60–90 м²</span><span class="r__d">8 часов · три человека</span><span class="r__s">360 лари</span></li>
+          <li class="r"><span class="r__n">Больше 90 м²</span><span class="r__d">считаем по факту</span><span class="r__s">от 450 лари</span></li>
+        </ul>
+      </div>
+
+      <div class="extra">
+        <p class="lbl">Отдельно, к любой уборке</p>
+        <ul style="margin-top:8px">
+          <li class="r"><span class="r__n">Окна, за створку</span><span class="r__d">с рамой и подоконником</span><span class="r__s">12 лари</span></li>
+          <li class="r"><span class="r__n">Холодильник внутри</span><span class="r__d">с полками и ящиками</span><span class="r__s">25 лари</span></li>
+          <li class="r"><span class="r__n">Духовка</span><span class="r__d">с противнями и решётками</span><span class="r__s">30 лари</span></li>
+          <li class="r"><span class="r__n">Шкафы внутри</span><span class="r__d">за квартиру</span><span class="r__s">30 лари</span></li>
+          <li class="r"><span class="r__n">Балкон</span><span class="r__d">пол, перила, рамы</span><span class="r__s">35 лари</span></li>
+          <li class="r"><span class="r__n">Глажка, час</span><span class="r__d">своя доска и утюг</span><span class="r__s">25 лари</span></li>
+        </ul>
+      </div>
+
+      <p class="note" style="margin-top:20px">Доплаты «за сложность» не берём. Если после уборки
+        что-то не так — возвращаемся в течение суток и переделываем бесплатно, это записано в договоре.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3. что входит ============ -->
+  <section class="sec" id="vhodit" aria-labelledby="h-v">
+    <div class="sheet">
+      <h2 id="h-v">Что входит в поддерживающую</h2>
+      <ul class="rooms">
+        <li class="room"><h3>Кухня</h3>
+          <p>Плита и вытяжка снаружи, фартук, мойка, столешница, фасады снаружи, микроволновка внутри, пол.</p></li>
+        <li class="room"><h3>Санузел</h3>
+          <p>Ванна или душевая, унитаз, раковина, зеркало, плитка, хром без разводов, пол.</p></li>
+        <li class="room"><h3>Комнаты</h3>
+          <p>Пыль на всех горизонтальных поверхностях, подоконники, двери, зеркала, пол, ковры пылесосом.</p></li>
+        <li class="room"><h3>Общее</h3>
+          <p>Выносим мусор и меняем мешок, застилаем кровать, вешаем полотенца ровно.</p></li>
+      </ul>
+      <p class="note" style="margin-top:20px">Не входит: мытьё окон, уборка внутри шкафов, глажка,
+        мытьё техники изнутри — это отдельные пункты в прайсе. Так честнее, чем писать «полная уборка»
+        и не давать списка.</p>
+
+      <div class="duo">
+        <figure><img src="https://images.unsplash.com/photo-1479725545837-43abe4066d43?auto=format&fit=crop&w=1100&q=74" alt="Растение на подоконнике у ванной" width="1100" height="733" loading="lazy" decoding="async"></figure>
+        <figure><img src="https://images.unsplash.com/photo-1765801838054-b32f0fb14184?auto=format&fit=crop&w=1100&q=74" alt="Свет на плитке в ванной" width="1100" height="733" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. как работаем ============ -->
+  <section class="sec" id="rabota" aria-labelledby="h-r">
+    <div class="sheet">
+      <h2 id="h-r">Как работаем</h2>
+      <ul class="how">
+        <li>Приезжаем со своим: пылесос, средства, тряпки по зонам — санузел и кухня всегда разными.</li>
+        <li>Средства без резкого запаха. Если дома ребёнок, аллергия или кот — скажите, привезём другие.</li>
+        <li>Бригада два-три человека: быстрее и дешевле, чем один человек на восемь часов.</li>
+        <li>Оплата после уборки, когда вы посмотрели. Картой или наличными.</li>
+        <li>Ключи принимаем под расписку, если вас не будет дома.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5. заявка ============ -->
+  <section class="sec" id="zayavka" aria-labelledby="h-z">
+    <div class="sheet">
+      <h2 id="h-z">Вызвать бригаду</h2>
+      <div class="book">
+        <form class="form" id="form" action="#zayavka" method="post" novalidate>
+          <div class="f f--half">
+            <label for="f-name">Имя</label>
+            <input class="inp" id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="f f--half">
+            <label for="f-phone">Телефон</label>
+            <input class="inp" id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+995 555 00 00 00" required>
+          </div>
+          <div class="f f--half">
+            <label for="f-addr">Адрес</label>
+            <input class="inp" id="f-addr" name="address" type="text" placeholder="Улица, дом, квартира">
+          </div>
+          <div class="f f--half">
+            <label for="f-area">Метраж</label>
+            <input class="inp" id="f-area" name="area" type="text" inputmode="numeric" placeholder="Например: 54 м²">
+          </div>
+          <div class="f f--half">
+            <label for="f-type">Тип уборки</label>
+            <select class="inp" id="f-type" name="type">
+              <option>Поддерживающая</option>
+              <option>Генеральная</option>
+              <option>После ремонта</option>
+              <option>Не знаю, подскажите</option>
+            </select>
+          </div>
+          <div class="f f--half">
+            <label for="f-slot">Окно выезда</label>
+            <input class="inp" id="f-slot" name="slot" type="text" placeholder="Выберите на доске выше">
+          </div>
+          <div class="consent">
+            <input type="checkbox" id="f-agree" name="agree" aria-describedby="send-hint">
+            <label for="f-agree">Соглашаюсь с <a class="link" href="#zayavka" id="policy">политикой обработки персональных данных</a></label>
+          </div>
+          <div class="send">
+            <button class="btn" type="submit" id="send" disabled>Отправить заявку</button>
+            <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
+          </div>
+          <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
+            Сайт для своей компании: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
+        </form>
+
+        <div class="done" id="done" role="status" tabindex="-1" hidden>
+          <p class="done__b">Это демо-сайт.</p>
+          <p>Заявка никуда не ушла — форма показывает, как это будет выглядеть у вас.</p>
+          <p>Хотите такой же сайт для своей компании?
+            <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+          <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к форме</button></p>
+        </div>
+      </div>
+
+      <dl class="side">
+        <div><dt>Район</dt><dd>Батуми и Махинджаури</dd></div>
+        <div><dt>Заявки</dt><dd>С 8:00 до 21:00</dd></div>
+        <div><dt>Оплата</dt><dd>Картой или наличными после уборки</dd></div>
+        <div><dt>Договор</dt><dd>С людьми и с компаниями</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <span class="mark">НАЧИСТО</span>
+    <p class="note" style="margin-top:8px">Клининг. Батуми и Махинджаури · заявки с 8:00 до 21:00</p>
+    <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
+      Бизнес вымышленный, цены — ориентир по рынку Батуми.
+      <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своей компании: t.me/open_sites</a></p>
+    <p class="credits">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HousePainter","name":"Начисто","description":"Клининг в Батуми. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/nachisto/","image":"https://fr33roman.github.io/nachisto/og.jpg","priceRange":"70–450 GEL","areaServed":["Батуми","Махинджаури"],"address":{"@type":"PostalAddress","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":"Mo-Su 08:00-21:00"}
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var TIMES = [[9, 0], [11, 30], [14, 0], [16, 30], [19, 0]];
+  var LEAD = 120;   // за сколько минут до выезда окно ещё можно взять
+  var MONTH = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var WDAY = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+
+  function batumi() {
+    var d = new Date();
+    return new Date(d.getTime() + (d.getTimezoneOffset() + 240) * 60000);
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  /* Занятость — не случайная: иначе при каждом обновлении страницы доска «перерисовывалась» бы
+     заново и выглядела нечестно. Считаем от даты и номера окна. */
+  function busy(dayNum, i) { return (dayNum * 7 + i * 13) % 5 < 2; }
+
+  var board = document.getElementById('board');
+  var cap = document.getElementById('boardCap');
+  var pick = document.getElementById('pick');
+  var noJs = document.getElementById('noJs');
+  var slotField = document.getElementById('f-slot');
+  var chosen = null;
+
+  function build() {
+    var now = batumi();
+    var mins = now.getHours() * 60 + now.getMinutes();
+    board.innerHTML = '';
+    var free = 0;
+
+    [0, 1].forEach(function (offset) {
+      var d = new Date(now.getTime() + offset * 86400000);
+      var dayNum = d.getDate();
+      var col = document.createElement('div');
+      col.className = 'board__col';
+      col.innerHTML = '<div class="board__h"><span class="board__d">' +
+        (offset ? 'Завтра' : 'Сегодня') + '</span><span class="board__w">' +
+        dayNum + ' ' + MONTH[d.getMonth()] + ', ' + WDAY[d.getDay()] + '</span></div>';
+
+      TIMES.forEach(function (t, i) {
+        var label = pad(t[0]) + ':' + pad(t[1]);
+        var start = t[0] * 60 + t[1];
+        var state = 'free';
+        if (!offset && start - mins < LEAD) state = 'past';
+        else if (busy(dayNum, i)) state = 'taken';
+
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'slot';
+        b.setAttribute('aria-pressed', 'false');
+        b.disabled = state !== 'free';
+        b.innerHTML = '<span class="slot__t">' + label + '</span><span class="slot__s">' +
+          (state === 'free' ? 'свободно' : state === 'taken' ? 'занято' : 'прошло') + '</span>';
+        if (state === 'free') {
+          free++;
+          b.addEventListener('click', function () { choose(b, (offset ? 'завтра' : 'сегодня') + ' в ' + label); });
+        }
+        col.appendChild(b);
+      });
+      board.appendChild(col);
+    });
+
+    board.hidden = false;
+    cap.hidden = false;
+    noJs.hidden = true;
+    cap.innerHTML = 'Окно на сегодня открыто, если до него больше двух часов — бригаде нужно доехать. ' +
+      'Это пример живого расписания: занятость считается от текущего времени. ' +
+      'На сайте вашей компании окна берутся из вашего календаря.';
+    if (!free) {
+      cap.innerHTML = 'На сегодня и завтра всё занято. Оставьте заявку — предложим ближайшее свободное. ' +
+        cap.innerHTML;
+    }
+  }
+
+  function choose(btn, text) {
+    [].forEach.call(board.querySelectorAll('.slot'), function (s) { s.setAttribute('aria-pressed', 'false'); });
+    btn.setAttribute('aria-pressed', 'true');
+    chosen = text;
+    if (slotField) slotField.value = text.charAt(0).toUpperCase() + text.slice(1);
+    pick.hidden = false;
+    pick.innerHTML = '';
+    var p = document.createElement('p');
+    p.className = 'note';
+    p.textContent = 'Выбрано: ' + text + '.';
+    var a = document.createElement('a');
+    a.className = 'btn';
+    a.href = '#zayavka';
+    a.textContent = 'Оставить заявку на это окно';
+    a.addEventListener('click', function () {
+      setTimeout(function () { document.getElementById('f-name').focus(); }, 420);
+    });
+    pick.appendChild(p);
+    pick.appendChild(a);
+  }
+
+  build();
+  setInterval(build, 300000);   // раз в пять минут: окна гаснут сами
+
+  /* ---- форма ---- */
+  var form = document.getElementById('form');
+  var agree = document.getElementById('f-agree');
+  var send = document.getElementById('send');
+  var hint = document.getElementById('send-hint');
+  var done = document.getElementById('done');
+  function sync() {
+    send.disabled = !agree.checked;
+    hint.textContent = agree.checked ? 'Это демо-сайт: заявка никуда не уйдёт.'
+                                     : 'Кнопка заработает, когда отметите согласие.';
+  }
+  agree.addEventListener('change', sync);
+  sync();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!agree.checked) return;
+    form.hidden = true; done.hidden = false; done.focus();
+  });
+  document.getElementById('again').addEventListener('click', function () {
+    done.hidden = true; form.hidden = false; document.getElementById('f-name').focus();
+  });
+  document.getElementById('policy').addEventListener('click', function (e) {
+    e.preventDefault();
+    alert('Это демонстрационный сайт. На настоящем сайте компании здесь открывается страница ' +
+          'с политикой обработки персональных данных — её текст даёт сам владелец.');
+  });
+})();
+</script>
+</body>
+</html>

@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Работы студии open-sites.io — примеры сайтов по нишам</title>
-<meta name="description" content="Пять работ студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств и другие. Бизнесы вымышленные.">
+<meta name="description" content="Восемь работ студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств, пекарня-кофейня с доставкой и другие. Бизнесы вымышленные.">
 <link rel="canonical" href="https://fr33roman.github.io/works/">
 <meta name="theme-color" content="#EDEDEA">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="open-sites.io">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="Работы студии open-sites.io">
-<meta property="og:description" content="Пять работ студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств и другие. Бизнесы вымышленные.">
+<meta property="og:description" content="Восемь работ студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств, пекарня-кофейня с доставкой и другие. Бизнесы вымышленные.">
 <meta property="og:url" content="https://fr33roman.github.io/works/">
 <meta property="og:image" content="https://fr33roman.github.io/works/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -111,6 +111,8 @@ ul{list-style:none;padding:0}
 body:has(#n-beauty:checked) .card:not([data-niche="beauty"]){display:none}
 body:has(#n-health:checked) .card:not([data-niche="health"]){display:none}
 body:has(#n-auto:checked) .card:not([data-niche="auto"]){display:none}
+body:has(#n-food:checked) .card:not([data-niche="food"]){display:none}
+body:has(#n-home:checked) .card:not([data-niche="home"]){display:none}
 body:has(#n-sport:checked) .card:not([data-niche="sport"]){display:none}
 </style>
 </head>
@@ -126,7 +128,7 @@ body:has(#n-sport:checked) .card:not([data-niche="sport"]){display:none}
   <div class="head">
     <h1>Работы</h1>
     <div class="head__grid">
-      <p class="head__lead">Пять работ в разных нишах. Чтобы смотреть сайт в своей отрасли, а не представлять на чужом примере.</p>
+      <p class="head__lead">Восемь работ в разных нишах. Чтобы смотреть сайт в своей отрасли, а не представлять на чужом примере.</p>
       <p class="head__note">Все компании на этих сайтах вымышленные: это демонстрационные работы студии, а не сайты реальных фирм. Цены — ориентир по рынку, фотографии из фотобанков. Каждый сайт открывается целиком, с телефона тоже.</p>
     </div>
   </div>
@@ -138,6 +140,8 @@ body:has(#n-sport:checked) .card:not([data-niche="sport"]){display:none}
       <input type="radio" name="niche" id="n-beauty" value="beauty"><label for="n-beauty">Красота</label>
       <input type="radio" name="niche" id="n-health" value="health"><label for="n-health">Здоровье</label>
       <input type="radio" name="niche" id="n-auto" value="auto"><label for="n-auto">Авто</label>
+      <input type="radio" name="niche" id="n-food" value="food"><label for="n-food">Еда</label>
+      <input type="radio" name="niche" id="n-home" value="home"><label for="n-home">Дом и ремонт</label>
       <input type="radio" name="niche" id="n-sport" value="sport"><label for="n-sport">Спорт</label>
     </fieldset>
   </form>
@@ -208,6 +212,45 @@ body:has(#n-sport:checked) .card:not([data-niche="sport"]){display:none}
       </div>
       <p class="card__go"><a class="btn" href="gong/" target="_blank" rel="noopener">Открыть сайт «Гонг»<span class="sr">, откроется в новой вкладке</span></a></p>
     </li>
+    <li class="card" data-niche="food">
+      <a class="card__shot" href="opara/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <img src="p/opara.jpg" alt="" width="1080" height="675" loading="lazy" decoding="async">
+        <span class="card__num">06 · Еда</span>
+      </a>
+      <div class="card__body">
+        <h2 class="card__name">Опара</h2>
+        <p class="card__kind">пекарня-кофейня с доставкой, Батуми</p>
+        <p class="card__idea">Охряная заливка вместо белого фона и витрина вместо меню-списка.</p>
+        <p class="card__mech">Складываете выпечку в коробку — она считает вес, сумму и окно доставки, заказ в два касания.</p>
+      </div>
+      <p class="card__go"><a class="btn" href="opara/" target="_blank" rel="noopener">Открыть сайт «Опара»<span class="sr">, откроется в новой вкладке</span></a></p>
+    </li>
+    <li class="card" data-niche="home">
+      <a class="card__shot" href="uroven/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <img src="p/uroven.jpg" alt="" width="1080" height="675" loading="lazy" decoding="async">
+        <span class="card__num">07 · Дом и ремонт</span>
+      </a>
+      <div class="card__body">
+        <h2 class="card__name">Уровень</h2>
+        <p class="card__kind">ремонт квартир, Батуми</p>
+        <p class="card__idea">Сайт бригады, устроенный как смета: работа, единица, цена — и ни одного «под ключ от 100 лари».</p>
+        <p class="card__mech">Прикидка сметы по метражу и типу ремонта: вилка цены, срок в неделях и разбивка по этапам.</p>
+      </div>
+      <p class="card__go"><a class="btn" href="uroven/" target="_blank" rel="noopener">Открыть сайт «Уровень»<span class="sr">, откроется в новой вкладке</span></a></p>
+    </li>
+    <li class="card" data-niche="home">
+      <a class="card__shot" href="nachisto/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <img src="p/nachisto.jpg" alt="" width="1080" height="675" loading="lazy" decoding="async">
+        <span class="card__num">08 · Дом и ремонт</span>
+      </a>
+      <div class="card__body">
+        <h2 class="card__name">Начисто</h2>
+        <p class="card__kind">клининг, Батуми</p>
+        <p class="card__idea">Белый лист без единого цветного акцента: цвет на странице есть только в фотографиях.</p>
+        <p class="card__mech">Доска свободных окон на сегодня и завтра — считается по настоящему времени, выбранное окно уходит в заявку.</p>
+      </div>
+      <p class="card__go"><a class="btn" href="nachisto/" target="_blank" rel="noopener">Открыть сайт «Начисто»<span class="sr">, откроется в новой вкладке</span></a></p>
+    </li>
   </ul>
 </main>
 
@@ -220,6 +263,6 @@ body:has(#n-sport:checked) .card:not([data-niche="sport"]){display:none}
   <p class="foot__note">open-sites.io — студия, которая делает сайты небольшому бизнесу. Работы на этой странице собраны как примеры: названия, тексты и цены придуманы, совпадения с настоящими компаниями случайны. Фотографии — из бесплатных фотобанков Unsplash и Pexels.</p>
 </footer>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Работы студии open-sites.io","url":"https://fr33roman.github.io/works/","inLanguage":"ru","isPartOf":{"@type":"WebSite","name":"open-sites.io","url":"https://fr33roman.github.io/works/"},"about":"Примеры сайтов для малого бизнеса по нишам. Компании на демо-сайтах вымышленные.","mainEntity":{"@type":"ItemList","numberOfItems":5,"itemListElement":[{"@type":"ListItem","position":1,"name":"Лоцман — барбершоп, Батуми","url":"https://fr33roman.github.io/works/lotsman/"},{"@type":"ListItem","position":2,"name":"Штиль — салон волос и ногтей, Батуми","url":"https://fr33roman.github.io/works/shtil/"},{"@type":"ListItem","position":3,"name":"Тридцать два — стоматология, Батуми","url":"https://fr33roman.github.io/works/tridtsat-dva/"},{"@type":"ListItem","position":4,"name":"Суппорт — автосервис и детейлинг, Батуми","url":"https://fr33roman.github.io/works/support/"},{"@type":"ListItem","position":5,"name":"Гонг — зал единоборств, Батуми","url":"https://fr33roman.github.io/works/gong/"}]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Работы студии open-sites.io","url":"https://fr33roman.github.io/works/","inLanguage":"ru","isPartOf":{"@type":"WebSite","name":"open-sites.io","url":"https://fr33roman.github.io/works/"},"about":"Примеры сайтов для малого бизнеса по нишам. Компании на демо-сайтах вымышленные.","mainEntity":{"@type":"ItemList","numberOfItems":8,"itemListElement":[{"@type":"ListItem","position":1,"name":"Лоцман — барбершоп, Батуми","url":"https://fr33roman.github.io/works/lotsman/"},{"@type":"ListItem","position":2,"name":"Штиль — салон волос и ногтей, Батуми","url":"https://fr33roman.github.io/works/shtil/"},{"@type":"ListItem","position":3,"name":"Тридцать два — стоматология, Батуми","url":"https://fr33roman.github.io/works/tridtsat-dva/"},{"@type":"ListItem","position":4,"name":"Суппорт — автосервис и детейлинг, Батуми","url":"https://fr33roman.github.io/works/support/"},{"@type":"ListItem","position":5,"name":"Гонг — зал единоборств, Батуми","url":"https://fr33roman.github.io/works/gong/"},{"@type":"ListItem","position":6,"name":"Опара — пекарня-кофейня с доставкой, Батуми","url":"https://fr33roman.github.io/works/opara/"},{"@type":"ListItem","position":7,"name":"Уровень — ремонт квартир, Батуми","url":"https://fr33roman.github.io/works/uroven/"},{"@type":"ListItem","position":8,"name":"Начисто — клининг, Батуми","url":"https://fr33roman.github.io/works/nachisto/"}]}}</script>
 </body>
 </html>

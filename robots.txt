@@ -5,4 +5,5 @@ Disallow: /lotsman/
 Disallow: /shtil/
 Disallow: /tridtsat-dva/
 Disallow: /support/
+Disallow: /gong/
 Sitemap: https://fr33roman.github.io/works/sitemap.xml

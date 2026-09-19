@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /$
+Allow: /p/
+Disallow: /lotsman/
+Disallow: /shtil/
+Sitemap: https://fr33roman.github.io/works/sitemap.xml

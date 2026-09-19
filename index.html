@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Работы студии open-sites.io — примеры сайтов по нишам</title>
-<meta name="description" content="Две работы студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей и другие. Бизнесы вымышленные.">
+<meta name="description" content="Три работы студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология и другие. Бизнесы вымышленные.">
 <link rel="canonical" href="https://fr33roman.github.io/works/">
 <meta name="theme-color" content="#EDEDEA">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="open-sites.io">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="Работы студии open-sites.io">
-<meta property="og:description" content="Две работы студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей и другие. Бизнесы вымышленные.">
+<meta property="og:description" content="Три работы студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология и другие. Бизнесы вымышленные.">
 <meta property="og:url" content="https://fr33roman.github.io/works/">
 <meta property="og:image" content="https://fr33roman.github.io/works/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -109,6 +109,7 @@ ul{list-style:none;padding:0}
 
 /* ——— фильтр по нишам (CSS :has, без JS) ——— */
 body:has(#n-beauty:checked) .card:not([data-niche="beauty"]){display:none}
+body:has(#n-health:checked) .card:not([data-niche="health"]){display:none}
 </style>
 </head>
 <body>
@@ -123,7 +124,7 @@ body:has(#n-beauty:checked) .card:not([data-niche="beauty"]){display:none}
   <div class="head">
     <h1>Работы</h1>
     <div class="head__grid">
-      <p class="head__lead">Две работы в разных нишах. Чтобы смотреть сайт в своей отрасли, а не представлять на чужом примере.</p>
+      <p class="head__lead">Три работы в разных нишах. Чтобы смотреть сайт в своей отрасли, а не представлять на чужом примере.</p>
       <p class="head__note">Все компании на этих сайтах вымышленные: это демонстрационные работы студии, а не сайты реальных фирм. Цены — ориентир по рынку, фотографии из фотобанков. Каждый сайт открывается целиком, с телефона тоже.</p>
     </div>
   </div>
@@ -133,6 +134,7 @@ body:has(#n-beauty:checked) .card:not([data-niche="beauty"]){display:none}
       <legend class="sr">Показать работы по нише</legend>
       <input type="radio" name="niche" id="n-all" value="all" checked><label for="n-all">Все</label>
       <input type="radio" name="niche" id="n-beauty" value="beauty"><label for="n-beauty">Красота</label>
+      <input type="radio" name="niche" id="n-health" value="health"><label for="n-health">Здоровье</label>
     </fieldset>
   </form>
 
@@ -163,6 +165,19 @@ body:has(#n-beauty:checked) .card:not([data-niche="beauty"]){display:none}
       </div>
       <p class="card__go"><a class="btn" href="shtil/" target="_blank" rel="noopener">Открыть сайт «Штиль»<span class="sr">, откроется в новой вкладке</span></a></p>
     </li>
+    <li class="card" data-niche="health">
+      <a class="card__shot" href="tridtsat-dva/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <img src="p/tridtsat-dva.jpg" alt="" width="1080" height="675" loading="eager" decoding="async">
+        <span class="card__num">03 · Здоровье</span>
+      </a>
+      <div class="card__body">
+        <h2 class="card__name">Тридцать два</h2>
+        <p class="card__kind">стоматология, Батуми</p>
+        <p class="card__idea">Вместо прайса-простыни — карта всех тридцати двух зубов.</p>
+        <p class="card__mech">Нажимаете на свой зуб — видите, что с ним обычно делают, за сколько визитов и сколько это стоит.</p>
+      </div>
+      <p class="card__go"><a class="btn" href="tridtsat-dva/" target="_blank" rel="noopener">Открыть сайт «Тридцать два»<span class="sr">, откроется в новой вкладке</span></a></p>
+    </li>
   </ul>
 </main>
 
@@ -175,6 +190,6 @@ body:has(#n-beauty:checked) .card:not([data-niche="beauty"]){display:none}
   <p class="foot__note">open-sites.io — студия, которая делает сайты небольшому бизнесу. Работы на этой странице собраны как примеры: названия, тексты и цены придуманы, совпадения с настоящими компаниями случайны. Фотографии — из бесплатных фотобанков Unsplash и Pexels.</p>
 </footer>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Работы студии open-sites.io","url":"https://fr33roman.github.io/works/","inLanguage":"ru","isPartOf":{"@type":"WebSite","name":"open-sites.io","url":"https://fr33roman.github.io/works/"},"about":"Примеры сайтов для малого бизнеса по нишам. Компании на демо-сайтах вымышленные.","mainEntity":{"@type":"ItemList","numberOfItems":2,"itemListElement":[{"@type":"ListItem","position":1,"name":"Лоцман — барбершоп, Батуми","url":"https://fr33roman.github.io/works/lotsman/"},{"@type":"ListItem","position":2,"name":"Штиль — салон волос и ногтей, Батуми","url":"https://fr33roman.github.io/works/shtil/"}]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Работы студии open-sites.io","url":"https://fr33roman.github.io/works/","inLanguage":"ru","isPartOf":{"@type":"WebSite","name":"open-sites.io","url":"https://fr33roman.github.io/works/"},"about":"Примеры сайтов для малого бизнеса по нишам. Компании на демо-сайтах вымышленные.","mainEntity":{"@type":"ItemList","numberOfItems":3,"itemListElement":[{"@type":"ListItem","position":1,"name":"Лоцман — барбершоп, Батуми","url":"https://fr33roman.github.io/works/lotsman/"},{"@type":"ListItem","position":2,"name":"Штиль — салон волос и ногтей, Батуми","url":"https://fr33roman.github.io/works/shtil/"},{"@type":"ListItem","position":3,"name":"Тридцать два — стоматология, Батуми","url":"https://fr33roman.github.io/works/tridtsat-dva/"}]}}</script>
 </body>
 </html>

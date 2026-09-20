@@ -68,7 +68,10 @@ ul{list-style:none;padding:0}
 /* ——— фильтр: чистый CSS, работает без JS ——— */
 .filters{position:sticky;top:64px;z-index:40;background:var(--paper);border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);padding:0 var(--gut)}
-.filters__in{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;max-width:1680px;margin:0 auto}
+/* min-width:0 обязателен: у fieldset по умолчанию min-width:min-content, из-за чего
+   overflow-x:auto не включается и лента чипсов растягивает страницу вбок на телефоне */
+.filters__in{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;max-width:1680px;margin:0 auto;
+  min-width:0;border:0;padding:0}
 .filters__in::-webkit-scrollbar{display:none}
 .filters input{position:absolute;opacity:0;width:1px;height:1px}
 .filters label{display:inline-flex;align-items:center;min-height:52px;padding:0 16px;white-space:nowrap;

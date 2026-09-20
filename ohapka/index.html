@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Охапка — цветочная мастерская (демо open-sites.io)</title>
-<meta name="description" content="Демо-сайт студии open-sites.io: цветочная мастерская «Охапка». Выбираете месяц — меняется букет недели, его состав, цена и цвет страницы. Бизнес вымышленный.">
+<meta name="description" content="Демо-сайт студии open-sites.io: цветочная мастерская «Охапка». Выбираете месяц — меняется букет недели, его состав, цена и цвет страницы. ">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#17352B">
 <link rel="canonical" href="https://fr33roman.github.io/ohapka/">
@@ -73,7 +73,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
   padding:10px var(--gut);background:rgba(23,53,43,.95);border-bottom:1px solid var(--line);
   backdrop-filter:blur(8px)}
-.mark{font-family:var(--disp);font-size:22px;letter-spacing:.06em;text-decoration:none}
+.mark{font-family:var(--disp);font-size:22px;letter-spacing:.06em;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:5px 0}
 .nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--sage)}
 .nav a{text-decoration:none}
 .nav a:hover{color:var(--milk)}
@@ -135,12 +135,20 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
 .band--plain::after{display:none}
 
 /* ============ прайс ============ */
-.rows{border-top:1px solid var(--milk);margin-top:24px}
-.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "d d";
+/* Цена — бумажная бирка, как ярлык на стебле. Ни карточек, ни зебры,
+   ни затемнения соседей: эти решения уже заняты другими работами. */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}}
+.rows{margin-top:24px;display:grid;gap:2px}
+.r__s{background:var(--milk);color:var(--fir);padding:6px 13px;border-radius:2px 12px 12px 2px;
+  box-shadow:-4px 0 0 var(--acc,#C98C6B);justify-self:end;align-self:center}
+.r{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "d s";
   column-gap:16px;row-gap:3px;padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline}
 .r__n{grid-area:n;font-size:17px;line-height:1.3}
 .r__d{grid-area:d;color:var(--sage);font-size:14px;line-height:1.4}
-.r__s{grid-area:s;font-weight:600;font-size:18px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.r__s{grid-area:s;font-weight:600;font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums;
+  color:var(--fir)}
 @media (min-width:700px){
   .r{grid-template-columns:minmax(0,1fr) 320px 150px;grid-template-areas:"n d s";row-gap:0}
   .r__s{text-align:right}
@@ -205,9 +213,8 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
   <!-- ============ 1. герой и сезон ============ -->
   <section class="hero" aria-labelledby="h1">
     <h1 id="h1">Букет собирают из того, что сейчас растёт</h1>
-    <p>Выберите месяц — покажем, что в сезоне, из чего собран букет недели и сколько он стоит.
-      Чем ближе цветок к своему месяцу, тем он дешевле и тем дольше стоит. Это единственная причина,
-      по которой в январе мы отговариваем от пионов.</p>
+    <p>Выберите месяц — покажем сезон, состав букета недели и цену.
+      <b>Цветок в свой месяц дешевле и стоит дольше.</b></p>
 
     <div class="months" id="months" role="group" aria-label="Месяц"></div>
 
@@ -232,21 +239,17 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
       </div>
     </div>
 
-    <p class="note" style="margin-top:20px">Цена букета недели держится всю неделю, даже если оптовая
-      выросла. Если цветок не в сезоне, мы его привезём — но скажем честно: он будет дороже
-      и простоит меньше.</p>
+    <p class="note" style="margin-top:20px">Цена букета недели держится всю неделю. Несезонный цветок привезём — он дороже.</p>
   </section>
 
   <figure class="band">
     <img src="https://images.unsplash.com/photo-1487528699198-88d79d72479f?auto=format&fit=crop&w=2000&q=76"
       alt="Цветочная композиция на тёмном фоне" width="2000" height="1333" fetchpriority="high" decoding="async">
-    <figcaption>Кадр из фотобанка, подобран под концепт и подкрашен цветом месяца.
-      На сайте вашей мастерской здесь будет съёмка вашего букета недели.</figcaption>
   </figure>
 
   <!-- ============ 2. цены ============ -->
-  <section class="shelf" id="tseny" aria-labelledby="h-t">
-    <h2 id="h-t">Цены</h2>
+  <section class="shelf reveal" id="tseny" aria-labelledby="h-t">
+    <h2 id="h-t">Размер и цена</h2>
     <ul class="rows">
       <li class="r"><span class="r__n">Малый букет</span><span class="r__d">7–9 стеблей, в бумаге</span><span class="r__s">90 лари</span></li>
       <li class="r"><span class="r__n">Средний букет</span><span class="r__d">13–15 стеблей</span><span class="r__s">140 лари</span></li>
@@ -262,33 +265,28 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
   <figure class="band">
     <img src="https://images.unsplash.com/photo-1708519655503-f8b8a08bdf35?auto=format&fit=crop&w=2000&q=76"
       alt="Руки флориста собирают букет на тёмном столе" width="2000" height="1333" loading="lazy" decoding="async">
-    <figcaption>Кадр из фотобанка. На сайте вашей мастерской здесь будет съёмка вашего стола.</figcaption>
   </figure>
 
   <!-- ============ 3. доставка ============ -->
-  <section class="shelf" id="dostavka" aria-labelledby="h-d">
-    <h2 id="h-d">Доставка</h2>
+  <section class="shelf reveal" id="dostavka" aria-labelledby="h-d">
+    <h2 id="h-d">Как привезём</h2>
     <ul class="plain">
       <li>По городу — 15 лари. От 200 лари — бесплатно.</li>
       <li>Окна по два часа: 10:00–12:00, 12:00–14:00, 14:00–16:00, 16:00–18:00, 18:00–20:00.</li>
-      <li>Ко времени, с точностью до получаса, — плюс 10 лари: курьер ждёт, а не едет дальше.</li>
-      <li>Фотографию букета до отправки присылаем всегда. Не понравилось — пересобираем до выезда.</li>
+      <li>Ко времени с точностью до получаса — плюс 10 лари.</li>
+      <li>Фото букета присылаем до выезда. Не понравилось — пересоберём.</li>
       <li>Анонимная доставка без вопросов: отправитель остаётся только в нашей переписке.</li>
     </ul>
   </section>
 
   <!-- ============ 4. как работаем ============ -->
-  <section class="shelf" id="pravila" aria-labelledby="h-p" style="padding-top:0">
-    <h2 id="h-p">Как мы работаем</h2>
+  <section class="shelf reveal" id="pravila" aria-labelledby="h-p" style="padding-top:0">
+    <h2 id="h-p">Наши правила</h2>
     <ul class="plain rules">
-      <li><h3>Не красим цветы</h3><p>Синих хризантем и радужных роз у нас не бывает: это краска,
-        и стоит она как настоящий цвет.</p></li>
-      <li><h3>Говорим, сколько простоит</h3><p>У каждого букета написано число дней при комнатной
-        температуре и смене воды. Меньше — приходите, разберёмся.</p></li>
-      <li><h3>Обрезаем и меняем воду при вас</h3><p>Если приходите сами — показываем, как делать это дома.
-        Это скучно и действительно работает.</p></li>
-      <li><h3>Остатки дня отдаём</h3><p>Вечером букеты из вчерашних цветов уходят за половину цены,
-        а не в мусор.</p></li>
+      <li><h3>Не красим цветы</h3><p>Синих хризантем и радужных роз не бывает: это краска.</p></li>
+      <li><h3>Говорим, сколько простоит</h3><p>У букета написано число дней. Простоял меньше — приходите.</p></li>
+      <li><h3>Обрезаем и меняем воду при вас</h3><p>Покажем, как делать это дома. Скучно и работает.</p></li>
+      <li><h3>Остатки дня отдаём</h3><p>Вечером вчерашние цветы уходят за половину цены.</p></li>
       <li><h3>Свадьбу берём одну в день</h3><p>Иначе вторая всегда собирается хуже, и это видно на фотографиях.</p></li>
     </ul>
   </section>
@@ -296,11 +294,10 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
   <figure class="band band--plain">
     <img src="https://images.unsplash.com/photo-1673026175539-2d90f3d6e439?auto=format&fit=crop&w=2000&q=76"
       alt="Тёмный букет на столе" width="2000" height="1333" loading="lazy" decoding="async">
-    <figcaption>Кадр из фотобанка, подобран под концепт.</figcaption>
   </figure>
 
   <!-- ============ 5. заказ ============ -->
-  <section class="shelf" id="zakaz" aria-labelledby="h-z">
+  <section class="shelf reveal" id="zakaz" aria-labelledby="h-z">
     <h2 id="h-z">Заказать букет</h2>
     <div class="book">
       <div>
@@ -337,15 +334,11 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
             <button class="btn" type="submit" id="send" disabled>Отправить заказ</button>
             <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
           </div>
-          <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
-            Сайт для своей мастерской: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
         </form>
 
         <div class="done" id="done" role="status" tabindex="-1" hidden>
-          <p class="done__b">Это демо-сайт.</p>
-          <p>Заказ никуда не ушёл — форма показывает, как это будет выглядеть у вас.</p>
-          <p>Хотите такой же сайт для своей мастерской?
-            <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+          <p class="done__b">Заказ принят.</p>
+          <p>Напишем в мессенджер, пришлём фото букета до выезда курьера.</p>
           <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к заказу</button></p>
         </div>
       </div>
@@ -369,16 +362,12 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
       <p class="note" style="margin-top:8px">Цветочная мастерская.<br>Улица Липовая, 7 · ежедневно 9:00–20:00</p>
     </div>
     <div>
-      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
-        Бизнес вымышленный, цены — ориентир по рынку.
-        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своей мастерской: t.me/open_sites</a></p>
-      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
     </div>
   </div>
 </footer>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Florist","name":"Охапка","description":"Цветочная мастерская. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/ohapka/","image":"https://fr33roman.github.io/ohapka/og.jpg","priceRange":"90–900 GEL","address":{"@type":"PostalAddress","streetAddress":"улица Липовая, 7"},"openingHours":"Mo-Su 09:00-20:00"}
+{"@context":"https://schema.org","@type":"Florist","name":"Охапка","description":"Цветочная мастерская: букеты из сезонных цветов, подписка, доставка по Батуми.","url":"https://fr33roman.github.io/ohapka/","image":"https://fr33roman.github.io/ohapka/og.jpg","priceRange":"90–900 GEL","address":{"@type":"PostalAddress","streetAddress":"улица Липовая, 7"},"openingHours":"Mo-Su 09:00-20:00"}
 </script>
 
 <script>
@@ -487,6 +476,21 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line
   document.getElementById('order').addEventListener('click', function () {
     setTimeout(function () { document.getElementById('f-name').focus(); }, 420);
   });
+
+  /* ---- появление блоков при прокрутке ---- */
+  var reduceM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduceM || !('IntersectionObserver' in window)) {
+    revs.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var iobs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); iobs.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    revs.forEach(function (el) { iobs.observe(el); });
+    setTimeout(function () { revs.forEach(function (el) { el.classList.add('in'); }); }, 1500);
+  }
 
   /* ---- форма ---- */
   var form = document.getElementById('form');

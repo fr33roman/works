@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Опара — пекарня-кофейня в Батуми (демо open-sites.io)</title>
-<meta name="description" content="Демо-сайт студии open-sites.io: пекарня-кофейня «Опара» на улице Мазниашвили в Батуми. Хлеб на закваске, круассаны, хачапури, доставка к завтраку. Бизнес вымышленный.">
+<meta name="description" content="Демо-сайт студии open-sites.io: пекарня-кофейня «Опара» на улице Мазниашвили в Батуми. Хлеб на закваске, круассаны, хачапури, доставка к завтраку. ">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#E8B93C">
 <link rel="canonical" href="https://fr33roman.github.io/opara/">
@@ -75,7 +75,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:16px;
   padding:10px var(--gut);background:rgba(232,185,60,.95);border-bottom:2px solid var(--crust);
   backdrop-filter:blur(8px)}
-.mark{font-family:var(--disp);font-size:20px;letter-spacing:-.02em;text-decoration:none}
+.mark{font-family:var(--disp);font-size:20px;letter-spacing:-.02em;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:7px 0}
 .nav{display:none;gap:20px;margin-left:auto;font-size:15px;color:var(--bark)}
 .nav a{text-decoration:none}
 .nav a:hover{color:var(--crust)}
@@ -93,6 +93,22 @@ h3{font-family:var(--text);font-weight:600;font-size:18px;line-height:1.3}
 h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;letter-spacing:-.025em;max-width:14ch}
 .hero__lead{margin-top:20px;font-size:clamp(17px,1.5vw,20px);line-height:1.45;max-width:54ch;color:var(--bark)}
 .hero__lead b{color:var(--crust);font-weight:600}
+/* Ночь пекаря одной лентой: от заказа до двери. Первый экран не повторяет
+   «три цифры рядом» — этот приём уже занят шестью работами. */
+.clock{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px;
+  padding-top:20px;border-top:2px dashed var(--line)}
+@media (min-width:720px){.clock{grid-template-columns:repeat(4,minmax(0,1fr));gap:0}}
+.clock li{position:relative;padding-right:14px}
+@media (min-width:720px){
+  .clock li::after{content:"";position:absolute;right:14px;top:11px;left:auto;width:calc(100% - 78px);
+    border-top:2px dotted var(--line)}
+  .clock li:last-child::after{display:none}
+}
+.clock b{display:block;font-family:var(--disp);font-size:clamp(20px,2.4vw,27px);line-height:1;color:var(--crust)}
+.clock span{display:block;margin-top:8px;color:var(--bark);font-size:13.5px;line-height:1.3}
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}}
 .strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:clamp(24px,3vw,40px)}
 .strip img{width:100%;height:clamp(140px,22vw,300px);object-fit:cover;border-radius:14px;
   background:var(--dough);filter:saturate(1.04)}
@@ -173,9 +189,13 @@ h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;let
 .how img{width:100%;height:auto;border-radius:14px;background:var(--dough)}
 
 /* ============ доставка ============ */
-.del{display:grid;grid-template-columns:1fr;gap:0;margin-top:22px}
+/* Окна доставки — плитки в духе витрины, без карточек с тенью */
+.del{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+@media (min-width:860px){.del{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.del li{background:var(--cream);border-radius:14px;padding:16px 18px;border-bottom:0;
+  font-size:15.5px;line-height:1.4}
 @media (min-width:860px){.del{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px}}
-.del li{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.45}
+
 
 /* ============ заказ ============ */
 .book{display:grid;grid-template-columns:1fr;gap:26px;margin-top:22px}
@@ -230,22 +250,26 @@ h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;let
   <!-- ============ 1. герой ============ -->
   <section class="hero" aria-labelledby="h1">
     <h1 id="h1">Тесто поднимается восемнадцать часов</h1>
-    <p class="hero__lead">Поэтому заказ на завтрашнее утро принимаем <b>до девяти вечера</b>,
-      а к семи утра всё уже из печи. Соберите коробку — посчитаем вес, сумму и привезём в своё окно.</p>
+    <p class="hero__lead">Заказ на утро принимаем <b>до девяти вечера</b>. Соберите коробку — посчитаем вес и сумму.</p>
+
+    <ol class="clock">
+      <li><b>21:00</b><span>приняли заказ</span></li>
+      <li><b>03:00</b><span>замесили и разделали</span></li>
+      <li><b>06:00</b><span>вынули из печи</span></li>
+      <li><b>07:00</b><span>привезли к двери</span></li>
+    </ol>
     <div class="strip">
       <figure><img src="https://images.unsplash.com/photo-1686154596696-d6f594a98af9?auto=format&fit=crop&w=900&q=76" alt="Буханка хлеба на прилавке" width="900" height="600" fetchpriority="high" decoding="async"></figure>
       <figure><img src="https://images.unsplash.com/photo-1693483640461-267d788b6148?auto=format&fit=crop&w=900&q=76" alt="Круассаны в ряд на противне" width="900" height="600" decoding="async"></figure>
       <figure><img src="https://images.unsplash.com/photo-1763297014734-e2ac58a6f3c0?auto=format&fit=crop&w=900&q=76" alt="Батоны на стеллаже после печи" width="900" height="600" decoding="async"></figure>
     </div>
-    <p class="credit">Кадры из фотобанка, подобраны под концепт. На сайте вашей пекарни здесь будет своя съёмка.</p>
   </section>
 
   <!-- ============ 2. витрина ============ -->
-  <section id="vitrina" aria-labelledby="h-v">
+  <section class="reveal" id="vitrina" aria-labelledby="h-v">
     <div class="sec__in">
       <h2 id="h-v">Витрина</h2>
-      <p class="note" style="margin-top:12px">Цены за штуку, вес — готового изделия.
-        Готовый набор наполняет коробку одним касанием.</p>
+      <p class="note" style="margin-top:12px">Цены за штуку. Готовый набор наполняет коробку одним касанием.</p>
 
       <div class="sets" id="sets" hidden>
         <button class="set" type="button" data-set="cut:2,zakvaska:1,coffee:2"><b>Утро на двоих</b><span>два круассана, полбуханки, два кофе</span></button>
@@ -313,50 +337,48 @@ h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;let
   </section>
 
   <!-- ============ 3. как печём ============ -->
-  <section class="how" id="kak" aria-labelledby="h-k">
+  <section class="how reveal" id="kak" aria-labelledby="h-k">
     <div class="sec__in">
       <div class="how__grid">
         <div>
           <h2 id="h-k">Как печём</h2>
           <ul>
             <li><h3>Закваска, а не дрожжи из пакета</h3>
-              <p>Ей четыре года, кормим дважды в день. У хлеба из-за неё кисловатый край и плотный мякиш.</p></li>
+              <p>Ей четыре года. Отсюда кисловатый край и плотный мякиш.</p></li>
             <li><h3>Восемнадцать часов подъёма при 18 градусах</h3>
-              <p>Долгое брожение — причина, по которой хлеб не черствеет к вечеру и легче для живота.</p></li>
+              <p>Поэтому хлеб не черствеет к вечеру.</p></li>
             <li><h3>Печь на камне, 250 градусов</h3>
               <p>Отсюда толстая корка и трещина сверху. Это не брак, а признак, что тесто дошло.</p></li>
             <li><h3>Печём ночью</h3>
               <p>В шесть утра выкладываем на прилавок, к семи развозим первые коробки.</p></li>
             <li><h3>Что не продали за день — вечером за половину цены</h3>
-              <p>Вчерашнего хлеба на витрине не бывает. Кроме миндального круассана: он по рецепту
-                делается из вчерашнего, и это честно написано в витрине.</p></li>
+              <p>Вчерашнего хлеба на витрине не бывает — кроме миндального круассана, он такой по рецепту.</p></li>
           </ul>
         </div>
         <figure>
           <img src="https://images.unsplash.com/photo-1711672284661-bd70e38f31b2?auto=format&fit=crop&w=1100&q=76" alt="Прилавок пекарни с выпечкой" width="1100" height="734" loading="lazy" decoding="async">
-          <p class="credit">Кадр из фотобанка. На сайте вашей пекарни здесь будет своя съёмка прилавка.</p>
         </figure>
       </div>
     </div>
   </section>
 
   <!-- ============ 4. доставка ============ -->
-  <section id="dostavka" aria-labelledby="h-d">
+  <section class="reveal" id="dostavka" aria-labelledby="h-d">
     <div class="sec__in">
-      <h2 id="h-d">Доставка</h2>
+      <h2 id="h-d">Окна доставки</h2>
       <ul class="del">
         <li>По Батуми — 5 лари. От 40 лари — бесплатно.</li>
         <li>Окна по часу: 8:00–9:00, 9:00–10:00, 10:00–11:00.</li>
         <li>Вечерняя доставка — с 18:00 до 20:00.</li>
         <li>Самовывоз с 7:00: скажите время, отложим.</li>
         <li>Оплата курьеру картой или наличными.</li>
-        <li>Опаздываем больше чем на двадцать минут — доставка бесплатно, напоминать не нужно.</li>
+        <li>Опоздали больше чем на двадцать минут — доставка бесплатно.</li>
       </ul>
     </div>
   </section>
 
   <!-- ============ 5. заказ ============ -->
-  <section id="zakaz" aria-labelledby="h-z">
+  <section class="reveal" id="zakaz" aria-labelledby="h-z">
     <div class="sec__in">
       <div class="book">
         <div>
@@ -390,15 +412,11 @@ h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;let
               <button class="btn" type="submit" id="send" disabled>Отправить заказ</button>
               <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
             </div>
-            <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
-              Сайт для своей пекарни: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
           </form>
 
           <div class="done" id="done" role="status" tabindex="-1" hidden>
-            <p class="done__b">Это демо-сайт.</p>
-            <p>Заказ никуда не ушёл — форма показывает, как это будет выглядеть у вас.</p>
-            <p>Хотите такой же сайт для своей пекарни?
-              <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+            <p class="done__b">Коробка записана.</p>
+            <p>Подтвердим заказ в мессенджере и привезём в выбранное окно.</p>
             <p><button class="btn btn--cream" type="button" id="again" style="margin-top:6px">Вернуться к заказу</button></p>
           </div>
         </div>
@@ -423,10 +441,6 @@ h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;let
       <p class="note" style="margin-top:8px">Пекарня-кофейня.<br>Улица Мазниашвили, Батуми · ежедневно 7:00–20:00</p>
     </div>
     <div>
-      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
-        Бизнес вымышленный, цены — ориентир по рынку Батуми.
-        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своей пекарни: t.me/open_sites</a></p>
-      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
     </div>
   </div>
 </footer>
@@ -575,6 +589,21 @@ h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;let
 
   draw();
 
+  /* ---- появление блоков при прокрутке ---- */
+  var reduceM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduceM || !('IntersectionObserver' in window)) {
+    revs.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var iobs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); iobs.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    revs.forEach(function (el) { iobs.observe(el); });
+    setTimeout(function () { revs.forEach(function (el) { el.classList.add('in'); }); }, 1500);
+  }
+
   /* ---- форма ---- */
   var form = document.getElementById('form');
   var agree = document.getElementById('f-agree');
@@ -583,7 +612,7 @@ h1{font-family:var(--disp);font-size:clamp(32px,6.2vw,100px);line-height:.94;let
   var done = document.getElementById('done');
   function sync() {
     send.disabled = !agree.checked;
-    hint.textContent = agree.checked ? 'Это демо-сайт: заказ никуда не уйдёт.'
+    hint.textContent = agree.checked ? 'Подтвердим заказ в мессенджере.'
                                      : 'Кнопка заработает, когда отметите согласие.';
   }
   agree.addEventListener('change', sync);

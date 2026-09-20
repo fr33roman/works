@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Работы студии open-sites.io — примеры сайтов по нишам</title>
-<meta name="description" content="Двенадцать работ студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств, пекарня-кофейня с доставкой и другие. Бизнесы вымышленные.">
+<meta name="description" content="Тринадцать работ студии open-sites.io — по одному сайту на нишу: дизайн интерьера, барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств и другие. Каждая открывается целиком, с телефона тоже.">
 <link rel="canonical" href="https://fr33roman.github.io/works/">
 <meta name="theme-color" content="#0A0A0D">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="open-sites.io">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="Работы студии open-sites.io">
-<meta property="og:description" content="Двенадцать работ студии open-sites.io — по одному сайту на нишу: барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств, пекарня-кофейня с доставкой и другие. Бизнесы вымышленные.">
+<meta property="og:description" content="Тринадцать работ студии open-sites.io — по одному сайту на нишу: дизайн интерьера, барбершоп, салон волос и ногтей, стоматология, автосервис и детейлинг, зал единоборств и другие. Каждая открывается целиком, с телефона тоже.">
 <meta property="og:url" content="https://fr33roman.github.io/works/">
 <meta property="og:image" content="https://fr33roman.github.io/works/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -87,10 +87,7 @@ ul{list-style:none;padding:0}
 
 /* ——— шапка ——— */
 .head{padding:clamp(44px,8vw,104px) 0 clamp(26px,4vw,44px)}
-.tagline{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border:1px solid var(--border);
-  border-radius:100px;background:var(--surface);color:var(--silver);font-size:14px;font-weight:500}
-.tagline i{width:7px;height:7px;border-radius:50%;background:var(--violet);flex:none}
-h1{margin-top:20px;font-weight:900;font-size:clamp(52px,10vw,132px);line-height:.92;letter-spacing:-.04em;
+h1{font-weight:900;font-size:clamp(52px,10vw,132px);line-height:.92;letter-spacing:-.04em;
   background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .head__grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:clamp(18px,2.6vw,30px)}
 @media (min-width:900px){.head__grid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}}
@@ -119,15 +116,25 @@ h1{margin-top:20px;font-weight:900;font-size:clamp(52px,10vw,132px);line-height:
 .cell{display:flex}
 .card{position:relative;display:flex;flex-direction:column;flex:1;background:var(--surface);
   border:1px solid var(--border);border-radius:var(--radius);padding:8px 8px 22px;overflow:hidden;
-  transition:transform .35s cubic-bezier(.25,.8,.3,1),border-color .35s,box-shadow .35s}
+  opacity:.88;
+  transition:transform .35s cubic-bezier(.25,.8,.3,1),border-color .35s,box-shadow .35s,opacity .35s}
 .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);
   opacity:0;transition:opacity .3s}
-.card:hover{transform:translateY(-6px);border-color:var(--border-hi);box-shadow:0 26px 54px rgba(0,0,0,.5)}
-.card:hover::before{opacity:1}
+.card:hover,.card:focus-within,.card:active{opacity:1;transform:translateY(-6px);
+  border-color:var(--border-hi);box-shadow:0 26px 54px rgba(0,0,0,.5)}
+.card:hover::before,.card:focus-within::before{opacity:1}
 .card__shot{position:relative;border-radius:14px;overflow:hidden;background:var(--surface-2);aspect-ratio:16/10}
 .card__shot img{width:100%;height:100%;object-fit:cover;object-position:top center;
-  transition:transform .6s cubic-bezier(.25,.8,.3,1)}
+  filter:grayscale(.35) brightness(.82);
+  transition:transform .6s cubic-bezier(.25,.8,.3,1),filter .35s}
+.card:hover .card__shot img,.card:focus-within .card__shot img,.card:active .card__shot img{filter:none}
 .card:hover .card__shot img{transform:scale(1.045)}
+/* На тач-экранах наведения нет: заставлять тыкать пальцем, чтобы увидеть превью, нечестно —
+   там карточки сразу показаны полностью, приглушение остаётся только там, где есть мышь. */
+@media (hover:none){
+  .card{opacity:1}
+  .card__shot img{filter:none}
+}
 .card__tag{position:absolute;left:10px;top:10px;display:inline-flex;align-items:center;height:28px;
   padding:0 12px;border-radius:100px;background:rgba(10,10,13,.72);backdrop-filter:blur(8px);
   border:1px solid rgba(255,255,255,.14);font-size:12.5px;font-weight:600;color:var(--text)}
@@ -141,7 +148,7 @@ h1{margin-top:20px;font-weight:900;font-size:clamp(52px,10vw,132px);line-height:
   font-size:14.5px;font-weight:600;color:var(--text);
   transition:background .25s,color .25s,border-color .25s}
 .card__go svg{transition:transform .25s}
-.card:hover .card__go{background:#F2F2F4;color:#0A0A0D;border-color:#F2F2F4}
+.card:hover .card__go,.card:focus-within .card__go{background:#F2F2F4;color:#0A0A0D;border-color:#F2F2F4}
 .card:hover .card__go svg{transform:translate(2px,-2px)}
 
 /* ——— выплывание при прокрутке (только со скриптом) ——— */
@@ -153,8 +160,6 @@ h1{margin-top:20px;font-weight:900;font-size:clamp(52px,10vw,132px);line-height:
 .foot{border-top:1px solid var(--border);padding:clamp(48px,7vw,104px) 0 clamp(40px,6vw,72px)}
 .foot__big{font-size:clamp(30px,5vw,60px);font-weight:900;letter-spacing:-.03em;line-height:1.02;max-width:16ch}
 .foot__row{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-top:30px}
-.foot__note{color:var(--muted);font-size:14.5px;line-height:1.65;max-width:76ch;margin-top:40px;
-  padding-top:24px;border-top:1px solid var(--border)}
 
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
@@ -185,13 +190,11 @@ body:has(#n-stay:checked) .cell:not([data-niche="stay"]){display:none}
 
 <main>
   <div class="wrap head">
-    <span class="tagline"><i aria-hidden="true"></i>Двенадцать работ в двенадцати нишах</span>
     <h1>Работы</h1>
     <div class="head__grid">
       <p class="head__lead">Чтобы смотреть сайт в своей отрасли, а не представлять на чужом примере.</p>
-      <p class="head__note">Компании на этих сайтах вымышленные: это демонстрационные работы студии,
-        а не сайты реальных фирм. Цены — ориентир по рынку, фотографии из фотобанков.
-        Каждая работа открывается целиком, с телефона тоже.</p>
+      <p class="head__note">Каждая работа открывается целиком: можно потрогать механику,
+        пройти по блокам и посмотреть с телефона.</p>
     </div>
   </div>
 
@@ -212,7 +215,22 @@ body:has(#n-stay:checked) .cell:not([data-niche="stay"]){display:none}
 
   <div class="wrap">
     <ul class="grid">
-      <li class="cell reveal" data-niche="beauty" style="transition-delay:0ms">
+      <li class="cell reveal" data-niche="home" style="transition-delay:0ms">
+        <a class="card" href="https://alyonaa.design" target="_blank" rel="noopener">
+          <span class="card__shot">
+            <img src="p/alyona.jpg" alt="Первый экран сайта «Alyonaa Design»"
+                 width="1080" height="675" loading="eager" decoding="async">
+            <span class="card__tag">Дом и ремонт</span>
+          </span>
+          <span class="card__body">
+            <span class="card__name">Alyonaa Design</span>
+            <span class="card__kind">дизайн интерьера, Батуми и онлайн</span>
+            <span class="card__idea">Живой сайт клиента: тарифы за квадратный метр, этапы работы, две языковые версии.</span>
+            <span class="card__go">Открыть сайт<svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M3.5 9.5L9.5 3.5M4.5 3.5h5v5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </span>
+        </a>
+      </li>
+      <li class="cell reveal" data-niche="beauty" style="transition-delay:70ms">
         <a class="card" href="lotsman/" target="_blank" rel="noopener">
           <span class="card__shot">
             <img src="p/lotsman.jpg" alt="Первый экран сайта «Лоцман»"
@@ -227,7 +245,7 @@ body:has(#n-stay:checked) .cell:not([data-niche="stay"]){display:none}
           </span>
         </a>
       </li>
-      <li class="cell reveal" data-niche="beauty" style="transition-delay:70ms">
+      <li class="cell reveal" data-niche="beauty" style="transition-delay:140ms">
         <a class="card" href="shtil/" target="_blank" rel="noopener">
           <span class="card__shot">
             <img src="p/shtil.jpg" alt="Первый экран сайта «Штиль»"
@@ -242,11 +260,11 @@ body:has(#n-stay:checked) .cell:not([data-niche="stay"]){display:none}
           </span>
         </a>
       </li>
-      <li class="cell reveal" data-niche="health" style="transition-delay:140ms">
+      <li class="cell reveal" data-niche="health" style="transition-delay:210ms">
         <a class="card" href="tridtsat-dva/" target="_blank" rel="noopener">
           <span class="card__shot">
             <img src="p/tridtsat-dva.jpg" alt="Первый экран сайта «Тридцать два»"
-                 width="1080" height="675" loading="eager" decoding="async">
+                 width="1080" height="675" loading="lazy" decoding="async">
             <span class="card__tag">Здоровье</span>
           </span>
           <span class="card__body">
@@ -257,7 +275,7 @@ body:has(#n-stay:checked) .cell:not([data-niche="stay"]){display:none}
           </span>
         </a>
       </li>
-      <li class="cell reveal" data-niche="auto" style="transition-delay:210ms">
+      <li class="cell reveal" data-niche="auto" style="transition-delay:280ms">
         <a class="card" href="support/" target="_blank" rel="noopener">
           <span class="card__shot">
             <img src="p/support.jpg" alt="Первый экран сайта «Суппорт»"
@@ -272,7 +290,7 @@ body:has(#n-stay:checked) .cell:not([data-niche="stay"]){display:none}
           </span>
         </a>
       </li>
-      <li class="cell reveal" data-niche="sport" style="transition-delay:280ms">
+      <li class="cell reveal" data-niche="sport" style="transition-delay:350ms">
         <a class="card" href="gong/" target="_blank" rel="noopener">
           <span class="card__shot">
             <img src="p/gong.jpg" alt="Первый экран сайта «Гонг»"
@@ -403,13 +421,10 @@ body:has(#n-stay:checked) .cell:not([data-niche="stay"]){display:none}
       <a class="btn" href="https://t.me/open_sites" target="_blank" rel="noopener">Написать в Telegram</a>
       <span class="card__kind">Ответим и посмотрим вашу нишу — бесплатно.</span>
     </div>
-    <p class="foot__note">open-sites.io — студия, которая делает сайты небольшому бизнесу.
-      Работы на этой странице собраны как примеры: названия, тексты и цены придуманы, совпадения
-      с настоящими компаниями случайны. Фотографии — из бесплатных фотобанков Unsplash и Pexels.</p>
   </div>
 </footer>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Работы студии open-sites.io","url":"https://fr33roman.github.io/works/","inLanguage":"ru","isPartOf":{"@type":"WebSite","name":"open-sites.io","url":"https://fr33roman.github.io/works/"},"about":"Примеры сайтов для малого бизнеса по нишам. Компании на демо-сайтах вымышленные.","mainEntity":{"@type":"ItemList","numberOfItems":12,"itemListElement":[{"@type":"ListItem","position":1,"name":"Лоцман — барбершоп, Батуми","url":"https://fr33roman.github.io/works/lotsman/"},{"@type":"ListItem","position":2,"name":"Штиль — салон волос и ногтей, Батуми","url":"https://fr33roman.github.io/works/shtil/"},{"@type":"ListItem","position":3,"name":"Тридцать два — стоматология, Батуми","url":"https://fr33roman.github.io/works/tridtsat-dva/"},{"@type":"ListItem","position":4,"name":"Суппорт — автосервис и детейлинг, Батуми","url":"https://fr33roman.github.io/works/support/"},{"@type":"ListItem","position":5,"name":"Гонг — зал единоборств, Батуми","url":"https://fr33roman.github.io/works/gong/"},{"@type":"ListItem","position":6,"name":"Опара — пекарня-кофейня с доставкой, Батуми","url":"https://fr33roman.github.io/works/opara/"},{"@type":"ListItem","position":7,"name":"Уровень — ремонт квартир, Батуми","url":"https://fr33roman.github.io/works/uroven/"},{"@type":"ListItem","position":8,"name":"Начисто — клининг, Батуми","url":"https://fr33roman.github.io/works/nachisto/"},{"@type":"ListItem","position":9,"name":"Кружок — детский центр, развивающие занятия","url":"https://fr33roman.github.io/works/kruzhok/"},{"@type":"ListItem","position":10,"name":"Охапка — цветочная мастерская","url":"https://fr33roman.github.io/works/ohapka/"},{"@type":"ListItem","position":11,"name":"Веранда — апартаменты у моря, Батуми","url":"https://fr33roman.github.io/works/veranda/"},{"@type":"ListItem","position":12,"name":"Ладонь — массаж, Батуми","url":"https://fr33roman.github.io/works/ladon/"}]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Работы студии open-sites.io","url":"https://fr33roman.github.io/works/","inLanguage":"ru","isPartOf":{"@type":"WebSite","name":"open-sites.io","url":"https://fr33roman.github.io/works/"},"about":"Сайты для малого бизнеса по нишам: работы студии open-sites.io.","mainEntity":{"@type":"ItemList","numberOfItems":13,"itemListElement":[{"@type":"ListItem","position":1,"name":"Alyonaa Design — дизайн интерьера, Батуми и онлайн","url":"https://alyonaa.design"},{"@type":"ListItem","position":2,"name":"Лоцман — барбершоп, Батуми","url":"https://fr33roman.github.io/works/lotsman/"},{"@type":"ListItem","position":3,"name":"Штиль — салон волос и ногтей, Батуми","url":"https://fr33roman.github.io/works/shtil/"},{"@type":"ListItem","position":4,"name":"Тридцать два — стоматология, Батуми","url":"https://fr33roman.github.io/works/tridtsat-dva/"},{"@type":"ListItem","position":5,"name":"Суппорт — автосервис и детейлинг, Батуми","url":"https://fr33roman.github.io/works/support/"},{"@type":"ListItem","position":6,"name":"Гонг — зал единоборств, Батуми","url":"https://fr33roman.github.io/works/gong/"},{"@type":"ListItem","position":7,"name":"Опара — пекарня-кофейня с доставкой, Батуми","url":"https://fr33roman.github.io/works/opara/"},{"@type":"ListItem","position":8,"name":"Уровень — ремонт квартир, Батуми","url":"https://fr33roman.github.io/works/uroven/"},{"@type":"ListItem","position":9,"name":"Начисто — клининг, Батуми","url":"https://fr33roman.github.io/works/nachisto/"},{"@type":"ListItem","position":10,"name":"Кружок — детский центр, развивающие занятия","url":"https://fr33roman.github.io/works/kruzhok/"},{"@type":"ListItem","position":11,"name":"Охапка — цветочная мастерская","url":"https://fr33roman.github.io/works/ohapka/"},{"@type":"ListItem","position":12,"name":"Веранда — апартаменты у моря, Батуми","url":"https://fr33roman.github.io/works/veranda/"},{"@type":"ListItem","position":13,"name":"Ладонь — массаж, Батуми","url":"https://fr33roman.github.io/works/ladon/"}]}}</script>
 <script>
 (function () {
   'use strict';

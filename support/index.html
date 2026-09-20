@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Суппорт — автосервис и детейлинг в Батуми (демо open-sites.io)</title>
-<meta name="description" content="Демо-сайт студии open-sites.io: автосервис «Суппорт» на Аэропортовом шоссе в Батуми. Выбираете, что слышно за рулём, — сайт показывает узел, нормо-часы и цену. Бизнес вымышленный.">
+<meta name="description" content="Демо-сайт студии open-sites.io: автосервис «Суппорт» на Аэропортовом шоссе в Батуми. Выбираете, что слышно за рулём, — сайт показывает узел, нормо-часы и цену.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0E3350">
 <link rel="canonical" href="https://fr33roman.github.io/support/">
@@ -32,7 +32,13 @@
   --blue-l:#164066;   /* карточка разбора, поля формы */
   --chalk:#EAF1F7;    /* текст и линии чертежа, 11:1 */
   --steel:#9DB6C9;    /* подписи и размеры, 6,1:1 */
-  --line:rgba(234,241,247,.22);
+  --line:rgba(234,241,247,.16);
+  --amber:#F4A64A;    /* тёплый акцент: цены, номера, плашки */
+  --amber-d:#D98428;
+  --shadow-sm:0 10px 28px -14px rgba(2,16,29,.75);
+  --shadow:0 20px 48px -18px rgba(2,16,29,.85);
+  --r:18px;
+  --r-sm:12px;
   --sans:"Geist","Segoe UI",system-ui,sans-serif;
   --mono:"Martian Mono",ui-monospace,monospace;
   --gut:40px;
@@ -43,7 +49,11 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-body{margin:0;background:var(--blue);color:var(--chalk);
+body{margin:0;color:var(--chalk);
+  background:
+    radial-gradient(1000px 560px at 90% -6%, rgba(244,166,74,.10), transparent 62%),
+    radial-gradient(900px 620px at -6% 24%, rgba(20,80,138,.45), transparent 58%),
+    var(--blue);
   font:400 17px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -60,7 +70,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .mono{font-family:var(--mono);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
 
 /* ============ кнопки ============ */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;
+  box-shadow:var(--shadow-sm);
   border:1px solid var(--chalk);border-radius:2px;background:var(--chalk);color:var(--blue);
   font-weight:500;font-size:16px;text-decoration:none;cursor:pointer;transition:background .16s,color .16s}
 .btn:hover{background:transparent;color:var(--chalk)}
@@ -74,7 +85,7 @@ button,input,select,textarea{font:inherit;color:inherit}
   padding:10px var(--gut);background:rgba(14,51,80,.94);border-bottom:1px solid var(--line);
   backdrop-filter:blur(10px)}
 .mark{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:500;font-size:19px;
-  letter-spacing:-.02em}
+  letter-spacing:-.02em;min-height:44px;padding:8px 6px;margin-left:-6px}
 .mark svg{flex:none}
 .nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--steel)}
 .nav a{text-decoration:none}
@@ -83,10 +94,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (min-width:1040px){.nav{display:flex}.top .btn{margin-left:0}}
 
 /* ============ секции и размерная подпись ============ */
-.sec{border-top:1px solid var(--line)}
+.sec{background:linear-gradient(180deg,transparent,rgba(234,241,247,.035),transparent)}
+.sec + .sec{background:none}
 .sec__in{max-width:1360px;margin:0 auto;padding:clamp(40px,6vw,var(--sec)) var(--gut);
   display:grid;grid-template-columns:1fr;gap:22px}
-.sec__no{font-family:var(--mono);font-size:11px;letter-spacing:-.04em;color:var(--steel)}
+.sec__no{font-family:var(--mono);font-size:11px;letter-spacing:-.04em;color:var(--amber)}
 @media (min-width:920px){
   .sec__in{grid-template-columns:150px minmax(0,1fr);gap:40px}
   /* размерная линия у подписи секции — как на чертеже */
@@ -112,6 +124,21 @@ h1{font-weight:500;font-size:clamp(34px,5vw,72px);line-height:1.03;letter-spacin
 .hero__grid{display:grid;grid-template-columns:1fr;gap:24px;align-items:start}
 @media (min-width:980px){.hero__grid{grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:48px}}
 .hero__lead{margin-top:18px;color:var(--chalk)}
+/* Три цифры рядом: самое важное читается за секунду */
+.trust{display:flex;flex-wrap:wrap;gap:14px 30px;margin:22px 0 4px;padding-top:20px;
+  border-top:1px solid var(--line)}
+.trust div{min-width:118px}
+.trust b{display:block;font-family:var(--mono);font-size:24px;letter-spacing:-.06em;line-height:1;color:var(--chalk)}
+.trust b.is-amber{color:var(--amber)}
+.trust span{display:block;margin-top:7px;color:var(--steel);font-size:13px;line-height:1.35}
+
+/* Появление блоков: 700 мс, один раз. Без скрипта и при reduced-motion всё видно сразу. */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .get:hover,.shot:hover img{transform:none}
+}
 .hero__lead b{font-weight:500}
 
 /* схема машины */
@@ -164,14 +191,23 @@ h1{font-weight:500;font-size:clamp(34px,5vw,72px);line-height:1.03;letter-spacin
 .dd--text{font-family:var(--sans)!important;letter-spacing:0!important;max-width:60%}
 
 /* ============ прайс ============ */
-.pg + .pg{margin-top:32px}
-.pg h3{color:var(--steel);font-weight:400;font-size:14px;padding-bottom:8px;border-bottom:1px solid var(--chalk)}
+.pg{max-width:840px;background:var(--blue-l);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow-sm);overflow:hidden;padding:4px 0}
+.pg + .pg{margin-top:16px}
+.pg h3{margin:0;padding:15px 22px 9px;color:var(--amber);font-family:var(--mono);font-weight:400;
+  font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+/* Наводишь на строку — соседние гаснут: помогает не потерять нужную глазами */
+.pg ul:hover .r{opacity:.42}
+.pg ul .r:hover{opacity:1;background:rgba(244,166,74,.07)}
+@media (hover:none){.pg ul:hover .r{opacity:1}}
 .phead{display:none}
-.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "h h";
+.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "h s";
+  transition:opacity .3s ease,background .3s ease;
   column-gap:16px;row-gap:2px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
 .r__n{grid-area:n;font-size:17px;line-height:1.3}
 .r__h{grid-area:h;color:var(--steel);font-family:var(--mono);font-size:12px;letter-spacing:-.04em}
-.r__s{grid-area:s;font-family:var(--mono);font-size:16px;letter-spacing:-.05em;white-space:nowrap}
+.r__s{grid-area:s;align-self:center;font-family:var(--mono);font-size:19px;letter-spacing:-.05em;
+  color:var(--amber);white-space:nowrap}
 .cur{font-family:var(--sans);font-style:normal;font-size:13px;color:var(--steel);margin-left:5px;letter-spacing:0}
 @media (min-width:720px){.cur{display:none}}
 @media (min-width:720px){
@@ -183,24 +219,40 @@ h1{font-weight:500;font-size:clamp(34px,5vw,72px);line-height:1.03;letter-spacin
 }
 
 /* ============ что получаете ============ */
-.gets{display:grid;grid-template-columns:1fr;gap:0}
+.gets{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:640px){.gets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.gets{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.get__i{display:block;font-family:var(--mono);font-size:26px;letter-spacing:-.06em;color:var(--amber);
+  margin-bottom:10px}
 @media (min-width:880px){.gets{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}}
-.get{padding:18px 0;border-bottom:1px solid var(--line)}
+.get{background:var(--blue-l);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);
+  padding:22px 20px;transition:transform .3s ease,box-shadow .3s ease}
+.get:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .get p{margin-top:6px;color:var(--steel);font-size:15px;line-height:1.5}
 
 /* ============ оснащение + фото ============ */
 .kit{display:grid;grid-template-columns:1fr;gap:26px}
 @media (min-width:900px){.kit{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}}
-.kit ul{border-top:1px solid var(--chalk)}
-.kit li{padding:13px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.45}
-.shots{display:grid;gap:10px}
-.shot{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--blue-d)}
-.shot img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.92)}
+.kit ul{display:grid;gap:10px}
+.kit li{position:relative;background:var(--blue-l);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:14px 16px 14px 42px;font-size:16px;line-height:1.4}
+.kit li::before{content:"";position:absolute;left:16px;top:20px;width:12px;height:2px;background:var(--amber)}
+.shots{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.shot{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:var(--blue-d);box-shadow:var(--shadow-sm)}
+.shot img{transition:transform .5s ease}
+.shot:hover img{transform:scale(1.05)}
+.shot img{width:100%;height:100%;object-fit:cover;filter:grayscale(.7) contrast(1.06) brightness(.95)}
 /* сводим чужой свет к синьке: сверху плашка цвета страницы в режиме умножения */
-.shot::after{content:"";position:absolute;inset:0;background:#14508A;mix-blend-mode:multiply;opacity:.72}
-.shot--a img{height:clamp(200px,24vw,290px)}
-.shot--b img{height:clamp(150px,16vw,190px)}
+.shot::after{content:"";position:absolute;inset:0;background:#14508A;mix-blend-mode:multiply;opacity:.4}
+.shot img{height:clamp(150px,17vw,210px)}
+.shot--a{grid-column:1/-1}
+.shots .shot:last-child{grid-column:1/-1}
+.shots .shot:last-child img{height:clamp(130px,14vw,170px)}
+.shot--a img{height:clamp(190px,23vw,280px)}
 figcaption{margin-top:10px;color:var(--steel);font-size:13px;line-height:1.45}
+.band img{width:100%;height:clamp(170px,24vw,320px);object-fit:cover;background:var(--blue-d);
+  filter:grayscale(.85) contrast(1.05) brightness(.8) sepia(.2)}
 
 /* ============ форма ============ */
 .book{display:grid;grid-template-columns:1fr;gap:28px}
@@ -209,7 +261,8 @@ figcaption{margin-top:10px;color:var(--steel);font-size:13px;line-height:1.45}
 .f{display:flex;flex-direction:column;gap:7px;grid-column:span 2}
 @media (min-width:600px){.f--half{grid-column:span 1}}
 .f label,.f legend{font-size:14px;color:var(--steel)}
-.inp{width:100%;min-height:48px;padding:11px 14px;background:var(--blue-l);border:1px solid var(--steel);
+.inp{width:100%;min-height:48px;padding:11px 14px;background:var(--blue-l);border:1px solid var(--line);
+  transition:border-color .2s,box-shadow .2s;
   border-radius:2px;font-size:16px;color:var(--chalk)}
 .inp::placeholder{color:rgba(157,182,201,.7)}
 .inp:focus-visible{outline:2px solid var(--chalk);outline-offset:0;border-color:var(--chalk)}
@@ -226,17 +279,18 @@ fieldset.f{border:0;padding:0;margin:0}
 .consent label{padding:10px 0;font-size:15px;line-height:1.5;cursor:pointer}
 .send{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
 .send__hint{color:var(--steel);font-size:14px}
-.done{background:var(--blue-l);border:1px solid var(--line);border-radius:2px;padding:28px}
+.done{background:var(--blue-l);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow-sm);padding:28px}
 .done__b{font-weight:400;font-size:clamp(23px,3vw,32px);letter-spacing:-.02em;line-height:1.1}
 .done p+p{margin-top:12px}
 .noscript{grid-column:1/-1;color:var(--steel);font-size:15px}
-.side dl{border-top:1px solid var(--chalk)}
-.side div{padding:12px 0;border-bottom:1px solid var(--line)}
-.side dt{color:var(--steel);font-size:13px}
+.side dl{display:grid;gap:10px}
+.side div{background:var(--blue-l);border:1px solid var(--line);border-radius:var(--r-sm);padding:14px 16px}
+.side dt{color:var(--amber);font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
 .side dd{margin-top:3px;font-size:16px;line-height:1.4}
 
 /* ============ подвал ============ */
-.foot{border-top:1px solid var(--chalk);background:var(--blue-d)}
+.foot{background:var(--blue-d)}
 .foot__in{max-width:1360px;margin:0 auto;padding:clamp(32px,4vw,52px) var(--gut);
   display:grid;grid-template-columns:1fr;gap:18px}
 @media (min-width:900px){.foot__in{grid-template-columns:270px minmax(0,1fr);gap:40px}}
@@ -268,9 +322,14 @@ fieldset.f{border:0;padding:0;margin:0}
       <h1 id="h1">Скажите, что слышно</h1>
       <div class="hero__grid" style="margin-top:20px">
         <div>
-          <p class="lead hero__lead">Поломку человек сначала слышит или чувствует: скрип, стук, биение руля,
-            лужа под машиной. Выберите своё — покажем, какой узел смотреть, сколько это нормо-часов
-            и сколько стоит. <b>Нормо-час 60 лари, один на все работы.</b></p>
+          <p class="lead hero__lead">Скрип, стук, биение руля, лужа под машиной — выберите своё.
+            Покажем узел, часы и цену.</p>
+
+          <div class="trust">
+            <div><b>60 лари</b><span>нормо-час, один на все работы</span></div>
+            <div><b>1 час</b><span>перезваниваем после заявки</span></div>
+            <div><b class="is-amber">0 сюрпризов</b><span>доп. работы — только после вашего «да»</span></div>
+          </div>
 
           <div class="scheme" id="scheme">
             <svg viewBox="0 0 640 250" role="img" aria-label="Схема машины на подъёмнике с размерами бокса">
@@ -298,8 +357,7 @@ fieldset.f{border:0;padding:0;margin:0}
                 <text x="20" y="34">4 т — предел подъёмника</text>
               </g>
             </svg>
-            <p class="scheme__cap">Бокс принимает легковые и небольшие кроссоверы. Машины выше 2,6 метра
-              и тяжелее четырёх тонн — не к нам, честнее сказать заранее.</p>
+            <p class="scheme__cap">Легковые и небольшие кроссоверы. Выше 2,6 метра и тяжелее четырёх тонн — не к нам.</p>
           </div>
         </div>
 
@@ -406,8 +464,7 @@ fieldset.f{border:0;padding:0;margin:0}
           <div class="card card--side" id="card" aria-live="polite" style="margin-top:20px">
             <div class="fade" id="cardIn">
               <p class="card__t">Нажмите строку из списка</p>
-              <p class="card__p">Мы специально начинаем не с услуг, а с того, что слышно: человек за рулём
-                знает звук, а не название узла. Название — наша работа.</p>
+              <p class="card__p">Начинаем со звука: за рулём слышно его, а название узла — наша работа.</p>
               <p class="card__fine">Диагностика без ремонта — 40 лари. Если чините у нас, эту сумму
                 вычитаем из счёта.</p>
             </div>
@@ -418,13 +475,12 @@ fieldset.f{border:0;padding:0;margin:0}
   </section>
 
   <!-- ============ 2. цены ============ -->
-  <section class="sec" id="tseny" aria-labelledby="h-t">
+  <section class="sec reveal" id="tseny" aria-labelledby="h-t">
     <div class="sec__in">
       <p class="sec__no">02 / прайс</p>
       <div>
         <h2 id="h-t">Прайс</h2>
-        <p class="note" style="margin-top:14px">Нормо-час 60 лари. В строках — только работа: запчасти
-          можно привезти свои, мы их поставим и скажем, что о них думаем.</p>
+        <p class="note" style="margin-top:14px">В строках только работа. Запчасти можно привезти свои — поставим.</p>
 
         <div class="pg" style="margin-top:28px">
           <h3>Обслуживание</h3>
@@ -447,7 +503,7 @@ fieldset.f{border:0;padding:0;margin:0}
             <li class="r"><span class="r__n">Диагностика сканером</span><span class="r__h">0,8 ч</span><span class="r__s">50<i class="cur">лари</i></span></li>
             <li class="r"><span class="r__n">Диагностика подвески на подъёмнике</span><span class="r__h">0,5 ч</span><span class="r__s">40<i class="cur">лари</i></span></li>
             <li class="r"><span class="r__n">Балансировка четырёх колёс</span><span class="r__h">0,7 ч</span><span class="r__s">40<i class="cur">лари</i></span></li>
-            <li class="r"><span class="r__n">Развал-схождение на 3D-стенде</span><span class="r__h">1,5 ч</span><span class="r__s">120<i class="cur">лари</i></span></li>
+            <li class="r"><span class="r__n">Развал-схождение на 3D-стенде</span><span class="r__h">1,2 ч</span><span class="r__s">70<i class="cur">лари</i></span></li>
             <li class="r"><span class="r__n">Заправка кондиционера с проверкой на утечку</span><span class="r__h">1,2 ч</span><span class="r__s">130<i class="cur">лари</i></span></li>
           </ul>
         </div>
@@ -463,35 +519,38 @@ fieldset.f{border:0;padding:0;margin:0}
             <li class="r"><span class="r__n">Керамика на год</span><span class="r__h">10,0 ч</span><span class="r__s">от 900<i class="cur">лари</i></span></li>
           </ul>
         </div>
-        <p class="note" style="margin-top:20px">Часы — это время работы, а не срок. Машина на полировке
-          стоит два дня: между шагами покрытию нужно время.</p>
+        <p class="note" style="margin-top:20px">Часы — это время работы. Срок бывает длиннее: на полировке машина стоит два дня.</p>
       </div>
     </div>
   </section>
 
   <!-- ============ 3. что на руки ============ -->
-  <section class="sec" id="nyruki" aria-labelledby="h-n">
+  <div class="band">
+    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=2000&q=72"
+      alt="Ремень ГРМ и ролики в разобранном двигателе" width="2000" height="1200" loading="lazy" decoding="async">
+  </div>
+
+  <section class="sec reveal" id="nyruki" aria-labelledby="h-n">
     <div class="sec__in">
       <p class="sec__no">03 / договор</p>
       <div>
         <h2 id="h-n">Что вы получаете на руки</h2>
         <ul class="gets" style="margin-top:20px">
-          <li class="get"><h3>Заказ-наряд до начала работ</h3>
-            <p>Список работ, часы и сумма. Если по ходу вылезает ещё — звоним и ждём вашего «да»,
-              а не ставим в счёт по факту.</p></li>
-          <li class="get"><h3>Фотографии до и после</h3>
-            <p>Присылаем в мессенджер: что было на снятой детали и что стало. Смотреть в яму самому не нужно.</p></li>
-          <li class="get"><h3>Старые детали</h3>
-            <p>Кладём в багажник, если не попросили выбросить. Это самая честная проверка сервиса.</p></li>
-          <li class="get"><h3>Срок по календарю</h3>
-            <p>Не «к вечеру», а дата и время, когда машина готова. Если не успеваем — звоним до срока, а не после.</p></li>
+          <li class="get"><span class="get__i">01</span><h3>Заказ-наряд до начала</h3>
+            <p>Работы, часы и сумма. Вылезло ещё — звоним и ждём вашего «да».</p></li>
+          <li class="get"><span class="get__i">02</span><h3>Фотографии до и после</h3>
+            <p>Присылаем в мессенджер: что было на снятой детали и что стало.</p></li>
+          <li class="get"><span class="get__i">03</span><h3>Старые детали в багажник</h3>
+            <p>Кладём, если не просили выбросить. Простая проверка сервиса.</p></li>
+          <li class="get"><span class="get__i">04</span><h3>Срок по календарю</h3>
+            <p>Дата и час готовности. Не успеваем — звоним до срока, не после.</p></li>
         </ul>
       </div>
     </div>
   </section>
 
   <!-- ============ 4. чем работаем ============ -->
-  <section class="sec" id="kit" aria-labelledby="h-k">
+  <section class="sec reveal" id="kit" aria-labelledby="h-k">
     <div class="sec__in">
       <p class="sec__no">04 / бокс</p>
       <div class="kit">
@@ -500,7 +559,7 @@ fieldset.f{border:0;padding:0;margin:0}
           <ul style="margin-top:20px">
             <li>Два подъёмника: ножничный и двухстоечный, до четырёх тонн</li>
             <li>3D-стенд развал-схождения</li>
-            <li>Сканер по основным маркам: читаем живые данные, а не только коды ошибок</li>
+            <li>Сканер по основным маркам: читаем живые данные, не только коды ошибок</li>
             <li>Балансировочный станок с автоматическим замером биения</li>
             <li>Отдельный бокс для детейлинга со светом по кругу</li>
           </ul>
@@ -509,21 +568,21 @@ fieldset.f{border:0;padding:0;margin:0}
           <div class="shots">
             <div class="shot shot--a"><img src="https://images.unsplash.com/photo-1652852592938-15bf8c50ab6d?auto=format&fit=crop&w=1200&q=72" alt="Машина поднята на ножничном подъёмнике в боксе" width="1200" height="800" loading="lazy" decoding="async"></div>
             <div class="shot shot--b"><img src="https://images.unsplash.com/photo-1761934657948-708146148588?auto=format&fit=crop&w=1200&q=72" alt="Микрофибра на капоте после полировки" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="shot shot--b"><img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=1200&q=72" alt="Стенка с ключами и инструментом в боксе" width="1200" height="800" loading="lazy" decoding="async"></div>
+            <div class="shot shot--b"><img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1200&q=72" alt="Механик заливает масло в двигатель" width="1200" height="800" loading="lazy" decoding="async"></div>
           </div>
-          <figcaption>Кадры из фотобанка, подобраны под концепт и приведены к цвету сайта.
-            На сайте вашего сервиса здесь будет своя съёмка бокса.</figcaption>
         </figure>
       </div>
     </div>
   </section>
 
   <!-- ============ 5. запись ============ -->
-  <section class="sec" id="zapis" aria-labelledby="h-z">
+  <section class="sec reveal" id="zapis" aria-labelledby="h-z">
     <div class="sec__in">
       <p class="sec__no">05 / запись</p>
       <div class="book">
         <div>
-          <h2 id="h-z">Записаться</h2>
+          <h2 id="h-z">Пригоняйте</h2>
           <form class="form" id="form" action="#zapis" method="post" novalidate style="margin-top:22px">
             <div class="f f--half">
               <label for="f-name">Имя</label>
@@ -558,15 +617,12 @@ fieldset.f{border:0;padding:0;margin:0}
               <button class="btn" type="submit" id="send" disabled>Отправить заявку</button>
               <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
             </div>
-            <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
-              Сайт для своего сервиса: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
+
           </form>
 
           <div class="done" id="done" role="status" tabindex="-1" hidden>
-            <p class="done__b">Это демо-сайт.</p>
-            <p>Заявка никуда не ушла — форма показывает, как это будет выглядеть у вас.</p>
-            <p>Хотите такой же сайт для своего сервиса?
-              <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+            <p class="done__b">Заявка принята.</p>
+            <p>Мастер перезвонит в течение часа и скажет, когда подъехать.</p>
             <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к форме</button></p>
           </div>
         </div>
@@ -591,16 +647,12 @@ fieldset.f{border:0;padding:0;margin:0}
       <p class="note" style="margin-top:8px">Автосервис и детейлинг.<br>Аэропортовое шоссе, Батуми · пн–сб 9:00–19:00</p>
     </div>
     <div>
-      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
-        Бизнес вымышленный, цены — ориентир по рынку Батуми.
-        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своего сервиса: t.me/open_sites</a></p>
-      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
     </div>
   </div>
 </footer>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"AutoRepair","name":"Суппорт","description":"Автосервис и детейлинг в Батуми. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/support/","image":"https://fr33roman.github.io/support/og.jpg","priceRange":"25–900 GEL","address":{"@type":"PostalAddress","streetAddress":"Аэропортовое шоссе","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":"Mo-Sa 09:00-19:00","availableLanguage":["ka","ru","en"]}
+{"@context":"https://schema.org","@type":"AutoRepair","name":"Суппорт","description":"Автосервис и детейлинг в Батуми: обслуживание, диагностика, полировка и керамика.","url":"https://fr33roman.github.io/support/","image":"https://fr33roman.github.io/support/og.jpg","priceRange":"25–900 GEL","address":{"@type":"PostalAddress","streetAddress":"Аэропортовое шоссе","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":"Mo-Sa 09:00-19:00","availableLanguage":["ka","ru","en"]}
 </script>
 
 <script>
@@ -681,6 +733,20 @@ fieldset.f{border:0;padding:0;margin:0}
     setTimeout(function () { var f = document.getElementById('f-name'); if (f) f.focus(); }, reduce ? 0 : 420);
   });
 
+  /* ---- появление блоков при прокрутке ---- */
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    revs.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    revs.forEach(function (el) { io.observe(el); });
+    setTimeout(function () { revs.forEach(function (el) { el.classList.add('in'); }); }, 1500);
+  }
+
   /* ---- форма ---- */
   var form = document.getElementById('form');
   var agree = document.getElementById('f-agree');
@@ -690,7 +756,7 @@ fieldset.f{border:0;padding:0;margin:0}
 
   function sync() {
     send.disabled = !agree.checked;
-    hint.textContent = agree.checked ? 'Это демо-сайт: заявка никуда не уйдёт.'
+    hint.textContent = agree.checked ? 'Перезвоним в течение часа.'
                                      : 'Кнопка заработает, когда отметите согласие.';
   }
   agree.addEventListener('change', sync);
@@ -706,8 +772,7 @@ fieldset.f{border:0;padding:0;margin:0}
   });
   document.getElementById('policy').addEventListener('click', function (e) {
     e.preventDefault();
-    alert('Это демонстрационный сайт. На настоящем сайте сервиса здесь открывается страница ' +
-          'с политикой обработки персональных данных — её текст даёт сам владелец.');
+    alert('Политика обработки персональных данных откроется отдельной страницей.');
   });
 })();
 </script>

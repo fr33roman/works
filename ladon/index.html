@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ладонь — массаж в Батуми (демо open-sites.io)</title>
+<meta name="description" content="Демо-сайт студии open-sites.io: студия массажа «Ладонь» на улице Ангиса в Батуми. Выбираете длительность и программу — видите раскладку сеанса по минутам. Бизнес вымышленный.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#3C332C">
+<link rel="canonical" href="https://fr33roman.github.io/ladon/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="open-sites.io">
+<meta property="og:title" content="Ладонь — массаж в Батуми">
+<meta property="og:description" content="Час — это сорок минут спины и десять шеи. Выберите длительность и программу: покажем, из чего сложится сеанс, минута за минутой.">
+<meta property="og:url" content="https://fr33roman.github.io/ladon/">
+<meta property="og:image" content="https://fr33roman.github.io/ladon/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%233C332C'/%3E%3Cpath d='M11 26v-9m0-2V9a1.6 1.6 0 0 1 3.2 0v5m0 0V7a1.6 1.6 0 0 1 3.2 0v7m0 0V9a1.6 1.6 0 0 1 3.2 0v8c0 5-2.4 9-6 9h-1' fill='none' stroke='%23D79B6E' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+<script>document.documentElement.className += ' js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<style>
+/* ============ токены (см. DESIGN.md) ============ */
+:root{
+  --cocoa:#3C332C;    /* какао — средний тон, а не почти-чёрный */
+  --cocoa-d:#2E2721;  /* линейка минут, подвал */
+  --cocoa-l:#4A4038;  /* сегменты, поля формы */
+  --light:#EDE4DA;    /* текст, 9,8:1 */
+  --dust:#B4A596;     /* подписи, 5,1:1 */
+  --clay:#D79B6E;     /* единственный акцент, 5,2:1 */
+  --line:rgba(237,228,218,.2);
+  --serif:"Alegreya",Georgia,serif;
+  --sans:"Alegreya Sans","Segoe UI",system-ui,sans-serif;
+  --gut:40px;
+  --sec:84px;
+}
+@media (max-width:1000px){:root{--gut:24px}}
+@media (max-width:700px){:root{--gut:16px}}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--cocoa);color:var(--light);
+  font:400 18px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{list-style:none;padding:0}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.nw{white-space:nowrap}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--clay);outline-offset:3px}
+[id]{scroll-margin-top:78px}
+.skip{position:absolute;left:12px;top:-80px;background:var(--light);color:var(--cocoa);padding:12px 18px;border-radius:2px;z-index:60}
+.skip:focus{top:12px}
+
+/* ============ кнопки ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;
+  border:1px solid var(--light);border-radius:2px;background:var(--light);color:var(--cocoa);
+  font-weight:700;font-size:17px;text-decoration:none;cursor:pointer;transition:background .18s,color .18s}
+.btn:hover{background:transparent;color:var(--light)}
+.btn:disabled{background:transparent;border-color:var(--line);color:var(--dust);cursor:not-allowed}
+.btn--line{background:transparent;color:var(--light)}
+.btn--line:hover{background:var(--light);color:var(--cocoa)}
+.link{color:var(--clay);text-underline-offset:4px}
+
+/* ============ закреплённая строка ============ */
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
+  padding:10px var(--gut);background:rgba(60,51,44,.95);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(8px)}
+.mark{font-family:var(--serif);font-weight:500;font-size:21px;letter-spacing:.06em;text-decoration:none}
+.nav{display:none;gap:22px;margin-left:auto;font-size:16px;color:var(--dust)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--light)}
+.top .btn{margin-left:auto;min-height:44px;padding:0 18px;font-size:16px}
+@media (min-width:1040px){.nav{display:flex}.top .btn{margin-left:0}}
+
+/* ============ колонка ============ */
+.col{max-width:1080px;margin:0 auto;padding:0 var(--gut)}
+.sec{border-top:1px solid var(--line);padding:clamp(40px,5.5vw,var(--sec)) 0}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(25px,3.2vw,42px);line-height:1.12}
+h3{font-family:var(--sans);font-weight:700;font-size:18px;line-height:1.35}
+.note{color:var(--dust);font-size:16px;line-height:1.6;max-width:68ch}
+.lbl{font-weight:500;font-size:13px;color:var(--dust)}
+
+/* ============ 1. герой ============ */
+.hero{padding:clamp(30px,4.5vw,64px) 0 0}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.8vw,70px);line-height:1.06;max-width:15ch}
+.hero p{margin-top:20px;font-size:clamp(17px,1.4vw,20px);line-height:1.55;max-width:60ch;color:var(--dust)}
+
+/* выбор */
+.pick{margin-top:clamp(26px,3vw,40px)}
+.pick fieldset{border:0;padding:0;margin:0}
+.pick legend{padding:0;margin-bottom:10px}
+.mins{display:flex;flex-wrap:wrap;gap:8px}
+.min{flex:none;min-height:52px;padding:0 20px;border:1px solid var(--line);border-radius:2px;
+  background:transparent;color:var(--light);font-family:var(--serif);font-weight:500;font-size:19px;
+  font-variant-numeric:tabular-nums;cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+.min:hover:not(:disabled){border-color:var(--light)}
+.min:disabled{color:var(--dust);opacity:.45;cursor:not-allowed}
+.min[aria-pressed="true"]{background:var(--clay);border-color:var(--clay);color:var(--cocoa)}
+.progs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.prog{flex:none;min-height:52px;padding:0 18px;border:1px solid var(--line);border-radius:2px;
+  background:transparent;color:var(--dust);font-size:17px;cursor:pointer;
+  transition:border-color .18s,color .18s}
+.prog:hover{color:var(--light);border-color:var(--light)}
+.prog[aria-pressed="true"]{color:var(--cocoa);background:var(--light);border-color:var(--light);font-weight:700}
+.pickNote{margin-top:14px;color:var(--dust);font-size:15px;line-height:1.55;max-width:68ch}
+
+/* ============ линейка минут ============ */
+.ruler{display:grid;grid-template-columns:72px minmax(0,1fr);gap:0;margin-top:clamp(26px,3vw,40px);
+  background:var(--cocoa-d);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+@media (max-width:640px){.ruler{grid-template-columns:54px minmax(0,1fr)}}
+.ruler__t{display:flex;flex-direction:column;padding:14px 10px;border-right:1px solid var(--line);
+  background:rgba(0,0,0,.12)}
+.ruler__t span{display:block;font-family:var(--serif);font-weight:500;font-size:15px;color:var(--clay);
+  font-variant-numeric:tabular-nums}
+.ruler__b{padding:0}
+.seg{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:14px 18px;
+  border-bottom:1px solid var(--line);align-items:baseline}
+.seg:last-child{border-bottom:0}
+.seg__m{font-family:var(--serif);font-weight:500;font-size:19px;color:var(--clay);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.seg__n{font-weight:700;font-size:18px;line-height:1.3}
+.seg__d{grid-column:2;color:var(--dust);font-size:16px;line-height:1.5}
+@media (max-width:640px){.seg{grid-template-columns:1fr;padding:13px 14px}.seg__d{grid-column:1}}
+.bar{display:grid;height:100%}
+.bar i{display:block;background:var(--clay);opacity:.3;border-bottom:1px solid var(--cocoa-d)}
+.bar i:nth-child(odd){opacity:.55}
+.bar i:last-child{border-bottom:0}
+.ruler__sum{padding:14px 18px;border-top:1px solid var(--light);display:flex;flex-wrap:wrap;
+  justify-content:space-between;gap:10px;align-items:baseline}
+.ruler__sum b{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.4vw,30px);
+  font-variant-numeric:tabular-nums}
+.ruler__sum .btn{min-height:44px;font-size:16px}
+.fade{transition:opacity .18s ease}
+.fade.is-out{opacity:0}
+@media (prefers-reduced-motion:reduce){.fade,.min,.prog{transition:none}}
+
+/* без JS линейки нет, но программы читаются списком */
+.plain-progs{margin-top:26px;border-top:1px solid var(--light)}
+.js .plain-progs{display:none}
+.plain-progs li{padding:16px 0;border-bottom:1px solid var(--line)}
+.plain-progs p{margin-top:5px;color:var(--dust);font-size:16px;line-height:1.55}
+
+/* ============ фото ============ */
+.shots{display:grid;grid-template-columns:1fr;gap:12px;margin-top:26px}
+@media (min-width:760px){.shots{grid-template-columns:1.4fr 1fr 1fr}}
+.shots img{width:100%;height:clamp(180px,22vw,280px);object-fit:cover;background:var(--cocoa-l);
+  filter:saturate(.92) brightness(.98)}
+figcaption{margin-top:10px;color:var(--dust);font-size:14px;line-height:1.5}
+
+/* ============ списки ============ */
+.rows{border-top:1px solid var(--light);margin-top:24px}
+.r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;padding:14px 0;
+  border-bottom:1px solid var(--line);align-items:baseline}
+.r span:last-child{font-family:var(--serif);font-weight:500;font-size:20px;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.know{border-top:1px solid var(--light);margin-top:24px}
+.know li{padding:18px 0;border-bottom:1px solid var(--line)}
+.know p{margin-top:5px;color:var(--dust);font-size:16px;line-height:1.55}
+.masters{border-top:1px solid var(--light);margin-top:24px}
+.ms{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;padding:16px 0;
+  border-bottom:1px solid var(--line);align-items:baseline}
+.ms__n{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.4vw,30px);line-height:1.1}
+.ms__d{color:var(--dust);font-size:15px;white-space:nowrap}
+.ms__s{grid-column:1/-1;color:var(--dust);font-size:16px}
+@media (min-width:760px){.ms{grid-template-columns:220px minmax(0,1fr) auto}.ms__s{grid-column:2/3}}
+.cab{border-top:1px solid var(--light);margin-top:24px}
+.cab li{padding:14px 0;border-bottom:1px solid var(--line);font-size:17px;line-height:1.55}
+
+/* ============ форма ============ */
+.book{display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px}
+@media (min-width:1000px){.book{grid-template-columns:minmax(0,1fr) 280px;gap:44px}}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.f{display:flex;flex-direction:column;gap:7px;grid-column:span 2}
+@media (min-width:600px){.f--half{grid-column:span 1}}
+.f label,.f legend{font-size:15px;color:var(--dust)}
+.inp{width:100%;min-height:50px;padding:12px 14px;background:var(--cocoa-l);border:1px solid var(--dust);
+  border-radius:2px;font-size:17px;color:var(--light)}
+.inp::placeholder{color:rgba(180,165,150,.7)}
+.inp:focus-visible{border-color:var(--light)}
+fieldset.f{border:0;padding:0;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--dust);
+  border-radius:2px;font-size:16px;cursor:pointer}
+.chip input:checked + span{background:var(--light);border-color:var(--light);color:var(--cocoa);font-weight:700}
+.chip input:focus-visible + span{outline:2px solid var(--clay);outline-offset:2px}
+.consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:12px}
+.consent input{flex:none;width:24px;height:24px;margin:12px 0 0;accent-color:var(--clay);cursor:pointer}
+.consent label{padding:10px 0;font-size:16px;line-height:1.5;cursor:pointer}
+.send{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.send__hint{color:var(--dust);font-size:15px}
+.done{background:var(--cocoa-l);border:1px solid var(--line);border-radius:2px;padding:28px}
+.done__b{font-family:var(--serif);font-size:clamp(24px,3vw,34px);line-height:1.15}
+.done p+p{margin-top:12px}
+.noscript{grid-column:1/-1;color:var(--dust);font-size:16px}
+.side dl{border-top:1px solid var(--light)}
+.side div{padding:12px 0;border-bottom:1px solid var(--line)}
+.side dt{color:var(--dust);font-size:14px}
+.side dd{margin-top:3px;font-size:17px;line-height:1.4}
+
+/* ============ подвал ============ */
+.foot{border-top:1px solid var(--line);background:var(--cocoa-d)}
+.foot__in{max-width:1080px;margin:0 auto;padding:clamp(32px,4vw,52px) var(--gut);
+  display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:900px){.foot__in{grid-template-columns:250px minmax(0,1fr);gap:40px}}
+.plate{border:1px solid var(--line);border-radius:2px;padding:16px 18px;font-size:16px;line-height:1.55}
+.credits{color:var(--dust);font-size:14px}
+</style>
+</head>
+<body>
+<a class="skip" href="#minuty">К раскладке минут</a>
+
+<header class="top">
+  <a class="mark" href="#top">ЛАДОНЬ</a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#minuty">Минуты</a>
+    <a href="#tseny">Цены</a>
+    <a href="#znat">Правила</a>
+    <a href="#mastera">Мастера</a>
+    <a href="#zapis">Контакты</a>
+  </nav>
+  <a class="btn" href="#zapis">Записаться</a>
+</header>
+
+<main id="top">
+  <!-- ============ 1. герой и раскладка ============ -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="col">
+      <h1 id="h1">Час — это сорок минут спины и десять шеи</h1>
+      <p>Массаж продают словом «расслабление». Мы показываем минуты: выберите длительность
+        и программу — увидите, из чего сложится сеанс. Никакого «комплексного воздействия»:
+        просто время и то, что в нём помещается.</p>
+
+      <div class="pick" id="minuty">
+        <h2 class="sr">Раскладка сеанса по минутам</h2>
+        <fieldset>
+          <legend class="lbl">Сколько у вас времени</legend>
+          <div class="mins" id="mins"></div>
+        </fieldset>
+        <fieldset style="margin-top:22px">
+          <legend class="lbl">Программа</legend>
+          <div class="progs" id="progs"></div>
+        </fieldset>
+        <p class="pickNote" id="pickNote"></p>
+      </div>
+
+      <div class="ruler fade" id="ruler" aria-live="polite"></div>
+
+      <!-- версия без JavaScript -->
+      <ul class="plain-progs">
+        <li><h3>Спина и шея — 30, 60 или 90 минут</h3>
+          <p>Самая частая программа: сидячая работа, ноет между лопаток. Больше всего времени уходит
+            на глубокую работу по спине, затем шея и плечи.</p></li>
+        <li><h3>Всё тело — 60, 90 или 120 минут</h3>
+          <p>Когда устало всё сразу: спина, ноги, руки, шея и голова по очереди.</p></li>
+        <li><h3>Ноги и стопы — 30 или 60 минут</h3>
+          <p>После дня на ногах или долгого перелёта: голени, стопы, икры, дренажная растяжка.</p></li>
+        <li><h3>После тренировки — 60 или 90 минут</h3>
+          <p>На второй день после нагрузки: триггерные точки и растяжка.</p></li>
+        <li><h3>Голова, лицо и шея — 30 или 60 минут</h3>
+          <p>При головной боли от напряжения и от экрана: шея, трапеция, лицо, кожа головы.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2. цены ============ -->
+  <section class="sec" id="tseny" aria-labelledby="h-t">
+    <div class="col">
+      <h2 id="h-t">Цены</h2>
+      <ul class="rows">
+        <li class="r"><span>30 минут</span><span>60 лари</span></li>
+        <li class="r"><span>60 минут</span><span>100 лари</span></li>
+        <li class="r"><span>90 минут</span><span>140 лари</span></li>
+        <li class="r"><span>120 минут</span><span>180 лари</span></li>
+        <li class="r"><span>Абонемент на пять сеансов, срок три месяца</span><span>минус 10%</span></li>
+        <li class="r"><span>Выезд на дом, в пределах Батуми</span><span>плюс 40 лари</span></li>
+      </ul>
+      <p class="note" style="margin-top:20px">Курс из десяти сеансов на первом визите мы не предлагаем.
+        Сначала один — посмотрим, как тело отвечает.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3. правила ============ -->
+  <section class="sec" id="znat" aria-labelledby="h-z">
+    <div class="col">
+      <h2 id="h-z">Что нужно знать</h2>
+      <ul class="know">
+        <li><h3>Разговаривать не обязательно</h3>
+          <p>Скажите об этом в начале — будем молчать весь сеанс. Это нормальная просьба,
+            её просят чаще, чем кажется.</p></li>
+        <li><h3>Массаж не лечит грыжу и не заменяет врача</h3>
+          <p>Если болит резко, стреляет или отдаёт в ногу — сначала к врачу. Мы подождём
+            и никуда не денемся.</p></li>
+        <li><h3>Масло по умолчанию без запаха</h3>
+          <p>Ароматическое — только если сами попросите.</p></li>
+        <li><h3>Скажите про синяки и давление</h3>
+          <p>Низкое давление и «вчера потянул» меняют то, как мы работаем.</p></li>
+        <li><h3>Не приходите сразу после еды</h3>
+          <p>Час — нормальный перерыв.</p></li>
+        <li><h3>После сеанса не бегите</h3>
+          <p>Пятнадцать минут тишины и стакан воды дают половину эффекта.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4. мастера ============ -->
+  <section class="sec" id="mastera" aria-labelledby="h-m">
+    <div class="col">
+      <h2 id="h-m">Кто работает</h2>
+      <ul class="masters">
+        <li class="ms"><span class="ms__n">Тея</span><span class="ms__s">спина и шея, после тренировки</span><span class="ms__d">пн, вт, чт, сб</span></li>
+        <li class="ms"><span class="ms__n">Заур</span><span class="ms__s">всё тело, спортивный</span><span class="ms__d">вт, ср, пт, сб</span></li>
+        <li class="ms"><span class="ms__n">Анна</span><span class="ms__s">голова и лицо, ноги и стопы</span><span class="ms__d">пн, ср, пт, вс</span></li>
+      </ul>
+      <p class="note" style="margin-top:18px">На сайте вашей студии здесь будут фотографии мастеров
+        и их образование. В демо мы не подставляем чужие лица.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5. кабинет ============ -->
+  <section class="sec" id="kabinet" aria-labelledby="h-k">
+    <div class="col">
+      <h2 id="h-k">Кабинет</h2>
+      <ul class="cab">
+        <li>Один кабинет и один сеанс за раз: в коридоре никто не ждёт.</li>
+        <li>Своя душевая, полотенце и халат дают на месте.</li>
+        <li>Бельё одноразовое, стол дезинфицируется после каждого сеанса.</li>
+        <li>Двадцать четыре градуса, окно закрыто, сквозняка нет.</li>
+        <li>Музыка тихая или её нет — по вашему выбору.</li>
+      </ul>
+      <figure>
+        <div class="shots">
+          <img src="https://images.unsplash.com/photo-1617016560766-cf9676c279fe?auto=format&fit=crop&w=1300&q=76" alt="Льняная ткань на деревянной скамье" width="1300" height="867" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1705290304455-35ffb433f560?auto=format&fit=crop&w=900&q=76" alt="Складки льняной ткани" width="900" height="600" loading="lazy" decoding="async">
+          <img src="https://images.unsplash.com/photo-1603741277347-4cd1bde5844a?auto=format&fit=crop&w=900&q=76" alt="Ткань на деревянном табурете" width="900" height="600" loading="lazy" decoding="async">
+        </div>
+        <figcaption>Кадры из фотобанка, подобраны под концепт; людей в кадре нет намеренно.
+          На сайте вашей студии здесь будет своя съёмка кабинета.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 6. запись ============ -->
+  <section class="sec" id="zapis" aria-labelledby="h-b">
+    <div class="col">
+      <div class="book">
+        <div>
+          <h2 id="h-b">Записаться</h2>
+          <form class="form" id="form" action="#zapis" method="post" novalidate style="margin-top:22px">
+            <div class="f f--half">
+              <label for="f-name">Имя</label>
+              <input class="inp" id="f-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="f f--half">
+              <label for="f-phone">Телефон</label>
+              <input class="inp" id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+995 555 00 00 00" required>
+            </div>
+            <div class="f">
+              <label for="f-seans">Сеанс</label>
+              <input class="inp" id="f-seans" name="seans" type="text" placeholder="Заполнится из раскладки">
+            </div>
+            <fieldset class="f">
+              <legend>Когда удобно</legend>
+              <div class="chips">
+                <label class="chip"><input type="radio" name="when" value="morning"><span>Утром</span></label>
+                <label class="chip"><input type="radio" name="when" value="day"><span>Днём</span></label>
+                <label class="chip"><input type="radio" name="when" value="evening"><span>Вечером</span></label>
+                <label class="chip"><input type="radio" name="when" value="any"><span>Любое</span></label>
+              </div>
+            </fieldset>
+            <div class="f">
+              <label for="f-note">Что стоит знать</label>
+              <input class="inp" id="f-note" name="note" type="text" placeholder="Травмы, давление, беременность, «молчим весь сеанс»">
+            </div>
+            <div class="consent">
+              <input type="checkbox" id="f-agree" name="agree" aria-describedby="send-hint">
+              <label for="f-agree">Соглашаюсь с <a class="link" href="#zapis" id="policy">политикой обработки персональных данных</a></label>
+            </div>
+            <div class="send">
+              <button class="btn" type="submit" id="send" disabled>Отправить заявку</button>
+              <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
+            </div>
+            <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
+              Сайт для своей студии: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
+          </form>
+
+          <div class="done" id="done" role="status" tabindex="-1" hidden>
+            <p class="done__b">Это демо-сайт.</p>
+            <p>Заявка никуда не ушла — форма показывает, как это будет выглядеть у вас.</p>
+            <p>Хотите такой же сайт для своей студии?
+              <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+            <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к форме</button></p>
+          </div>
+        </div>
+
+        <div class="side">
+          <dl>
+            <div><dt>Адрес</dt><dd>Улица Ангиса, Батуми</dd></div>
+            <div><dt>Часы</dt><dd>Пн–сб 10:00–21:00, вс по договорённости</dd></div>
+            <div><dt>Кабинет</dt><dd>Один сеанс за раз</dd></div>
+            <div><dt>Оплата</dt><dd>Картой или наличными</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <div>
+      <span class="mark">ЛАДОНЬ</span>
+      <p class="note" style="margin-top:8px">Студия массажа.<br>Улица Ангиса, Батуми · пн–сб 10:00–21:00</p>
+    </div>
+    <div>
+      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
+        Бизнес вымышленный, цены — ориентир по рынку Батуми.
+        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своей студии: t.me/open_sites</a></p>
+      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HealthAndBeautyBusiness","name":"Ладонь","description":"Студия массажа в Батуми. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/ladon/","image":"https://fr33roman.github.io/ladon/og.jpg","priceRange":"60–180 GEL","address":{"@type":"PostalAddress","streetAddress":"улица Ангиса","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":"Mo-Sa 10:00-21:00"}
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var MINS = [30, 60, 90, 120];
+  var PRICE = { 30: 60, 60: 100, 90: 140, 120: 180 };
+  /* Доли сегментов в сумме дают 100%. Минуты считаются от выбранной длительности,
+     поэтому видно: в 30 минутах спине достаётся 12, а в 90 — 38. */
+  var PROG = [
+    { id:'spina', n:'Спина и шея', mins:[30,60,90],
+      note:'Самая частая программа: сидячая работа, ноет между лопаток.',
+      seg:[[8,'Разговор и осмотр','Спрашиваем, где болит, чего нельзя и нужно ли молчать весь сеанс.'],
+           [17,'Разогрев спины','Медленно и без давления: холодные мышцы не разминают.'],
+           [42,'Глубокая работа по спине','То, ради чего пришли. Здесь бывает терпимо больно — говорите.'],
+           [20,'Шея и плечи','Трапеция и основание черепа, откуда чаще всего идёт головная боль.'],
+           [8,'Растяжка и завершение','Мягко, чтобы мышца не «схватилась» обратно.'],
+           [5,'Тишина','Лежите. Вставать сразу — потерять половину сделанного.']] },
+    { id:'telo', n:'Всё тело', mins:[60,90,120],
+      note:'Когда устало всё сразу. За тридцать минут такую программу сделать нельзя.',
+      seg:[[6,'Разговор','Коротко: что болит, где не трогать.'],
+           [26,'Спина','Основное время всё равно здесь.'],
+           [16,'Ноги сзади','Икры и задняя поверхность бедра.'],
+           [12,'Руки и кисти','Кисти — отдельная история у всех, кто за клавиатурой.'],
+           [14,'Ноги спереди и живот','Живот — только по согласию, спрашиваем отдельно.'],
+           [18,'Шея, плечи, голова','Заканчиваем сверху: так легче встать.'],
+           [8,'Тишина','Без разговоров и без телефона.']] },
+    { id:'nogi', n:'Ноги и стопы', mins:[30,60],
+      note:'После дня на ногах или долгого перелёта.',
+      seg:[[8,'Разговор','Спрашиваем про отёки, варикоз и травмы.'],
+           [20,'Разогрев голеней','Снизу вверх, по ходу тока крови.'],
+           [34,'Стопы','Подошвенная фасция и свод. Самая неожиданно приятная часть.'],
+           [26,'Икры и бёдра','Плотно, с растяжкой.'],
+           [12,'Дренажная растяжка','Ноги в приподнятом положении, медленные движения.']] },
+    { id:'sport', n:'После тренировки', mins:[60,90],
+      note:'Лучше на второй день после нагрузки, а не сразу после зала.',
+      seg:[[8,'Разговор о нагрузке','Что делали, где тянет, есть ли соревнование на неделе.'],
+           [14,'Разогрев','Быстрее и жёстче, чем в обычном массаже.'],
+           [36,'Триггерные точки','Точечно, по 30–60 секунд на точку. Это ощутимо.'],
+           [26,'Растяжка','Пассивная, с вашим дыханием.'],
+           [16,'Холод и завершение','Холодный компресс на перегруженное место.']] },
+    { id:'golova', n:'Голова, лицо и шея', mins:[30,60],
+      note:'При головной боли от напряжения и от экрана.',
+      seg:[[10,'Разговор','Когда началась боль, как часто, что уже пробовали.'],
+           [30,'Шея и трапеция','Чаще всего боль идёт отсюда, а не из головы.'],
+           [30,'Лицо','Жевательные мышцы и виски — у тех, кто сжимает зубы.'],
+           [22,'Кожа головы','Медленно, пальцами, без масла.'],
+           [8,'Тишина','С закрытыми глазами, свет приглушаем.']] }
+  ];
+
+  var minsBox = document.getElementById('mins');
+  var progsBox = document.getElementById('progs');
+  var ruler = document.getElementById('ruler');
+  var pickNote = document.getElementById('pickNote');
+  var field = document.getElementById('f-seans');
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var curMin = 60, curProg = PROG[0], first = true;
+
+  function plural(n, a, b, c) {
+    var n10 = n % 10, n100 = n % 100;
+    if (n10 === 1 && n100 !== 11) return a;
+    if (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) return b;
+    return c;
+  }
+  function hm(m) {
+    if (m < 60) return m + ' ' + plural(m, 'минута', 'минуты', 'минут');
+    var h = Math.floor(m / 60), r = m % 60;
+    return h + ' ' + plural(h, 'час', 'часа', 'часов') + (r ? ' ' + r + ' ' + plural(r, 'минута', 'минуты', 'минут') : '');
+  }
+
+  MINS.forEach(function (m) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'min';
+    b.setAttribute('data-m', m);
+    b.textContent = m + ' мин';
+    b.setAttribute('aria-label', hm(m));
+    b.addEventListener('click', function () { if (!b.disabled) { curMin = m; draw(); } });
+    minsBox.appendChild(b);
+  });
+  PROG.forEach(function (p) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'prog';
+    b.setAttribute('data-p', p.id);
+    b.textContent = p.n;
+    b.addEventListener('click', function () {
+      curProg = p;
+      // если текущая длительность программе не подходит — берём ближайшую доступную
+      if (p.mins.indexOf(curMin) < 0) curMin = p.mins[0];
+      draw();
+    });
+    progsBox.appendChild(b);
+  });
+
+  function build() {
+    var total = curMin, used = 0, rows = '', bars = '';
+    curProg.seg.forEach(function (s, i) {
+      var m = (i === curProg.seg.length - 1) ? total - used : Math.round(total * s[0] / 100);
+      used += m;
+      var from = used - m;
+      rows += '<div class="seg"><span class="seg__m">' + from + '–' + used + '</span>' +
+        '<span class="seg__n">' + s[1] + '</span>' +
+        '<span class="seg__d">' + s[2] + ' · ' + m + ' ' + plural(m, 'минута', 'минуты', 'минут') + '</span></div>';
+      bars += '<i style="flex:' + m + '"></i>';
+    });
+    return '<div class="ruler__t"><span>0 мин</span>' +
+      '<div class="bar" style="display:flex;flex-direction:column;flex:1;margin:8px 0">' + bars + '</div>' +
+      '<span>' + total + ' мин</span></div>' +
+      '<div class="ruler__b">' + rows +
+      '<div class="ruler__sum"><b>' + hm(total) + ' · ' + PRICE[total] + ' лари</b>' +
+      '<a class="btn" href="#zapis" data-go="1">Записаться на этот сеанс</a></div></div>';
+  }
+
+  function draw() {
+    [].forEach.call(minsBox.children, function (b) {
+      var m = +b.getAttribute('data-m');
+      var ok = curProg.mins.indexOf(m) >= 0;
+      b.disabled = !ok;
+      b.setAttribute('aria-pressed', (ok && m === curMin) ? 'true' : 'false');
+    });
+    [].forEach.call(progsBox.children, function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-p') === curProg.id ? 'true' : 'false');
+    });
+    var closed = MINS.filter(function (m) { return curProg.mins.indexOf(m) < 0; });
+    pickNote.textContent = curProg.note + (closed.length
+      ? ' Варианты ' + closed.join(', ') + ' минут для неё закрыты: в такое время эту программу' +
+        ' не уложить честно.'
+      : '');
+
+    var html = build();
+    // первая отрисовка — без затухания: иначе страница открывается с полупрозрачной линейкой
+    if (reduce || first) { first = false; ruler.innerHTML = html; after();
+      if (field) field.value = curProg.n + ', ' + hm(curMin) + ', ' + PRICE[curMin] + ' лари';
+      return; }
+    ruler.classList.add('is-out');
+    setTimeout(function () { ruler.innerHTML = html; ruler.classList.remove('is-out'); after(); }, 180);
+
+    if (field) field.value = curProg.n + ', ' + hm(curMin) + ', ' + PRICE[curMin] + ' лари';
+  }
+
+  function after() {
+    var go = ruler.querySelector('[data-go]');
+    if (go) go.addEventListener('click', function () {
+      setTimeout(function () { document.getElementById('f-name').focus(); }, 420);
+    });
+  }
+
+  draw();
+
+  /* ---- форма ---- */
+  var form = document.getElementById('form');
+  var agree = document.getElementById('f-agree');
+  var send = document.getElementById('send');
+  var hint = document.getElementById('send-hint');
+  var done = document.getElementById('done');
+  function sync() {
+    send.disabled = !agree.checked;
+    hint.textContent = agree.checked ? 'Это демо-сайт: заявка никуда не уйдёт.'
+                                     : 'Кнопка заработает, когда отметите согласие.';
+  }
+  agree.addEventListener('change', sync);
+  sync();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!agree.checked) return;
+    form.hidden = true; done.hidden = false; done.focus();
+  });
+  document.getElementById('again').addEventListener('click', function () {
+    done.hidden = true; form.hidden = false; document.getElementById('f-name').focus();
+  });
+  document.getElementById('policy').addEventListener('click', function (e) {
+    e.preventDefault();
+    alert('Это демонстрационный сайт. На настоящем сайте студии здесь открывается страница ' +
+          'с политикой обработки персональных данных — её текст даёт сам владелец.');
+  });
+})();
+</script>
+</body>
+</html>

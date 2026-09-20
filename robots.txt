@@ -9,4 +9,8 @@ Disallow: /gong/
 Disallow: /opara/
 Disallow: /uroven/
 Disallow: /nachisto/
+Disallow: /kruzhok/
+Disallow: /ohapka/
+Disallow: /veranda/
+Disallow: /ladon/
 Sitemap: https://fr33roman.github.io/works/sitemap.xml

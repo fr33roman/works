@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Охапка — цветочная мастерская (демо open-sites.io)</title>
+<meta name="description" content="Демо-сайт студии open-sites.io: цветочная мастерская «Охапка». Выбираете месяц — меняется букет недели, его состав, цена и цвет страницы. Бизнес вымышленный.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#17352B">
+<link rel="canonical" href="https://fr33roman.github.io/ohapka/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="open-sites.io">
+<meta property="og:title" content="Охапка — цветочная мастерская">
+<meta property="og:description" content="Букет собирают из того, что сейчас растёт. Выберите месяц — покажем сезон, состав букета недели и цену.">
+<meta property="og:url" content="https://fr33roman.github.io/ohapka/">
+<meta property="og:image" content="https://fr33roman.github.io/ohapka/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317352B'/%3E%3Cpath d='M16 26V12' stroke='%23F2EFE7' stroke-width='2'/%3E%3Ccircle cx='16' cy='9' r='4.4' fill='%23F3A3B4'/%3E%3Cpath d='M16 18c-4 0-6-2-7-4 3-1 6 1 7 4zM16 18c4 0 6-2 7-4-3-1-6 1-7 4z' fill='%239BB3A6'/%3E%3C/svg%3E">
+<script>document.documentElement.className += ' js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* ============ токены (см. DESIGN.md) ============ */
+:root{
+  --fir:#17352B;     /* хвоя — заливка страницы */
+  --fir-d:#102620;   /* плашки и подвал */
+  --fir-l:#1F473A;   /* карточка букета, поля формы */
+  --milk:#F2EFE7;    /* текст, 12:1 */
+  --sage:#9BB3A6;    /* подписи, 5,7:1 */
+  --acc:#9FC4E8;     /* акцент месяца — меняется скриптом */
+  --line:rgba(242,239,231,.2);
+  --disp:"Forum",Georgia,serif;
+  --text:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --gut:40px;
+  --sec:84px;
+}
+@media (max-width:1000px){:root{--gut:24px}}
+@media (max-width:700px){:root{--gut:16px}}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--fir);color:var(--milk);
+  font:400 17px/1.6 var(--text);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{list-style:none;padding:0}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.nw{white-space:nowrap}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+[id]{scroll-margin-top:80px}
+.skip{position:absolute;left:12px;top:-80px;background:var(--milk);color:var(--fir);padding:12px 18px;z-index:60}
+.skip:focus{top:12px}
+
+/* ============ кнопки ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;
+  border:1px solid var(--milk);border-radius:4px;background:var(--milk);color:var(--fir);
+  font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;transition:background .18s,color .18s}
+.btn:hover{background:transparent;color:var(--milk)}
+.btn:disabled{background:transparent;border-color:var(--line);color:var(--sage);cursor:not-allowed}
+.btn--line{background:transparent;color:var(--milk)}
+.btn--line:hover{background:var(--milk);color:var(--fir)}
+.link{color:var(--acc);text-underline-offset:4px;transition:color .22s}
+
+/* ============ закреплённая строка ============ */
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
+  padding:10px var(--gut);background:rgba(23,53,43,.95);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(8px)}
+.mark{font-family:var(--disp);font-size:22px;letter-spacing:.06em;text-decoration:none}
+.nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--sage)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--milk)}
+.top .btn{margin-left:auto;min-height:44px;padding:0 18px;font-size:15px}
+@media (min-width:1060px){.nav{display:flex}.top .btn{margin-left:0}}
+
+/* ============ полки ============ */
+.shelf{max-width:1100px;margin:0 auto;padding:clamp(40px,5.5vw,var(--sec)) var(--gut)}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(30px,3.8vw,52px);line-height:1.08}
+h3{font-family:var(--text);font-weight:600;font-size:18px;line-height:1.35}
+.note{color:var(--sage);font-size:15px;line-height:1.6;max-width:74ch}
+.lbl{font-weight:500;font-size:13px;color:var(--sage)}
+
+/* ============ 1. герой ============ */
+.hero{max-width:1100px;margin:0 auto;padding:clamp(30px,4.5vw,64px) var(--gut) 0}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5.6vw,88px);line-height:1.04;
+  letter-spacing:.01em;max-width:17ch}
+.hero p{margin-top:20px;font-size:clamp(17px,1.4vw,20px);line-height:1.55;max-width:60ch;color:var(--sage)}
+
+/* лента месяцев */
+.months{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:clamp(26px,3vw,40px);
+  padding-bottom:4px}
+.months::-webkit-scrollbar{display:none}
+/* на широком экране все двенадцать месяцев видны сразу, лента с прокруткой — только на телефоне */
+@media (min-width:900px){.months{flex-wrap:wrap;overflow:visible}}
+.mo{flex:none;min-height:48px;padding:0 18px;border:1px solid var(--line);border-radius:4px;
+  background:transparent;color:var(--sage);font-size:15px;cursor:pointer;white-space:nowrap;
+  transition:border-color .2s,color .2s,background .2s}
+.mo:hover{color:var(--milk);border-color:var(--milk)}
+.mo[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--fir);font-weight:600}
+
+/* карточка букета */
+.week{display:grid;grid-template-columns:1fr;gap:20px;margin-top:22px}
+@media (min-width:900px){.week{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}}
+.card{background:var(--fir-l);border:1px solid var(--line);border-radius:4px;padding:clamp(20px,2.6vw,30px)}
+.card__m{display:inline-flex;align-items:center;height:26px;padding:0 12px;border-radius:999px;
+  background:var(--acc);color:var(--fir);font-weight:600;font-size:13px;transition:background .22s}
+.card__n{font-weight:600;font-size:clamp(22px,2.3vw,30px);line-height:1.2;margin-top:14px;letter-spacing:-.01em}
+.card__c{margin-top:10px;font-size:17px;line-height:1.55;color:var(--milk)}
+.card__meta{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.card__p{font-weight:600;font-size:clamp(26px,2.8vw,36px);color:var(--acc);line-height:1;transition:color .22s;font-variant-numeric:tabular-nums}
+.card__st{color:var(--sage);font-size:15px;align-self:flex-end}
+.card .btn{margin-top:20px}
+.season{background:var(--fir-d);border:1px solid var(--line);border-radius:4px;padding:clamp(20px,2.6vw,30px)}
+.season__note{margin-top:10px;color:var(--sage);font-size:15px;line-height:1.55}
+.season ul{margin-top:16px;border-top:1px solid var(--line)}
+.season li{padding:11px 0;border-bottom:1px solid var(--line);font-size:17px}
+.fade{transition:opacity .2s ease}
+.fade.is-out{opacity:0}
+@media (prefers-reduced-motion:reduce){.fade,.mo,.card__p,.card__m,.link{transition:none}}
+
+/* ============ фото во всю ширину ============ */
+.band{margin-top:clamp(40px,6vw,88px);position:relative}
+.band img{width:100%;height:clamp(240px,40vw,560px);object-fit:cover;background:var(--fir-d)}
+/* подкраска акцентом месяца: страница меняет цвет вместе с сезоном */
+.band::after{content:"";position:absolute;inset:0;background:var(--acc);mix-blend-mode:soft-light;
+  opacity:.45;pointer-events:none;transition:background .22s}
+.band figcaption{max-width:1100px;margin:10px auto 0;padding:0 var(--gut);color:var(--sage);font-size:13px}
+.band--plain::after{display:none}
+
+/* ============ прайс ============ */
+.rows{border-top:1px solid var(--milk);margin-top:24px}
+.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "d d";
+  column-gap:16px;row-gap:3px;padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.r__n{grid-area:n;font-size:17px;line-height:1.3}
+.r__d{grid-area:d;color:var(--sage);font-size:14px;line-height:1.4}
+.r__s{grid-area:s;font-weight:600;font-size:18px;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (min-width:700px){
+  .r{grid-template-columns:minmax(0,1fr) 320px 150px;grid-template-areas:"n d s";row-gap:0}
+  .r__s{text-align:right}
+}
+
+/* ============ списки ============ */
+.plain{border-top:1px solid var(--milk);margin-top:24px}
+.plain li{padding:15px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.55}
+.rules li{padding:18px 0;border-bottom:1px solid var(--line)}
+.rules p{margin-top:5px;color:var(--sage);font-size:15px;line-height:1.55}
+
+/* ============ форма ============ */
+.book{display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px}
+@media (min-width:1000px){.book{grid-template-columns:minmax(0,1fr) 280px;gap:44px}}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.f{display:flex;flex-direction:column;gap:7px;grid-column:span 2}
+@media (min-width:600px){.f--half{grid-column:span 1}}
+.f label{font-size:14px;color:var(--sage)}
+.inp{width:100%;min-height:48px;padding:11px 14px;background:var(--fir-l);border:1px solid var(--sage);
+  border-radius:4px;font-size:16px;color:var(--milk)}
+.inp::placeholder{color:rgba(155,179,166,.7)}
+.inp:focus-visible{border-color:var(--milk);outline:2px solid var(--acc);outline-offset:0}
+.consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:12px}
+.consent input{flex:none;width:24px;height:24px;margin:11px 0 0;accent-color:var(--milk);cursor:pointer}
+.consent label{padding:10px 0;font-size:15px;line-height:1.5;cursor:pointer}
+.send{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.send__hint{color:var(--sage);font-size:14px}
+.done{background:var(--fir-l);border:1px solid var(--line);border-radius:4px;padding:28px}
+.done__b{font-family:var(--disp);font-size:clamp(24px,3vw,34px);line-height:1.15}
+.done p+p{margin-top:12px}
+.noscript{grid-column:1/-1;color:var(--sage);font-size:15px}
+.side dl{border-top:1px solid var(--milk)}
+.side div{padding:12px 0;border-bottom:1px solid var(--line)}
+.side dt{color:var(--sage);font-size:13px}
+.side dd{margin-top:3px;font-size:16px;line-height:1.4}
+
+/* ============ подвал ============ */
+.foot{border-top:1px solid var(--line);background:var(--fir-d);margin-top:clamp(40px,6vw,88px)}
+.foot__in{max-width:1100px;margin:0 auto;padding:clamp(32px,4vw,52px) var(--gut);
+  display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:900px){.foot__in{grid-template-columns:250px minmax(0,1fr);gap:40px}}
+.plate{border:1px solid var(--line);border-radius:4px;padding:16px 18px;font-size:15px;line-height:1.55}
+.credits{color:var(--sage);font-size:13px}
+</style>
+</head>
+<body>
+<a class="skip" href="#sezon">К букету недели</a>
+
+<header class="top">
+  <a class="mark" href="#top">ОХАПКА</a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#sezon">Букет недели</a>
+    <a href="#tseny">Цены</a>
+    <a href="#dostavka">Доставка</a>
+    <a href="#pravila">Как работаем</a>
+    <a href="#zakaz">Контакты</a>
+  </nav>
+  <a class="btn" href="#zakaz">Заказать букет</a>
+</header>
+
+<main id="top">
+  <!-- ============ 1. герой и сезон ============ -->
+  <section class="hero" aria-labelledby="h1">
+    <h1 id="h1">Букет собирают из того, что сейчас растёт</h1>
+    <p>Выберите месяц — покажем, что в сезоне, из чего собран букет недели и сколько он стоит.
+      Чем ближе цветок к своему месяцу, тем он дешевле и тем дольше стоит. Это единственная причина,
+      по которой в январе мы отговариваем от пионов.</p>
+
+    <div class="months" id="months" role="group" aria-label="Месяц"></div>
+
+    <div class="week" id="sezon">
+      <div class="card fade" id="card">
+        <span class="card__m" id="cardM">сентябрь</span>
+        <p class="card__n" id="cardN">«Сухой сентябрь»</p>
+        <p class="card__c" id="cardC">гортензия, колосья, астра</p>
+        <div class="card__meta">
+          <p class="card__p" id="cardP">170 лари</p>
+          <p class="card__st" id="cardS">стоит 12–20 дней</p>
+        </div>
+        <a class="btn" href="#zakaz" id="order">Заказать этот букет</a>
+      </div>
+
+      <div class="season fade" id="season">
+        <p class="lbl">Что сейчас в сезоне</p>
+        <p class="season__note" id="seasonNote">Сентябрь — месяц, когда букет можно сушить прямо в вазе.</p>
+        <ul id="seasonList">
+          <li>гортензия</li><li>роза</li><li>астра</li><li>колосья</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:20px">Цена букета недели держится всю неделю, даже если оптовая
+      выросла. Если цветок не в сезоне, мы его привезём — но скажем честно: он будет дороже
+      и простоит меньше.</p>
+  </section>
+
+  <figure class="band">
+    <img src="https://images.unsplash.com/photo-1487528699198-88d79d72479f?auto=format&fit=crop&w=2000&q=76"
+      alt="Цветочная композиция на тёмном фоне" width="2000" height="1333" fetchpriority="high" decoding="async">
+    <figcaption>Кадр из фотобанка, подобран под концепт и подкрашен цветом месяца.
+      На сайте вашей мастерской здесь будет съёмка вашего букета недели.</figcaption>
+  </figure>
+
+  <!-- ============ 2. цены ============ -->
+  <section class="shelf" id="tseny" aria-labelledby="h-t">
+    <h2 id="h-t">Цены</h2>
+    <ul class="rows">
+      <li class="r"><span class="r__n">Малый букет</span><span class="r__d">7–9 стеблей, в бумаге</span><span class="r__s">90 лари</span></li>
+      <li class="r"><span class="r__n">Средний букет</span><span class="r__d">13–15 стеблей</span><span class="r__s">140 лари</span></li>
+      <li class="r"><span class="r__n">Большой букет</span><span class="r__d">21–25 стеблей</span><span class="r__s">220 лари</span></li>
+      <li class="r"><span class="r__n">Букет недели</span><span class="r__d">цена зависит от месяца</span><span class="r__s">110–170 лари</span></li>
+      <li class="r"><span class="r__n">Композиция в коробке</span><span class="r__d">воды хватает на неделю</span><span class="r__s">от 180 лари</span></li>
+      <li class="r"><span class="r__n">Подписка раз в неделю</span><span class="r__d">четыре букета в месяц</span><span class="r__s">320 лари</span></li>
+      <li class="r"><span class="r__n">Подписка раз в две недели</span><span class="r__d">два букета в месяц</span><span class="r__s">180 лари</span></li>
+      <li class="r"><span class="r__n">Оформление события</span><span class="r__d">считаем после разговора, по площадке</span><span class="r__s">от 900 лари</span></li>
+    </ul>
+  </section>
+
+  <figure class="band">
+    <img src="https://images.unsplash.com/photo-1708519655503-f8b8a08bdf35?auto=format&fit=crop&w=2000&q=76"
+      alt="Руки флориста собирают букет на тёмном столе" width="2000" height="1333" loading="lazy" decoding="async">
+    <figcaption>Кадр из фотобанка. На сайте вашей мастерской здесь будет съёмка вашего стола.</figcaption>
+  </figure>
+
+  <!-- ============ 3. доставка ============ -->
+  <section class="shelf" id="dostavka" aria-labelledby="h-d">
+    <h2 id="h-d">Доставка</h2>
+    <ul class="plain">
+      <li>По городу — 15 лари. От 200 лари — бесплатно.</li>
+      <li>Окна по два часа: 10:00–12:00, 12:00–14:00, 14:00–16:00, 16:00–18:00, 18:00–20:00.</li>
+      <li>Ко времени, с точностью до получаса, — плюс 10 лари: курьер ждёт, а не едет дальше.</li>
+      <li>Фотографию букета до отправки присылаем всегда. Не понравилось — пересобираем до выезда.</li>
+      <li>Анонимная доставка без вопросов: отправитель остаётся только в нашей переписке.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 4. как работаем ============ -->
+  <section class="shelf" id="pravila" aria-labelledby="h-p" style="padding-top:0">
+    <h2 id="h-p">Как мы работаем</h2>
+    <ul class="plain rules">
+      <li><h3>Не красим цветы</h3><p>Синих хризантем и радужных роз у нас не бывает: это краска,
+        и стоит она как настоящий цвет.</p></li>
+      <li><h3>Говорим, сколько простоит</h3><p>У каждого букета написано число дней при комнатной
+        температуре и смене воды. Меньше — приходите, разберёмся.</p></li>
+      <li><h3>Обрезаем и меняем воду при вас</h3><p>Если приходите сами — показываем, как делать это дома.
+        Это скучно и действительно работает.</p></li>
+      <li><h3>Остатки дня отдаём</h3><p>Вечером букеты из вчерашних цветов уходят за половину цены,
+        а не в мусор.</p></li>
+      <li><h3>Свадьбу берём одну в день</h3><p>Иначе вторая всегда собирается хуже, и это видно на фотографиях.</p></li>
+    </ul>
+  </section>
+
+  <figure class="band band--plain">
+    <img src="https://images.unsplash.com/photo-1673026175539-2d90f3d6e439?auto=format&fit=crop&w=2000&q=76"
+      alt="Тёмный букет на столе" width="2000" height="1333" loading="lazy" decoding="async">
+    <figcaption>Кадр из фотобанка, подобран под концепт.</figcaption>
+  </figure>
+
+  <!-- ============ 5. заказ ============ -->
+  <section class="shelf" id="zakaz" aria-labelledby="h-z">
+    <h2 id="h-z">Заказать букет</h2>
+    <div class="book">
+      <div>
+        <form class="form" id="form" action="#zakaz" method="post" novalidate>
+          <div class="f f--half">
+            <label for="f-name">Имя</label>
+            <input class="inp" id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="f f--half">
+            <label for="f-phone">Телефон</label>
+            <input class="inp" id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+995 555 00 00 00" required>
+          </div>
+          <div class="f">
+            <label for="f-what">Что заказываете</label>
+            <input class="inp" id="f-what" name="what" type="text" placeholder="Заполнится из букета недели">
+          </div>
+          <div class="f f--half">
+            <label for="f-when">Дата и окно</label>
+            <input class="inp" id="f-when" name="when" type="text" placeholder="Например: 24 сентября, 16:00–18:00">
+          </div>
+          <div class="f f--half">
+            <label for="f-addr">Адрес доставки</label>
+            <input class="inp" id="f-addr" name="address" type="text" placeholder="Улица, дом, квартира">
+          </div>
+          <div class="f">
+            <label for="f-card">Открытка</label>
+            <input class="inp" id="f-card" name="card" type="text" placeholder="Что написать. Можно без подписи">
+          </div>
+          <div class="consent">
+            <input type="checkbox" id="f-agree" name="agree" aria-describedby="send-hint">
+            <label for="f-agree">Соглашаюсь с <a class="link" href="#zakaz" id="policy">политикой обработки персональных данных</a></label>
+          </div>
+          <div class="send">
+            <button class="btn" type="submit" id="send" disabled>Отправить заказ</button>
+            <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
+          </div>
+          <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
+            Сайт для своей мастерской: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
+        </form>
+
+        <div class="done" id="done" role="status" tabindex="-1" hidden>
+          <p class="done__b">Это демо-сайт.</p>
+          <p>Заказ никуда не ушёл — форма показывает, как это будет выглядеть у вас.</p>
+          <p>Хотите такой же сайт для своей мастерской?
+            <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+          <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к заказу</button></p>
+        </div>
+      </div>
+
+      <div class="side">
+        <dl>
+          <div><dt>Мастерская</dt><dd>Улица Липовая, 7</dd></div>
+          <div><dt>Часы</dt><dd>Ежедневно 9:00–20:00</dd></div>
+          <div><dt>Доставка</dt><dd>С 10:00 до 20:00</dd></div>
+          <div><dt>Оплата</dt><dd>Картой, наличными, переводом</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <div>
+      <span class="mark">ОХАПКА</span>
+      <p class="note" style="margin-top:8px">Цветочная мастерская.<br>Улица Липовая, 7 · ежедневно 9:00–20:00</p>
+    </div>
+    <div>
+      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
+        Бизнес вымышленный, цены — ориентир по рынку.
+        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своей мастерской: t.me/open_sites</a></p>
+      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Florist","name":"Охапка","description":"Цветочная мастерская. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/ohapka/","image":"https://fr33roman.github.io/ohapka/og.jpg","priceRange":"90–900 GEL","address":{"@type":"PostalAddress","streetAddress":"улица Липовая, 7"},"openingHours":"Mo-Su 09:00-20:00"}
+</script>
+
+<script>
+(function () {
+  'use strict';
+  /* Двенадцать месяцев. Акценты подобраны светлее порога контраста 4.5:1 к хвойному фону. */
+  var M = [
+    { m:'январь',   acc:'#C9D6DD', note:'Январь держится на луковичных и хвое: всё остальное приезжает издалека.',
+      season:['амариллис','гиацинт','хвоя','эвкалипт','анемон'],
+      n:'«Иней»', c:'три амариллиса, хвоя, эвкалипт', p:'140 лари', s:'стоит 7–9 дней' },
+    { m:'февраль',  acc:'#E8C34A', note:'Февраль пахнет мимозой — она живёт мало, зато стоит недорого.',
+      season:['мимоза','тюльпан','ранункулюс','гиацинт'],
+      n:'«Первое тепло»', c:'мимоза, семь тюльпанов, гиацинт', p:'120 лари', s:'стоит 5–7 дней' },
+    { m:'март',     acc:'#F0808F', note:'В марте тюльпан дешевле розы вдвое и выглядит честнее.',
+      season:['тюльпан','нарцисс','ирис','фрезия'],
+      n:'«Пятнадцать тюльпанов»', c:'тюльпаны одного тона и больше ничего', p:'110 лари', s:'стоит 5–7 дней' },
+    { m:'апрель',   acc:'#F2D06B', note:'Апрель — самый разнообразный месяц: у нас каждый день новый сорт.',
+      season:['нарцисс','ранункулюс','сирень','ландыш'],
+      n:'«Сад в апреле»', c:'ранункулюсы, нарциссы, ветка сирени', p:'150 лари', s:'стоит 4–6 дней' },
+    { m:'май',      acc:'#F3A3B4', note:'Май — единственный месяц, когда пион стоит своих денег.',
+      season:['пион','сирень','жасмин','кустовая роза'],
+      n:'«Пионы, пока они есть»', c:'семь пионов и больше ничего', p:'160 лари', s:'стоит 5–8 дней' },
+    { m:'июнь',     acc:'#B9A6E0', note:'В июне берут лаванду: она сохнет прямо в вазе и остаётся на месяцы.',
+      season:['лаванда','гортензия','дельфиниум','садовая роза'],
+      n:'«Лавандовое поле»', c:'лаванда, дельфиниум, гипсофила', p:'130 лари', s:'стоит 10–14 дней' },
+    { m:'июль',     acc:'#F5C445', note:'Июль жаркий: букет живёт дольше, если менять воду дважды в день.',
+      season:['подсолнух','эустома','статица','мята'],
+      n:'«Полдень»', c:'три подсолнуха, эустома, мята', p:'120 лари', s:'стоит 6–8 дней' },
+    { m:'август',   acc:'#F08A5D', note:'Август — местные георгины: их привозят утром с поля, а не из холодильника.',
+      season:['георгин','гладиолус','целозия','амарант'],
+      n:'«Август»', c:'георгины, целозия, амарант', p:'150 лари', s:'стоит 5–7 дней' },
+    { m:'сентябрь', acc:'#9FC4E8', note:'Сентябрь — месяц, когда букет можно сушить прямо в вазе.',
+      season:['гортензия','роза','астра','колосья'],
+      n:'«Сухой сентябрь»', c:'гортензия, колосья, астра', p:'170 лари', s:'стоит 12–20 дней' },
+    { m:'октябрь',  acc:'#E0A458', note:'В октябре в букет идут ягоды и ветки — они держатся дольше цветов.',
+      season:['хризантема','физалис','шиповник','сухоцвет'],
+      n:'«Октябрь»', c:'хризантемы, физалис, ветка шиповника', p:'130 лари', s:'стоит 10–14 дней' },
+    { m:'ноябрь',   acc:'#A8C3A0', note:'Ноябрь тихий: зелень и один цвет работают лучше, чем пять.',
+      season:['эвкалипт','роза','гиперикум','хлопок'],
+      n:'«Тише»', c:'эвкалипт, хлопок, пять роз', p:'160 лари', s:'стоит 8–12 дней' },
+    { m:'декабрь',  acc:'#EE8A82', note:'Декабрь — хвоя и ягода. Пахнет сильнее, чем любой цветок.',
+      season:['хвоя','гиперикум','амариллис','ветка ели'],
+      n:'«Декабрь»', c:'хвоя, гиперикум, два амариллиса', p:'140 лари', s:'стоит 7–10 дней' }
+  ];
+
+  var months = document.getElementById('months');
+  var card = document.getElementById('card');
+  var season = document.getElementById('season');
+  var field = document.getElementById('f-what');
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var cur = new Date().getMonth();
+
+  M.forEach(function (x, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'mo';
+    b.setAttribute('aria-pressed', 'false');
+    b.textContent = x.m;
+    b.addEventListener('click', function () { pick(i, true); });
+    months.appendChild(b);
+  });
+
+  function fill(i) {
+    var x = M[i];
+    document.documentElement.style.setProperty('--acc', x.acc);
+    document.getElementById('cardM').textContent = x.m;
+    document.getElementById('cardN').textContent = x.n;
+    document.getElementById('cardC').textContent = x.c;
+    document.getElementById('cardP').textContent = x.p;
+    document.getElementById('cardS').textContent = x.s;
+    document.getElementById('seasonNote').textContent = x.note;
+    var ul = document.getElementById('seasonList');
+    ul.innerHTML = '';
+    x.season.forEach(function (f) {
+      var li = document.createElement('li');
+      li.textContent = f;
+      ul.appendChild(li);
+    });
+    if (field) field.value = 'Букет недели ' + x.n + ' — ' + x.c + ', ' + x.p;
+  }
+
+  function pick(i, scroll) {
+    cur = i;
+    [].forEach.call(months.children, function (b, k) {
+      b.setAttribute('aria-pressed', k === i ? 'true' : 'false');
+    });
+    if (reduce) { fill(i); return; }
+    card.classList.add('is-out'); season.classList.add('is-out');
+    setTimeout(function () {
+      fill(i);
+      card.classList.remove('is-out'); season.classList.remove('is-out');
+    }, 200);
+    if (scroll) {
+      var b = months.children[i];
+      if (b.scrollIntoView) b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+  }
+
+  pick(cur, false);
+  fill(cur);
+  // лента открывается на текущем месяце
+  if (months.children[cur] && window.matchMedia('(max-width: 899px)').matches) {
+    months.scrollLeft = Math.max(0, months.children[cur].offsetLeft - 20);
+  }
+
+  document.getElementById('order').addEventListener('click', function () {
+    setTimeout(function () { document.getElementById('f-name').focus(); }, 420);
+  });
+
+  /* ---- форма ---- */
+  var form = document.getElementById('form');
+  var agree = document.getElementById('f-agree');
+  var send = document.getElementById('send');
+  var hint = document.getElementById('send-hint');
+  var done = document.getElementById('done');
+  function sync() {
+    send.disabled = !agree.checked;
+    hint.textContent = agree.checked ? 'Это демо-сайт: заказ никуда не уйдёт.'
+                                     : 'Кнопка заработает, когда отметите согласие.';
+  }
+  agree.addEventListener('change', sync);
+  sync();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!agree.checked) return;
+    form.hidden = true; done.hidden = false; done.focus();
+  });
+  document.getElementById('again').addEventListener('click', function () {
+    done.hidden = true; form.hidden = false; document.getElementById('f-name').focus();
+  });
+  document.getElementById('policy').addEventListener('click', function (e) {
+    e.preventDefault();
+    alert('Это демонстрационный сайт. На настоящем сайте мастерской здесь открывается страница ' +
+          'с политикой обработки персональных данных — её текст даёт сам владелец.');
+  });
+})();
+</script>
+</body>
+</html>

@@ -217,10 +217,15 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line
 /* ============ зал ============ */
 .hall{display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px}
 @media (min-width:900px){.hall{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}}
-.hall ul{display:grid;gap:10px}
-.hall li{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;
-  padding:14px 16px 14px 40px;font-size:16px;line-height:1.4}
-.hall li::before{content:"";position:absolute;left:16px;top:20px;width:11px;height:2px;background:var(--red)}
+/* Табло: зал описан цифрами, как счёт на ринге. У «Суппорта» и «Кружка»
+   этот блок решён по-другому — чертежом и строками с маркерами. */
+.tablo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line)}
+.tablo li{background:var(--black);padding:20px 18px}
+.tablo b{display:block;font-family:var(--disp);font-weight:800;font-size:clamp(30px,4vw,44px);
+  line-height:1;letter-spacing:-.05em}
+.tablo span{display:block;margin-top:10px;color:var(--ash);font-size:13.5px;line-height:1.35}
+.hall__cap{margin-top:16px;color:var(--ash);font-size:14px}
 .hall img{width:100%;object-fit:cover;border-radius:var(--r);
   filter:grayscale(1) contrast(1.18) brightness(.9)}
 .hall .ph1 img{height:clamp(200px,26vw,320px)}
@@ -429,13 +434,13 @@ fieldset.f{border:0;padding:0;margin:0}
       <div class="hall">
         <div>
           <h2 id="h-z">Где тренируемся</h2>
-          <ul style="margin-top:24px">
-            <li>Ринг пять на пять метров</li>
-            <li>Татами сто квадратных метров</li>
-            <li>Шесть мешков и две груши на пневмоподвесе</li>
-            <li>Раздевалки с душем, для детей отдельная</li>
-            <li>Вода и бинты на ресепшене</li>
+          <ul class="tablo" style="margin-top:26px">
+            <li><b>5×5</b><span>ринг, метры</span></li>
+            <li><b>100</b><span>татами, м²</span></li>
+            <li><b>6+2</b><span>мешка и груши на пневмоподвесе</span></li>
+            <li><b>2</b><span>раздевалки с душем, детская отдельная</span></li>
           </ul>
+          <p class="hall__cap">Вода и бинты на ресепшене — бесплатно.</p>
         </div>
         <figure>
           <div class="ph1"><img src="https://images.unsplash.com/photo-1716306886418-f84f6d4c2f3a?auto=format&fit=crop&w=1400&q=74" alt="Ряд боксёрских мешков в зале" width="1400" height="930" loading="lazy" decoding="async"></div>

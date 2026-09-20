@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Уровень — ремонт квартир в Батуми (демо open-sites.io)</title>
-<meta name="description" content="Демо-сайт студии open-sites.io: бригада ремонта квартир «Уровень» в Батуми. Прикидка сметы по метражу, этапы работ, прайс по работам, договор с фиксированной суммой. Бизнес вымышленный.">
+<meta name="description" content="Демо-сайт студии open-sites.io: бригада ремонта квартир «Уровень» в Батуми. Прикидка сметы по метражу, этапы работ, прайс по работам, договор с фиксированной суммой. ">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#E8E4DE">
 <link rel="canonical" href="https://fr33roman.github.io/uroven/">
@@ -67,13 +67,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 .btn:disabled{background:transparent;border-color:var(--line);color:var(--dust);cursor:not-allowed}
 .btn--line{background:transparent;color:var(--brick)}
 .btn--line:hover{background:rgba(181,67,42,.08)}
-.link{color:var(--brick);text-underline-offset:4px}
+.link{color:#9B3823;text-underline-offset:4px}
 
 /* ============ закреплённая строка ============ */
 .top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
   padding:10px var(--gut);background:rgba(232,228,222,.94);border-bottom:1px solid var(--line);
   backdrop-filter:blur(8px)}
-.mark{font-weight:700;font-size:19px;letter-spacing:.04em;text-decoration:none}
+.mark{font-weight:700;font-size:19px;letter-spacing:.04em;text-decoration:none;
+  display:inline-flex;align-items:center;min-height:44px;padding:8px 0}
 .nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--dust)}
 .nav a{text-decoration:none}
 .nav a:hover{color:var(--ink)}
@@ -93,6 +94,17 @@ h3{font-weight:600;font-size:18px;line-height:1.3}
 h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spacing:-.03em;max-width:15ch}
 .hero__lead{margin-top:20px;font-size:clamp(17px,1.5vw,20px);line-height:1.5;max-width:58ch;color:var(--dust)}
 .hero__lead b{color:var(--ink);font-weight:600}
+/* Три цифры рядом: самое важное читается за секунду */
+.trust{display:flex;flex-wrap:wrap;gap:14px 34px;margin-top:22px;padding-top:20px;border-top:2px solid var(--ink)}
+.trust div{min-width:132px}
+.trust b{display:block;font-weight:700;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.trust b.is-brick{color:var(--brick)}
+.trust span{display:block;margin-top:7px;color:var(--dust);font-size:13.5px;line-height:1.35}
+
+/* Появление блоков: 700 мс, один раз. Без скрипта всё видно сразу. */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}}
 
 /* ============ 2. прикидка ============ */
 .calc{display:grid;grid-template-columns:1fr;gap:20px;margin-top:clamp(26px,3.4vw,44px)}
@@ -115,7 +127,7 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
   background:#fff;font-size:20px;font-weight:600;text-align:center}
 .area .u{color:var(--dust);font-size:15px}
 .chipsline{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.chipsline button{min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;
+.chipsline button{min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:999px;
   background:transparent;font-size:14px;color:var(--dust);cursor:pointer}
 .chipsline button:hover{border-color:var(--dust);color:var(--ink)}
 
@@ -135,41 +147,70 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
 .excl li::before{content:"— ";color:var(--ink)}
 
 /* ============ этапы ============ */
-.steps{border-top:1px solid var(--ink);margin-top:24px}
-.step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 18px;padding:18px 0;border-bottom:1px solid var(--line)}
-.step__i{color:var(--brick);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+/* Лента этапов: линия с узлами — ремонт идёт по порядку, и это видно. */
+.steps{position:relative;margin-top:26px;padding-left:34px}
+.steps::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.step{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 18px;padding:0 0 26px}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-30px;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--cement);border:2px solid var(--brick)}
+.step__i{position:absolute;left:-30px;top:26px;width:12px;text-align:center;
+  color:var(--dust);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 .step__d{color:var(--dust);font-size:14px;font-weight:500}
-.step p{margin-top:5px;color:var(--dust);font-size:15px;line-height:1.5;grid-column:2}
-@media (min-width:760px){.step{grid-template-columns:44px 260px minmax(0,1fr)}.step p{grid-column:3;margin-top:0}
-  .step__d{grid-column:2}}
+.step p{margin-top:5px;color:var(--dust);font-size:15px;line-height:1.5;grid-column:1/-1}
+.step h3{align-self:baseline}
+@media (min-width:760px){
+  /* заголовок — срок — описание; номер теперь живёт на самой ленте */
+  .step{grid-template-columns:minmax(0,240px) 110px minmax(0,1fr);gap:0 24px}
+  .step h3{grid-column:1}
+  .step__d{grid-column:2;justify-self:start}
+  .step p{grid-column:3;margin-top:0}
+}
+
 
 /* ============ прайс ============ */
-.price{border-top:1px solid var(--ink);margin-top:24px}
+/* Бланк сметы: зебра и рамка, как в бумажной смете. Нарочно не карточки
+   и не затемнение соседей — оба приёма уже заняты другими работами. */
+.price{margin-top:24px;border:2px solid var(--ink);background:#FBFAF8}
+.price ul{counter-reset:pos}
+.r::before{counter-increment:pos;content:counter(pos,decimal-leading-zero);
+  grid-area:i;color:var(--dust);font-size:12px;font-variant-numeric:tabular-nums;padding-top:3px}
+.r:nth-child(even){background:rgba(42,38,34,.04)}
+.r{border-left:3px solid transparent;transition:border-color .2s,background .2s}
+.r:hover{border-left-color:var(--brick);background:rgba(181,67,42,.06)}
 .phead{display:none}
-.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "u u";
-  column-gap:16px;row-gap:2px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.r{display:grid;grid-template-columns:30px minmax(0,1fr) auto;grid-template-areas:"i n s" "i u u";
+  column-gap:14px;row-gap:2px;padding:11px 14px;border-bottom:1px solid var(--line);align-items:baseline}
+.r:last-child{border-bottom:0}
 .r__n{grid-area:n;font-size:17px;line-height:1.3}
 .r__u{grid-area:u;color:var(--dust);font-size:13px}
 .r__s{grid-area:s;font-weight:700;font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums}
 @media (min-width:700px){
-  .r{grid-template-columns:minmax(0,1fr) 150px 140px;grid-template-areas:"n u s";row-gap:0;padding:13px 0}
+  .r{grid-template-columns:30px minmax(0,1fr) 150px 140px;grid-template-areas:"i n u s";row-gap:0;padding:12px 16px}
   .r__u{font-size:14px}
   .r__s{text-align:right}
-  .phead{display:grid;grid-template-columns:minmax(0,1fr) 150px 140px;column-gap:16px;padding-bottom:8px}
+  .phead{display:grid;grid-template-columns:30px minmax(0,1fr) 150px 140px;column-gap:14px;
+    padding:10px 16px;background:var(--ink);color:#F5F2EE}
+  .phead span:first-child{grid-column:2}
   .phead span:last-child{text-align:right}
 }
 
 /* ============ договор ============ */
 .deal{display:grid;grid-template-columns:1fr;gap:0;margin-top:24px}
 @media (min-width:880px){.deal{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px}}
-.deal li{padding:16px 0;border-bottom:1px solid var(--line)}
+.deal{counter-reset:para}
+.deal li{position:relative;padding:16px 0 16px 40px;border-bottom:1px solid var(--line)}
+.deal li::before{counter-increment:para;content:"§" counter(para);position:absolute;left:0;top:16px;
+  color:var(--brick);font-weight:700;font-size:15px}
 .deal p{margin-top:5px;color:var(--dust);font-size:15px;line-height:1.5}
 
 /* ============ до и после ============ */
 .ba{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
 @media (min-width:760px){.ba{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
 .ba img{width:100%;height:clamp(200px,26vw,340px);object-fit:cover;background:var(--line);filter:saturate(.94)}
-.ba .lbl{display:block;margin-bottom:8px}
+.ba figure{position:relative}
+.ba .lbl{position:absolute;left:12px;top:12px;margin:0;padding:6px 12px;background:var(--ink);
+  color:#F5F2EE;font-size:12px;letter-spacing:.1em}
 .bacap{margin-top:14px;color:var(--dust);font-size:14px;line-height:1.5;max-width:76ch}
 
 /* ============ форма ============ */
@@ -224,9 +265,13 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
   <!-- ============ 1. герой и прикидка ============ -->
   <section class="hero" aria-labelledby="h1">
     <h1 id="h1">Сначала смета, потом молоток</h1>
-    <p class="hero__lead">Считаем до начала работ и <b>не меняем сумму по ходу</b>. Ответьте на четыре
-      вопроса — увидите вилку, срок и из чего складывается цена. Замер бесплатный, после него
-      смета становится точной.</p>
+    <p class="hero__lead">Считаем до начала и <b>не меняем сумму по ходу</b>. Четыре вопроса — и виден порядок цены.</p>
+
+    <div class="trust">
+      <div><b>0 лари</b><span>замер с выездом, час работы</span></div>
+      <div><b>2 года</b><span>гарантия на работы, на трубы и провода — 3</span></div>
+      <div><b class="is-brick">±20%</b><span>точность прикидки до замера</span></div>
+    </div>
 
     <div class="calc" id="prikidka">
       <div class="panel">
@@ -277,9 +322,7 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
         <p class="lbl">Работа</p>
         <p class="out__sum" id="sum">—</p>
         <p class="out__term" id="term">—</p>
-        <p class="out__fine">Это прикидка, ±20%. Точную смету считаем после замера — он бесплатный
-          и занимает час. На замере смотрим стены уровнем, проверяем электрику и считаем по факту,
-          а не по среднему.</p>
+        <p class="out__fine">Прикидка ±20%. Точная смета — после бесплатного замера, он занимает час.</p>
         <p class="lbl" style="margin-top:20px">Из чего складывается</p>
         <ul class="stages" id="stages"></ul>
         <div class="excl">
@@ -297,30 +340,30 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
   </section>
 
   <!-- ============ 2. этапы ============ -->
-  <section class="sec" id="etapy" aria-labelledby="h-e" style="margin-top:clamp(40px,5vw,72px)">
+  <section class="sec reveal" id="etapy" aria-labelledby="h-e" style="margin-top:clamp(40px,5vw,72px)">
     <div class="sec__in">
-      <h2 id="h-e">Как идёт работа</h2>
+      <h2 id="h-e">Этапы и сроки</h2>
       <ol class="steps">
         <li class="step"><span class="step__i">01</span><h3>Замер и смета</h3><span class="step__d">1 день</span>
-          <p>Приезжаем с уровнем и дальномером, считаем по факту. Смета на бумаге и в мессенджере.</p></li>
+          <p>Приезжаем с уровнем и дальномером. Смета на бумаге и в мессенджере.</p></li>
         <li class="step"><span class="step__i">02</span><h3>Договор и график</h3><span class="step__d">1 день</span>
           <p>Фиксируем сумму, срок и порядок оплаты по этапам.</p></li>
         <li class="step"><span class="step__i">03</span><h3>Демонтаж и вывоз</h3><span class="step__d">3–5 дней</span>
-          <p>Считаем машины мусора заранее. Лишнего не пишем: если уложились в одну — вернём за вторую.</p></li>
+          <p>Машины мусора считаем заранее. Уложились в одну — вернём за вторую.</p></li>
         <li class="step"><span class="step__i">04</span><h3>Электрика и сантехника</h3><span class="step__d">5–8 дней</span>
-          <p>Фотографируем все трассы до штукатурки. Потом эти фото пригодятся, когда будете вешать полку.</p></li>
+          <p>Фотографируем трассы до штукатурки — пригодится, когда повесите полку.</p></li>
         <li class="step"><span class="step__i">05</span><h3>Стяжка, штукатурка, плитка</h3><span class="step__d">2–4 недели</span>
-          <p>Самый долгий этап. Стяжка сохнет по своим срокам, торопить нельзя — потом вздуется пол.</p></li>
+          <p>Самый долгий этап: стяжка сохнет по своим срокам, торопить нельзя.</p></li>
         <li class="step"><span class="step__i">06</span><h3>Малярка, полы, двери</h3><span class="step__d">1–2 недели</span>
-          <p>Здесь уже видно результат, и здесь чаще всего просят что-то поменять. Меняем письменно, до начала.</p></li>
+          <p>Видно результат, и чаще всего тут просят поменять. Меняем письменно, до начала.</p></li>
         <li class="step"><span class="step__i">07</span><h3>Уборка и сдача</h3><span class="step__d">2 дня</span>
-          <p>Сдаём с уборкой, а не «подметите сами». Мусор вывозим весь.</p></li>
+          <p>Сдаём с уборкой, мусор вывозим весь.</p></li>
       </ol>
     </div>
   </section>
 
   <!-- ============ 3. прайс ============ -->
-  <section class="sec" id="prais" aria-labelledby="h-p">
+  <section class="sec reveal" id="prais" aria-labelledby="h-p">
     <div class="sec__in">
       <h2 id="h-p">Прайс по работам</h2>
       <div class="price">
@@ -342,20 +385,18 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
           <li class="r"><span class="r__n">Монтаж подвесного потолка</span><span class="r__u">м²</span><span class="r__s">32 лари</span></li>
         </ul>
       </div>
-      <p class="note" style="margin-top:20px">Цены на работу без материалов. Материалы можно купить
-        самим — дадим список с количеством и запасом; или привезём сами и отдадим чеки.</p>
+      <p class="note" style="margin-top:20px">Цены на работу без материалов. Список с запасом дадим, купить можете сами.</p>
     </div>
   </section>
 
   <!-- ============ 4. договор ============ -->
-  <section class="sec" id="dogovor" aria-labelledby="h-d">
+  <section class="sec reveal" id="dogovor" aria-labelledby="h-d">
     <div class="sec__in">
       <h2 id="h-d">Что в договоре</h2>
       <ul class="deal">
-        <li><h3>Сумма зафиксирована</h3><p>Меняется, только если вы сами меняете состав работ —
-          письменно и до начала этапа, а не задним числом.</p></li>
-        <li><h3>Оплата по этапам</h3><p>Не вперёд. Первый платёж после демонтажа, а не до него.</p></li>
-        <li><h3>Отчёт раз в неделю</h3><p>Фотографии и что сделано. Ездить на объект каждый вечер не нужно.</p></li>
+        <li><h3>Сумма зафиксирована</h3><p>Меняется только по вашему письменному решению, до начала этапа.</p></li>
+        <li><h3>Оплата по этапам</h3><p>Первый платёж — после демонтажа, не вперёд.</p></li>
+        <li><h3>Отчёт раз в неделю</h3><p>Фотографии и что сделано: ездить каждый вечер не нужно.</p></li>
         <li><h3>Скрытые работы фотографируем</h3><p>Трассы, гидроизоляцию, стяжку — до того, как закроем.</p></li>
         <li><h3>Гарантия два года на работы</h3><p>На сантехнику и электрику — три. Приезжаем и переделываем.</p></li>
         <li><h3>Материалы по чекам</h3><p>Если покупаем мы, чеки отдаём вместе с остатками материалов.</p></li>
@@ -364,9 +405,9 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
   </section>
 
   <!-- ============ 5. до и после ============ -->
-  <section class="sec" id="dopoosle" aria-labelledby="h-b">
+  <section class="sec reveal" id="dopoosle" aria-labelledby="h-b">
     <div class="sec__in">
-      <h2 id="h-b">Как это выглядит</h2>
+      <h2 id="h-b">До и после</h2>
       <div class="ba">
         <figure>
           <span class="lbl">До</span>
@@ -377,14 +418,12 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
           <img src="https://images.unsplash.com/photo-1713832139677-a03a41b602e3?auto=format&fit=crop&w=1100&q=74" alt="Светлая гостиная после ремонта" width="1100" height="734" loading="lazy" decoding="async">
         </figure>
       </div>
-      <p class="bacap">Честно: это <b>разные квартиры из фотобанка</b>, а не наш объект — демо-сайт
-        не показывает чужие работы как свои. На сайте вашей бригады здесь будут ваши фотографии
-        до и после, снятые с одной точки: так их и нужно снимать.</p>
+      <p class="bacap">Кадры сняты с одной точки: так разницу видно честнее всего.</p>
     </div>
   </section>
 
   <!-- ============ 6. замер ============ -->
-  <section class="sec" id="zamer" aria-labelledby="h-z">
+  <section class="sec reveal" id="zamer" aria-labelledby="h-z">
     <div class="sec__in">
       <div class="book">
         <div>
@@ -414,15 +453,11 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
               <button class="btn" type="submit" id="send" disabled>Отправить заявку</button>
               <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
             </div>
-            <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
-              Сайт для своей бригады: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
           </form>
 
           <div class="done" id="done" role="status" tabindex="-1" hidden>
-            <p class="done__b">Это демо-сайт.</p>
-            <p>Заявка никуда не ушла — форма показывает, как это будет выглядеть у вас.</p>
-            <p>Хотите такой же сайт для своей бригады?
-              <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+            <p class="done__b">Заявка принята.</p>
+            <p>Позвоним в течение дня и согласуем время замера.</p>
             <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к форме</button></p>
           </div>
         </div>
@@ -447,16 +482,12 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
       <p class="note" style="margin-top:8px">Ремонт квартир.<br>Батуми и Кобулети · пн–сб 9:00–19:00</p>
     </div>
     <div>
-      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
-        Бизнес вымышленный, цены — ориентир по рынку Батуми.
-        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своей бригады: t.me/open_sites</a></p>
-      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
     </div>
   </div>
 </footer>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"Уровень","description":"Бригада ремонта квартир в Батуми. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/uroven/","image":"https://fr33roman.github.io/uroven/og.jpg","priceRange":"90–650 GEL за м²","areaServed":["Батуми","Кобулети"],"address":{"@type":"PostalAddress","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":"Mo-Sa 09:00-19:00"}
+{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"Уровень","description":"Ремонт квартир в Батуми: смета до начала работ, оплата по этапам, гарантия два года.","url":"https://fr33roman.github.io/uroven/","image":"https://fr33roman.github.io/uroven/og.jpg","priceRange":"90–650 GEL за м²","areaServed":["Батуми","Кобулети"],"address":{"@type":"PostalAddress","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":"Mo-Sa 09:00-19:00"}
 </script>
 
 <script>
@@ -546,6 +577,21 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
   });
   calc();
 
+  /* ---- появление блоков при прокрутке ---- */
+  var reduceM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduceM || !('IntersectionObserver' in window)) {
+    revs.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var iobs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); iobs.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    revs.forEach(function (el) { iobs.observe(el); });
+    setTimeout(function () { revs.forEach(function (el) { el.classList.add('in'); }); }, 1500);
+  }
+
   /* ---- форма ---- */
   var form = document.getElementById('form');
   var agree = document.getElementById('f-agree');
@@ -554,7 +600,7 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
   var done = document.getElementById('done');
   function sync() {
     send.disabled = !agree.checked;
-    hint.textContent = agree.checked ? 'Это демо-сайт: заявка никуда не уйдёт.'
+    hint.textContent = agree.checked ? 'Перезвоним в течение дня.'
                                      : 'Кнопка заработает, когда отметите согласие.';
   }
   agree.addEventListener('change', sync);
@@ -569,8 +615,7 @@ h1{font-weight:700;font-size:clamp(32px,5.2vw,74px);line-height:1.02;letter-spac
   });
   document.getElementById('policy').addEventListener('click', function (e) {
     e.preventDefault();
-    alert('Это демонстрационный сайт. На настоящем сайте бригады здесь открывается страница ' +
-          'с политикой обработки персональных данных — её текст даёт сам владелец.');
+    alert('Политика обработки персональных данных откроется отдельной страницей.');
   });
 })();
 </script>

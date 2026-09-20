@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Гонг — зал единоборств в Батуми (демо open-sites.io)</title>
-<meta name="description" content="Демо-сайт студии open-sites.io: зал единоборств «Гонг» на улице Чавчавадзе в Батуми. Расписание недели с живой отметкой «идёт сейчас», бокс, грэпплинг, ММА, детские группы. Бизнес вымышленный.">
+<meta name="description" content="Демо-сайт студии open-sites.io: зал единоборств «Гонг» на улице Чавчавадзе в Батуми. Расписание недели с живой отметкой «идёт сейчас», бокс, грэпплинг, ММА, детские группы. ">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#000000">
 <link rel="canonical" href="https://fr33roman.github.io/gong/">
@@ -32,7 +32,11 @@
   --white:#fff;
   --ash:#9A9A9A;      /* второстепенный текст, 6,6:1 */
   --red:#FF2D2D;      /* только «идёт сейчас» */
-  --line:rgba(255,255,255,.18);
+  --line:rgba(255,255,255,.14);
+  --card:#141414;     /* карточка: светлее чистого чёрного */
+  --shadow-sm:0 10px 26px -14px rgba(0,0,0,.9);
+  --shadow:0 20px 44px -18px rgba(0,0,0,1);
+  --r:16px;
   --disp:"Unbounded","Segoe UI",system-ui,sans-serif;
   --text:"Golos Text","Segoe UI",system-ui,sans-serif;
   --gut:40px;
@@ -73,7 +77,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
   padding:10px var(--gut);background:rgba(0,0,0,.92);border-bottom:1px solid var(--line);
   backdrop-filter:blur(8px)}
-.mark{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.mark{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.02em;text-decoration:none;min-height:44px;display:inline-flex;align-items:center;padding:8px 0}
 .nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--ash)}
 .nav a{text-decoration:none}
 .nav a:hover{color:var(--white)}
@@ -93,6 +97,20 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line
   letter-spacing:-.045em;max-width:15ch;text-transform:uppercase}
 .hero__lead{margin-top:20px;font-size:clamp(17px,1.5vw,20px);line-height:1.45;max-width:58ch;color:var(--ash)}
 .hero__lead b{color:var(--white);font-weight:500}
+/* Три цифры рядом: самое важное читается за секунду */
+.trust{display:flex;flex-wrap:wrap;gap:14px 32px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.trust div{min-width:120px}
+.trust b{display:block;font-family:var(--disp);font-weight:700;font-size:26px;letter-spacing:-.04em;line-height:1}
+.trust b.is-red{color:var(--red)}
+.trust span{display:block;margin-top:7px;color:var(--ash);font-size:13px;line-height:1.35}
+
+/* Появление блоков: 700 мс, один раз. Без скрипта всё видно сразу. */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .dir:hover,.co:hover{transform:none}
+}
 
 /* живая строка */
 .live{margin-top:clamp(24px,3vw,38px);border-top:1px solid var(--line);padding-top:18px;
@@ -152,41 +170,59 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line
 }
 
 /* ============ направления ============ */
-.dirs{border-top:1px solid var(--white);margin-top:24px}
-.dir{padding:18px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr;gap:6px}
-@media (min-width:860px){.dir{grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:baseline}}
+.dirs{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
+@media (min-width:640px){.dirs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.dirs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.dir{display:grid;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow-sm);padding:20px 18px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.dir:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(255,45,45,.45)}
 .dir p{color:var(--ash);font-size:15px;line-height:1.5}
 
 /* ============ цены ============ */
-.rows{border-top:1px solid var(--white);margin-top:24px}
-.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "a b";
-  column-gap:16px;row-gap:3px;padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.rows{max-width:900px;margin-top:24px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden}
+/* Наводишь на строку — соседние гаснут: помогает не потерять нужную глазами */
+.rows:hover .r{opacity:.42}
+.rows .r:hover{opacity:1;background:rgba(255,45,45,.07)}
+@media (hover:none){.rows:hover .r{opacity:1}}
+.r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "a s" "b s";
+  column-gap:16px;row-gap:2px;padding:14px 20px;border-bottom:1px solid var(--line);align-items:baseline;
+  transition:opacity .3s ease,background .3s ease}
+.r:last-child{border-bottom:0}
 .r__n{grid-area:n;font-size:17px;font-weight:500;line-height:1.25}
-.r__s{grid-area:s;font-family:var(--disp);font-weight:700;font-size:17px;white-space:nowrap;letter-spacing:-.03em}
+.r__s{grid-area:s;align-self:center;font-family:var(--disp);font-weight:700;font-size:20px;
+  white-space:nowrap;letter-spacing:-.03em}
 .r__a{grid-area:a}
-.r__b{grid-area:b;text-align:right}
+.r__b{grid-area:b}
 .r__a,.r__b{color:var(--ash);font-size:13px;line-height:1.35}
 @media (min-width:760px){
-  .r{grid-template-columns:minmax(0,1fr) 250px 170px 130px;grid-template-areas:"n a b s";row-gap:0}
+  .r{grid-template-columns:minmax(0,1fr) 230px 150px 120px;grid-template-areas:"n a b s";row-gap:0;padding:14px 22px}
   .r__a,.r__b{font-size:14px;text-align:left}
   .r__s{text-align:right;font-size:19px}
 }
 
 /* ============ тренеры ============ */
-.coaches{border-top:1px solid var(--white);margin-top:24px}
-.co{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;padding:16px 0;
-  border-bottom:1px solid var(--line);align-items:baseline}
+.coaches{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
+@media (min-width:620px){.coaches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.coaches{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.co{display:grid;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow-sm);padding:20px 18px;gap:6px;
+  transition:transform .3s ease,box-shadow .3s ease}
+.co:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .co__n{font-family:var(--disp);font-weight:700;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.04em;line-height:1}
-.co__d{color:var(--ash);font-size:14px;white-space:nowrap}
-.co__s{grid-column:1/-1;color:var(--ash);font-size:15px}
-@media (min-width:760px){.co{grid-template-columns:250px minmax(0,1fr) auto}.co__s{grid-column:2/3}}
+.co__d{display:inline-block;margin-top:8px;padding:5px 11px;border-radius:999px;
+  background:rgba(255,255,255,.08);color:var(--white);font-size:13px;white-space:nowrap;justify-self:start}
+.co__s{color:var(--ash);font-size:15px;line-height:1.4}
 
 /* ============ зал ============ */
 .hall{display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px}
 @media (min-width:900px){.hall{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}}
-.hall ul{border-top:1px solid var(--white)}
-.hall li{padding:13px 0;border-bottom:1px solid var(--line);font-size:16px}
-.hall img{width:100%;object-fit:cover;filter:grayscale(1) contrast(1.22) brightness(.86)}
+.hall ul{display:grid;gap:10px}
+.hall li{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px 14px 40px;font-size:16px;line-height:1.4}
+.hall li::before{content:"";position:absolute;left:16px;top:20px;width:11px;height:2px;background:var(--red)}
+.hall img{width:100%;object-fit:cover;border-radius:var(--r);
+  filter:grayscale(1) contrast(1.18) brightness(.9)}
 .hall .ph1 img{height:clamp(200px,26vw,320px)}
 .hall .ph2 img{height:clamp(140px,15vw,190px);margin-top:10px}
 figcaption{margin-top:10px;color:var(--ash);font-size:13px;line-height:1.45}
@@ -215,13 +251,14 @@ fieldset.f{border:0;padding:0;margin:0}
 .consent label{padding:10px 0;font-size:15px;line-height:1.5;cursor:pointer}
 .send{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
 .send__hint{color:var(--ash);font-size:14px}
-.done{background:var(--coal);border:1px solid var(--line);padding:28px}
+.done{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow-sm);padding:28px}
 .done__b{font-family:var(--disp);font-weight:700;font-size:clamp(22px,3vw,32px);letter-spacing:-.03em;line-height:1.1}
 .done p+p{margin-top:12px}
 .noscript{grid-column:1/-1;color:var(--ash);font-size:15px}
-.side dl{border-top:1px solid var(--white)}
-.side div{padding:12px 0;border-bottom:1px solid var(--line)}
-.side dt{color:var(--ash);font-size:13px}
+.side dl{display:grid;gap:10px}
+.side div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.side dt{color:var(--red);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 .side dd{margin-top:3px;font-size:16px;line-height:1.4}
 
 /* ============ подвал ============ */
@@ -241,7 +278,7 @@ fieldset.f{border:0;padding:0;margin:0}
   <nav class="nav" aria-label="Разделы">
     <a href="#raspisanie">Расписание</a>
     <a href="#napravleniya">Направления</a>
-    <a href="#tseny">Цены</a>
+    <a href="#tseny">Абонементы</a>
     <a href="#trenery">Тренеры</a>
     <a href="#zapis">Контакты</a>
   </nav>
@@ -252,8 +289,13 @@ fieldset.f{border:0;padding:0;margin:0}
   <!-- ============ 1. герой ============ -->
   <section class="hero" aria-labelledby="h1">
     <h1 id="h1">Приходите тренироваться, а не покупать абонемент</h1>
-    <p class="hero__lead"><b>Первое занятие бесплатное</b>, дальше можно платить за одно.
-      Ниже — вся неделя: что идёт прямо сейчас, кто ведёт и на какой уровень рассчитано.</p>
+    <p class="hero__lead"><b>Первое занятие бесплатное.</b> Ниже — вся неделя и что идёт прямо сейчас.</p>
+
+    <div class="trust">
+      <div><b>00:38</b><span>до ближайшей тренировки</span></div>
+      <div><b>150 лари</b><span>восемь занятий в месяц</span></div>
+      <div><b class="is-red">0 лари</b><span>первая тренировка, форма не нужна</span></div>
+    </div>
 
     <div class="live" id="live" hidden>
       <p class="live__t" id="liveTime">—</p>
@@ -326,39 +368,36 @@ fieldset.f{border:0;padding:0;margin:0}
       </div>
 
     </div>
-    <p class="week__cap">Время батумское. Зал работает с 7:00 до 22:00, в воскресенье до 18:00.
-      Расписание на неделю не меняется — если тренер заболел, пишем в чат группы.</p>
+    <p class="week__cap">Время батумское. Зал открыт 7:00–22:00, в воскресенье до 18:00.</p>
   </section>
 
   <!-- ============ 3. направления ============ -->
-  <section class="sec" id="napravleniya" aria-labelledby="h-n">
+  <section class="sec reveal" id="napravleniya" aria-labelledby="h-n">
     <div class="sec__in">
-      <h2 id="h-n">Что здесь есть</h2>
+      <h2 id="h-n">Направления</h2>
       <ul class="dirs">
         <li class="dir"><h3>Бокс, взрослые</h3>
-          <p>90 минут: разминка, лапы, мешки, спарринг по желанию. Берём с нуля. Нужны форма и вода —
-            перчатки и бинты первый месяц даём свои.</p></li>
+          <p>90 минут: разминка, лапы, мешки, спарринг по желанию. Берём с нуля.</p></li>
         <li class="dir"><h3>Кикбоксинг</h3>
-          <p>90 минут, руки и ноги. Просим сначала месяц бокса или свой опыт: иначе травмы на ровном месте.</p></li>
+          <p>90 минут, руки и ноги. Нужен месяц бокса или свой опыт.</p></li>
         <li class="dir"><h3>Грэпплинг</h3>
           <p>90 минут в партере, без ударов. Самое безопасное, с чего взрослому можно начать.</p></li>
         <li class="dir"><h3>ММА</h3>
-          <p>90 минут, стойка и партер вместе. Только тем, кто уже год занимается одним из направлений.</p></li>
+          <p>90 минут, стойка и партер. Тем, кто занимается год и больше.</p></li>
         <li class="dir"><h3>Женская группа</h3>
           <p>60 минут: бокс без спаррингов, много техники и физики. Ведёт Нана.</p></li>
         <li class="dir"><h3>Дети 7–11 и 12–15</h3>
-          <p>60 минут. Половина занятия — координация и общая физика, половина — техника. Спарринги —
-            только в защите и только по готовности.</p></li>
+          <p>60 минут: половина — физика и координация, половина — техника. Спарринги только в защите.</p></li>
         <li class="dir"><h3>Общая физика</h3>
-          <p>60 минут утром, без ударов. Для тех, кому нужна форма, а не соревнования.</p></li>
+          <p>60 минут утром, без ударов. Для формы, не для соревнований.</p></li>
       </ul>
     </div>
   </section>
 
   <!-- ============ 4. цены ============ -->
-  <section class="sec" id="tseny" aria-labelledby="h-t">
+  <section class="sec reveal" id="tseny" aria-labelledby="h-t">
     <div class="sec__in">
-      <h2 id="h-t">Цены</h2>
+      <h2 id="h-t">Абонементы</h2>
       <ul class="rows">
         <li class="r"><span class="r__n">Первая тренировка</span><span class="r__a">знакомство и разминка</span><span class="r__b">любое направление</span><span class="r__s">бесплатно</span></li>
         <li class="r"><span class="r__n">Разовое занятие</span><span class="r__a">любое направление</span><span class="r__b">без записи</span><span class="r__s">25 лари</span></li>
@@ -367,32 +406,29 @@ fieldset.f{border:0;padding:0;margin:0}
         <li class="r"><span class="r__n">Детский абонемент, восемь занятий</span><span class="r__a">группа по возрасту</span><span class="r__b">месяц</span><span class="r__s">120 лари</span></li>
         <li class="r"><span class="r__n">Персональная тренировка</span><span class="r__a">один на один, 60 минут</span><span class="r__b">по договорённости</span><span class="r__s">80 лари</span></li>
       </ul>
-      <p class="note" style="margin-top:20px">Абонемент не сгорает молча. Заболели или уехали —
-        напишите в чат, заморозим до десяти дней, это бесплатно.</p>
+      <p class="note" style="margin-top:20px">Заболели или уехали — заморозим абонемент до десяти дней, бесплатно.</p>
     </div>
   </section>
 
   <!-- ============ 5. тренеры ============ -->
-  <section class="sec" id="trenery" aria-labelledby="h-c">
+  <section class="sec reveal" id="trenery" aria-labelledby="h-c">
     <div class="sec__in">
-      <h2 id="h-c">Кто ведёт</h2>
+      <h2 id="h-c">Тренеры</h2>
       <ul class="coaches">
         <li class="co"><span class="co__n">Давид</span><span class="co__s">бокс, кикбоксинг, открытый спарринг</span><span class="co__d">пн, ср, чт, сб</span></li>
         <li class="co"><span class="co__n">Ираклий</span><span class="co__s">грэпплинг, ММА</span><span class="co__d">вт, пт, вс</span></li>
         <li class="co"><span class="co__n">Нана</span><span class="co__s">женская группа, общая физика</span><span class="co__d">утро пн–пт, вт, чт, вс</span></li>
         <li class="co"><span class="co__n">Георгий</span><span class="co__s">детские группы</span><span class="co__d">пн–сб</span></li>
       </ul>
-      <p class="note" style="margin-top:18px">На сайте вашего зала здесь будут фотографии тренеров
-        и их регалии. В демо мы не подставляем чужие лица.</p>
     </div>
   </section>
 
   <!-- ============ 6. зал ============ -->
-  <section class="sec" id="zal" aria-labelledby="h-z">
+  <section class="sec reveal" id="zal" aria-labelledby="h-z">
     <div class="sec__in">
       <div class="hall">
         <div>
-          <h2 id="h-z">Зал</h2>
+          <h2 id="h-z">Где тренируемся</h2>
           <ul style="margin-top:24px">
             <li>Ринг пять на пять метров</li>
             <li>Татами сто квадратных метров</li>
@@ -404,14 +440,13 @@ fieldset.f{border:0;padding:0;margin:0}
         <figure>
           <div class="ph1"><img src="https://images.unsplash.com/photo-1716306886418-f84f6d4c2f3a?auto=format&fit=crop&w=1400&q=74" alt="Ряд боксёрских мешков в зале" width="1400" height="930" loading="lazy" decoding="async"></div>
           <div class="ph2"><img src="https://images.unsplash.com/photo-1630174385975-a406e87cd47c?auto=format&fit=crop&w=1400&q=74" alt="Мешок на цепях у светлой стены" width="1400" height="930" loading="lazy" decoding="async"></div>
-          <figcaption>Кадры из фотобанка, подобраны под концепт. На сайте вашего зала здесь будет своя съёмка.</figcaption>
         </figure>
       </div>
     </div>
   </section>
 
   <!-- ============ 7. запись ============ -->
-  <section class="sec" id="zapis" aria-labelledby="h-b">
+  <section class="sec reveal" id="zapis" aria-labelledby="h-b">
     <div class="sec__in">
       <div class="book">
         <div>
@@ -456,15 +491,11 @@ fieldset.f{border:0;padding:0;margin:0}
               <button class="btn" type="submit" id="send" disabled>Записаться на пробную</button>
               <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
             </div>
-            <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные.
-              Сайт для своего зала: <a class="link" href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
           </form>
 
           <div class="done" id="done" role="status" tabindex="-1" hidden>
-            <p class="done__b">Это демо-сайт.</p>
-            <p>Заявка никуда не ушла — форма показывает, как это будет выглядеть у вас.</p>
-            <p>Хотите такой же сайт для своего зала?
-              <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">t.me/open_sites</a></p>
+            <p class="done__b">Записали.</p>
+            <p>Тренер напишет в течение дня и скажет, что взять с собой.</p>
             <p><button class="btn btn--line" type="button" id="again" style="margin-top:6px">Вернуться к форме</button></p>
           </div>
         </div>
@@ -489,16 +520,12 @@ fieldset.f{border:0;padding:0;margin:0}
       <p class="note" style="margin-top:8px">Зал единоборств.<br>Улица Чавчавадзе, Батуми</p>
     </div>
     <div>
-      <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>.
-        Бизнес вымышленный, цены — ориентир по рынку Батуми.
-        <a class="link" href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своего зала: t.me/open_sites</a></p>
-      <p class="credits" style="margin-top:14px">Фотографии из фотобанка Unsplash, подобраны под концепт.</p>
     </div>
   </div>
 </footer>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SportsActivityLocation","name":"Гонг","description":"Зал единоборств в Батуми. Демонстрационный сайт студии open-sites.io, бизнес вымышленный.","url":"https://fr33roman.github.io/gong/","image":"https://fr33roman.github.io/gong/og.jpg","priceRange":"25–220 GEL","address":{"@type":"PostalAddress","streetAddress":"улица Чавчавадзе","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":["Mo-Sa 07:00-22:00","Su 11:00-18:00"],"availableLanguage":["ka","ru","en"]}
+{"@context":"https://schema.org","@type":"SportsActivityLocation","name":"Гонг","description":"Зал единоборств в Батуми: бокс, кикбоксинг, грэпплинг, ММА, детские и женские группы.","url":"https://fr33roman.github.io/gong/","image":"https://fr33roman.github.io/gong/og.jpg","priceRange":"25–220 GEL","address":{"@type":"PostalAddress","streetAddress":"улица Чавчавадзе","addressLocality":"Батуми","addressCountry":"GE"},"openingHours":["Mo-Sa 07:00-22:00","Su 11:00-18:00"],"availableLanguage":["ka","ru","en"]}
 </script>
 
 <script>
@@ -624,6 +651,20 @@ fieldset.f{border:0;padding:0;margin:0}
   layout();
   if (narrow.addEventListener) narrow.addEventListener('change', layout);
   setInterval(function () { today = refresh(); }, 30000);
+
+  /* ---- появление блоков при прокрутке ---- */
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    revs.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    revs.forEach(function (el) { io.observe(el); });
+    setTimeout(function () { revs.forEach(function (el) { el.classList.add('in'); }); }, 1500);
+  }
 
   /* ---- форма ---- */
   var form = document.getElementById('form');

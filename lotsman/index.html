@@ -49,7 +49,7 @@
   --gut:clamp(16px,3.9vw,56px);
   --f-disp:"Sofia Sans Extra Condensed","Arial Narrow",sans-serif;
   --f-text:"Finlandica Text",system-ui,sans-serif;
-  --r-flap:3px; --r-ctl:2px;
+  --r-flap:3px; --r-ctl:12px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -202,9 +202,10 @@ h2 .ln{display:block}
 .axis-scale span:last-child{transform:translateX(-100%)}
 .stills{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:end;margin-top:96px}
 .stills figure{margin:0}
-.st-a{grid-column:1/5}
-.st-b{grid-column:5/8;max-width:260px}
-.stills .stock{grid-column:9/13;color:var(--steel);max-width:26em;margin-bottom:34px}
+/* после того как убрали подпись про фотобанк, пара кадров разъехалась по левому краю —
+   раздвигаем её шире, иначе справа остаётся пустая треть экрана */
+.st-a{grid-column:1/7}
+.st-b{grid-column:7/11;max-width:320px}
 .ph{position:relative}
 .ph img{width:100%;height:100%;object-fit:cover}
 .r45{aspect-ratio:4/5}
@@ -216,13 +217,13 @@ h2 .ln{display:block}
 .m-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:end}
 .m-head h2{grid-column:1/7}
 .m-head p{grid-column:7/13;color:var(--graphite);max-width:34em;margin-bottom:6px}
-.m-list{list-style:none;margin:72px 0 0;padding:0;border-bottom:1px solid var(--rule-l)}
-.m{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:baseline;padding:34px 0 38px;border-top:1px solid var(--rule-l)}
-.m-name{grid-column:1/5;font:700 clamp(64px,7.4vw,116px)/.86 var(--f-disp);margin:0;letter-spacing:-.01em}
-.m-lvl{grid-column:5/7;font-weight:600;font-size:16px}
-.m-best{grid-column:7/11;font-size:17px;line-height:1.5;max-width:28em}
-.m-lang{grid-column:11/13;font-size:15px;line-height:1.45}
-.m-k{display:block;font-size:14px;color:var(--graphite);margin-bottom:4px}
+.m-list{list-style:none;margin:36px 0 0;padding:0;border-bottom:1px solid var(--rule-l)}
+.m{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:2px;
+  align-items:baseline;padding:16px 0 18px;border-top:1px solid var(--rule-l)}
+.m-name{grid-column:1/4;font:700 28px/1.1 var(--f-disp);letter-spacing:-.01em}
+.m-lvl{grid-column:4/6;font-size:15px;color:var(--graphite)}
+.m-best{grid-column:6/11;font-size:16px;line-height:1.4}
+.m-lang{grid-column:11/13;font-size:14px;color:var(--graphite);text-align:right}
 
 /* ---------- зал ---------- */
 .space{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:center}
@@ -343,11 +344,11 @@ html:not(.js) .mbar{display:none}
   .stills .stock{grid-column:1/-1;margin:28px 0 0}
   .m-head h2{grid-column:1/-1}
   .m-head p{grid-column:1/10;margin-top:22px}
-  .m{grid-template-columns:minmax(0,5fr) minmax(0,7fr);row-gap:10px}
-  .m-name{grid-column:1;grid-row:1/4;font-size:clamp(56px,9vw,84px)}
-  .m-lvl{grid-column:2;grid-row:1}
+  .m{grid-template-columns:minmax(0,4fr) minmax(0,8fr);row-gap:4px}
+  .m-name{grid-column:1;grid-row:1/4;font-size:26px}
+  .m-lvl{grid-column:2;grid-row:1;text-align:left}
   .m-best{grid-column:2;grid-row:2}
-  .m-lang{grid-column:2;grid-row:3}
+  .m-lang{grid-column:2;grid-row:3;text-align:left}
   .z-photo{grid-column:1/7;align-self:start}
   .z-text{grid-column:7/13;padding-left:8px}
   .z-lead{font-size:17px}
@@ -442,11 +443,11 @@ html:not(.js) .mbar{display:none}
 
   .m-head p{grid-column:1/-1;font-size:16px;margin-top:18px}
   .m-list{margin-top:40px}
-  .m{display:block;padding:26px 0 30px}
-  .m-name{font-size:62px}
-  .m-lvl{margin-top:12px}
-  .m-best{margin-top:12px;font-size:16px}
-  .m-lang{margin-top:12px}
+  .m{display:grid;grid-template-columns:minmax(0,1fr) auto;row-gap:3px;padding:14px 0 16px}
+  .m-name{grid-column:1;grid-row:1;font-size:24px}
+  .m-lvl{grid-column:2;grid-row:1;text-align:right;align-self:baseline}
+  .m-best{grid-column:1/-1;grid-row:2;font-size:15px}
+  .m-lang{grid-column:1/-1;grid-row:3;text-align:left;font-size:13px}
 
   .space{display:block}
   .z-photo{margin:-72px -16px 0}
@@ -513,7 +514,7 @@ html:not(.js) .mbar{display:none}
     <a href="#adres">Адрес</a>
   </nav>
   <div class="top-right">
-    <span class="plate plate-top"><b lang="ka">ღია</b><span class="vh">(по-грузински «открыто»)</span> ежедневно 10:00–21:00</span>
+    <span class="plate plate-top"><b lang="ka">ღია</b> ежедневно 10:00–21:00</span>
     <a class="tel" href="tel:+995555000000">+995 555 00 00 00</a>
     <a class="btn btn-line" href="#zapis">Записаться</a>
   </div>
@@ -539,7 +540,7 @@ html:not(.js) .mbar{display:none}
         <span class="ln">Сели в <span class="clock" data-v="19:00"><span class="txt">19:00</span></span>,</span>
         <span class="ln">вышли в <span class="clock" data-v="19:50"><span class="txt">19:50</span></span></span>
       </h1>
-      <p class="lead">Барбершоп «Лоцман» на улице Горгиладзе в Батуми. У каждой услуги на табло указаны минуты в кресле и цена в лари. Мастер начинает в минуту записи.</p>
+      <p class="lead">Барбершоп на улице Горгиладзе. На табло — минуты в кресле и цена в лари.</p>
 
       <div class="board" id="tablo">
         <div class="board-in">
@@ -577,9 +578,9 @@ html:not(.js) .mbar{display:none}
             <button type="button" aria-pressed="false" data-level="2">Старший барбер</button>
           </div>
           <a class="btn btn-fill cta" id="cta" href="#zapis">Записаться на стрижку</a>
-          <span class="plate plate-foot"><b lang="ka">ღია</b><span class="vh">(по-грузински «открыто»)</span> ежедневно 10:00–21:00</span>
+          <span class="plate plate-foot"><b lang="ka">ღია</b> ежедневно 10:00–21:00</span>
         </div>
-        <p class="hint"><span class="hint-d">Нажмите на строку: время выхода в заголовке и кнопка записи пересчитаются.</span><span class="hint-m">Нажмите на строку: время выхода в заголовке и панель внизу пересчитаются.</span></p>
+        <p class="hint"><span class="hint-d">Нажмите на строку — время выхода пересчитается.</span><span class="hint-m">Нажмите на строку — время выхода пересчитается.</span></p>
         <p class="vh" id="live" aria-live="polite"></p>
       </div>
     </div>
@@ -589,9 +590,7 @@ html:not(.js) .mbar{display:none}
     <div class="g12">
       <div class="price-side">
         <h2 id="price-h">Весь прайс</h2>
-        <p>Цена зависит от уровня мастера. Длина и густота волос на неё не влияют.</p>
-        <p>Минуты считаются от кресла до выхода: мытьё и укладка уже внутри.</p>
-        <p>Оплата картой или наличными в лари.</p>
+        <p>Минуты — от кресла до выхода, мытьё и укладка уже внутри.</p>
       </div>
       <div class="price-main">
         <table class="plist">
@@ -602,30 +601,29 @@ html:not(.js) .mbar{display:none}
           </thead>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="4">Стрижки</th></tr>
-            <tr><th scope="row"><span class="s-n">Стрижка</span><span class="s-d">Машинка и ножницы, мытьё, укладка</span><span class="s-m">50 минут</span></th><td class="c-min">50</td><td>50</td><td>60</td></tr>
-            <tr><th scope="row"><span class="s-n">Фейд</span><span class="s-d">Переход от 0,5 мм без ступенек, верх ножницами</span><span class="s-m">60 минут</span></th><td class="c-min">60</td><td>55</td><td>65</td></tr>
-            <tr><th scope="row"><span class="s-n">Стрижка под насадку</span><span class="s-d">Одна длина машинкой, окантовка</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>30</td><td>35</td></tr>
-            <tr><th scope="row"><span class="s-n">Детская стрижка</span><span class="s-d">До 12 лет</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>35</td><td>40</td></tr>
-            <tr><th scope="row"><span class="s-n">Отец и сын</span><span class="s-d">Две стрижки подряд у одного мастера</span><span class="s-m">90 минут</span></th><td class="c-min">90</td><td>70</td><td>85</td></tr>
+            <tr><th scope="row"><span class="s-n">Стрижка</span><span class="s-m">50 минут</span></th><td class="c-min">50</td><td>50</td><td>60</td></tr>
+            <tr><th scope="row"><span class="s-n">Фейд</span><span class="s-m">60 минут</span></th><td class="c-min">60</td><td>55</td><td>65</td></tr>
+            <tr><th scope="row"><span class="s-n">Стрижка под насадку</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>30</td><td>35</td></tr>
+            <tr><th scope="row"><span class="s-n">Детская стрижка</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>35</td><td>40</td></tr>
+            <tr><th scope="row"><span class="s-n">Отец и сын</span><span class="s-m">90 минут</span></th><td class="c-min">90</td><td>70</td><td>85</td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="4">Борода и бритьё</th></tr>
-            <tr><th scope="row"><span class="s-n">Борода</span><span class="s-d">Форма по линии челюсти, окантовка бритвой, масло</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>35</td><td>45</td></tr>
-            <tr><th scope="row"><span class="s-n">Бритьё</span><span class="s-d">Опасная бритва, горячее и холодное полотенце</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>50</td><td>60</td></tr>
+            <tr><th scope="row"><span class="s-n">Борода</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>35</td><td>45</td></tr>
+            <tr><th scope="row"><span class="s-n">Бритьё</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>50</td><td>60</td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="4">Седина</th></tr>
-            <tr><th scope="row"><span class="s-n">Камуфляж седины, голова</span><span class="s-d">Часть седины остаётся, цвет не выглядит крашеным</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>45</td><td>55</td></tr>
-            <tr><th scope="row"><span class="s-n">Камуфляж седины, борода</span><span class="s-d">Тон подбирается к щетине, а не к волосам на голове</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>35</td><td>45</td></tr>
+            <tr><th scope="row"><span class="s-n">Камуфляж седины, голова</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>45</td><td>55</td></tr>
+            <tr><th scope="row"><span class="s-n">Камуфляж седины, борода</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>35</td><td>45</td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="4">Вместе</th></tr>
-            <tr><th scope="row"><span class="s-n">Стрижка и борода</span><span class="s-d">Одна запись, один мастер</span><span class="s-m">80 минут</span></th><td class="c-min">80</td><td>80</td><td>95</td></tr>
-            <tr><th scope="row"><span class="s-n">Фейд и бритьё</span><span class="s-d">Самая длинная запись в прайсе</span><span class="s-m">100 минут</span></th><td class="c-min">100</td><td>100</td><td>115</td></tr>
+            <tr><th scope="row"><span class="s-n">Стрижка и борода</span><span class="s-m">80 минут</span></th><td class="c-min">80</td><td>80</td><td>95</td></tr>
+            <tr><th scope="row"><span class="s-n">Фейд и бритьё</span><span class="s-m">100 минут</span></th><td class="c-min">100</td><td>100</td><td>115</td></tr>
           </tbody>
         </table>
         <div class="price-foot">
-          <p>Старший барбер берёт сложные случаи: фейд от 0,5 мм, густую бороду, седину. Поэтому у него на 10–15 лари дороже.</p>
           <a class="btn btn-dark" href="#zapis">Записаться</a>
         </div>
       </div>
@@ -635,15 +633,15 @@ html:not(.js) .mbar{display:none}
   <section class="visit sec" id="vizit" aria-labelledby="visit-h">
     <div class="visit-head">
       <h2 id="visit-h"><span class="ln">Стрижка на 19:00</span> <span class="ln">по минутам</span></h2>
-      <p>От двери до выхода 55 минут, в кресле ровно 50. У других услуг порядок тот же, меняется только средний шаг.</p>
+      <p>От двери до выхода 55 минут, в кресле ровно 50.</p>
     </div>
 
     <ol class="gantt">
-      <li style="--s:0;--e:9.09"><span class="g-t"><time>18:55</time></span><span class="g-n">Приходите за пять минут</span><span class="g-d">Куртку на вешалку, на стойке вода и чай. Если опаздываете больше чем на 10 минут, напишите: мастер сократит укладку или перенесёт запись.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:9.09;--e:18.18"><span class="g-t"><time>19:00</time></span><span class="g-n">Разговор</span><span class="g-d">Как носите волосы, где пробор, что не получилось в прошлый раз. Длину договариваетесь в миллиметрах насадки, можно показать фото.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:18.18;--e:78.18"><span class="g-t"><time>19:05</time></span><span class="g-n">Стрижка</span><span class="g-d">Бока машинкой, верх ножницами, линия роста шаветкой. В конце мастер показывает затылок во втором зеркале.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:78.18;--e:96.36"><span class="g-t"><time>19:38</time></span><span class="g-n">Мытьё и укладка</span><span class="g-d">Смываем состриженные волоски, сушим феном. Мастер показывает, сколько средства брать дома, чтобы форма держалась в батумскую влажность.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:96.36;--e:100"><span class="g-t"><time>19:48</time></span><span class="g-n">Оплата</span><span class="g-d">Картой или наличными в лари. Следующую запись можно поставить сразу.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
+      <li style="--s:0;--e:9.09"><span class="g-t"><time>18:55</time></span><span class="g-n">Приходите за пять минут</span><span class="g-d">Куртка на вешалку, вода и чай на стойке.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
+      <li style="--s:9.09;--e:18.18"><span class="g-t"><time>19:00</time></span><span class="g-n">Разговор</span><span class="g-d">Длину договариваете в миллиметрах насадки. Можно показать фото.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
+      <li style="--s:18.18;--e:78.18"><span class="g-t"><time>19:05</time></span><span class="g-n">Стрижка</span><span class="g-d">Бока машинкой, верх ножницами, линия роста шаветкой.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
+      <li style="--s:78.18;--e:96.36"><span class="g-t"><time>19:38</time></span><span class="g-n">Мытьё и укладка</span><span class="g-d">Смываем волоски, сушим феном, показываем укладку.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
+      <li style="--s:96.36;--e:100"><span class="g-t"><time>19:48</time></span><span class="g-n">Оплата</span><span class="g-d">Картой или наличными. Следующую запись ставим сразу.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
     </ol>
     <div class="axis" aria-hidden="true"><span class="axis-scale"><span style="left:0">18:55</span><span style="left:27.27%">19:10</span><span style="left:54.55%">19:25</span><span style="left:100%">19:50, выход</span></span></div>
 
@@ -654,7 +652,6 @@ html:not(.js) .mbar{display:none}
           src="https://images.unsplash.com/photo-1657105052497-f996284ffff8?rect=0,1120,4480,5600&amp;w=900&amp;q=70&amp;auto=format"
           srcset="https://images.unsplash.com/photo-1657105052497-f996284ffff8?rect=0,1120,4480,5600&amp;w=500&amp;q=70&amp;auto=format 500w, https://images.unsplash.com/photo-1657105052497-f996284ffff8?rect=0,1120,4480,5600&amp;w=900&amp;q=70&amp;auto=format 900w"
           sizes="(max-width: 600px) 46vw, (max-width: 1023px) 40vw, 30vw"></div>
-        <figcaption><b>19:05–19:38</b>Верх ножницами после машинки</figcaption>
       </figure>
       <figure class="st-b">
         <div class="ph duo r45 p11"><img loading="lazy" decoding="async" width="700" height="1022"
@@ -662,42 +659,20 @@ html:not(.js) .mbar{display:none}
           src="https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
           srcset="https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400 400w, https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700 700w"
           sizes="(max-width: 600px) 46vw, (max-width: 1023px) 32vw, 260px"></div>
-        <figcaption><b>19:30</b>Линия роста шаветкой</figcaption>
       </figure>
-      <p class="stock">Кадры из фотобанков подобраны под концепт. На сайте вашего барбершопа здесь будет своя съёмка.</p>
     </div>
   </section>
 
   <section class="paper sec" id="mastera" aria-labelledby="m-h">
     <div class="m-head">
       <h2 id="m-h">Мастера</h2>
-      <p>Старшие барберы берут сложные случаи, барберы ведут повседневные стрижки. Если не знаете, к кому записаться, опишите в заявке, что хотите, и администратор подберёт мастера.</p>
+      <p>Не знаете, к кому записаться, — напишите в заявке, что хотите.</p>
     </div>
     <ul class="m-list">
-      <li class="m">
-        <h3 class="m-name">Давид</h3>
-        <p class="m-lvl">Старший барбер</p>
-        <p class="m-best"><span class="m-k">Лучше всего</span>Фейды от 0,5 мм и жёсткие кудрявые волосы, которые топорщатся после обычной машинки.</p>
-        <p class="m-lang"><span class="m-k">Языки</span>Русский, грузинский, английский</p>
-      </li>
-      <li class="m">
-        <h3 class="m-name">Лаша</h3>
-        <p class="m-lvl">Старший барбер</p>
-        <p class="m-best"><span class="m-k">Лучше всего</span>Опасная бритва и густые бороды: форма по линии челюсти, горячие полотенца, седина в бороде.</p>
-        <p class="m-lang"><span class="m-k">Языки</span>Грузинский, русский, турецкий</p>
-      </li>
-      <li class="m">
-        <h3 class="m-name">Артём</h3>
-        <p class="m-lvl">Барбер</p>
-        <p class="m-best"><span class="m-k">Лучше всего</span>Классика ножницами и удлинённый верх. Стрижёт детей, в том числе тех, кто пришёл впервые и боится машинки.</p>
-        <p class="m-lang"><span class="m-k">Языки</span>Русский, английский</p>
-      </li>
-      <li class="m">
-        <h3 class="m-name">Нико</h3>
-        <p class="m-lvl">Барбер</p>
-        <p class="m-best"><span class="m-k">Лучше всего</span>Короткие стрижки под насадку и камуфляж седины на голове.</p>
-        <p class="m-lang"><span class="m-k">Языки</span>Грузинский, русский, английский</p>
-      </li>
+      <li class="m"><span class="m-name">Давид</span><span class="m-lvl">Старший барбер</span><span class="m-best">Фейды от 0,5 мм, жёсткие кудрявые волосы</span><span class="m-lang">рус · груз · англ</span></li>
+      <li class="m"><span class="m-name">Лаша</span><span class="m-lvl">Старший барбер</span><span class="m-best">Опасная бритва, густые бороды, седина</span><span class="m-lang">груз · рус · тур</span></li>
+      <li class="m"><span class="m-name">Артём</span><span class="m-lvl">Барбер</span><span class="m-best">Классика ножницами, удлинённый верх, дети</span><span class="m-lang">рус · англ</span></li>
+      <li class="m"><span class="m-name">Нико</span><span class="m-lvl">Барбер</span><span class="m-best">Короткие стрижки под насадку, камуфляж седины</span><span class="m-lang">груз · рус · англ</span></li>
     </ul>
   </section>
 
@@ -711,14 +686,13 @@ html:not(.js) .mbar{display:none}
     </figure>
     <div class="z-text">
       <h2 id="z-h">Зал</h2>
-      <p class="z-lead">Четыре кресла у высоких окон. Мойка стоит отдельно, за перегородкой, поэтому фен у соседнего кресла не мешает разговору с мастером.</p>
+      <p class="z-lead">Четыре кресла у высоких окон. Мойка за перегородкой — фен не мешает разговору.</p>
       <dl class="z-facts">
-        <div><dt>Воздух</dt><dd>Кондиционер и осушитель. В Батуми влажно, а укладку проверяем в сухом зале, чтобы знать, как она поведёт себя на улице.</dd></div>
-        <div><dt>Бритьё</dt><dd>Кожу распариваем паром и горячим полотенцем. Лезвие в шаветке меняем при вас перед каждым клиентом.</dd></div>
-        <div><dt>Пока ждёте</dt><dd>Вода без газа и чёрный чай из Чакви.</dd></div>
-        <div><dt>С ребёнком</dt><dd>Подушка на кресло для детей от трёх лет и тихая машинка.</dd></div>
+        <div><dt>Воздух</dt><dd>Кондиционер и осушитель: укладку проверяем в сухом зале.</dd></div>
+        <div><dt>Бритьё</dt><dd>Пар и горячее полотенце. Лезвие меняем при вас.</dd></div>
+        <div><dt>Пока ждёте</dt><dd>Вода и чай из Чакви.</dd></div>
+        <div><dt>С ребёнком</dt><dd>Подушка на кресло и тихая машинка.</dd></div>
       </dl>
-      <p class="stock">Фото из фотобанка, подобрано под концепт.</p>
     </div>
   </section>
 
@@ -727,7 +701,7 @@ html:not(.js) .mbar{display:none}
       <div class="b-side">
         <h2 id="b-h">Запись</h2>
         <p class="b-sel">Вы выбрали: <b id="bSel">стрижка у барбера, 50 минут, 50 лари</b></p>
-        <p class="b-note">Оставьте имя и телефон. Администратор перезвонит или напишет в WhatsApp и подтвердит время. Заявки после 21:00 разбираем утром.</p>
+        <p class="b-note">Оставьте имя и телефон — подтвердим время в WhatsApp.</p>
         <p class="b-tel">Или позвоните: <a href="tel:+995555000000">+995 555 00 00 00</a></p>
       </div>
 
@@ -771,7 +745,7 @@ html:not(.js) .mbar{display:none}
         </div>
         <noscript><p class="fld-wide">Без JavaScript форма не отправляется. Позвоните: +995 555 00 00 00.</p></noscript>
         <div class="b-done" id="bDone" tabindex="-1" role="status" hidden>
-          <p><strong>Это демо-сайт.</strong> Хотите такой же для своего барбершопа? <a href="https://t.me/open_sites">→ t.me/open_sites</a></p>
+          <p><strong>Заявка принята.</strong> Администратор подтвердит время в WhatsApp.</p>
         </div>
       </form>
     </div>
@@ -793,13 +767,13 @@ html:not(.js) .mbar{display:none}
     </figure>
     <div class="w-in">
       <div class="w-main">
-        <p class="w-sign"><b lang="ka">ლოცმანი</b><span>«Лоцман» по-грузински, так написано над входом</span></p>
+        <p class="w-sign"><b lang="ka">ლოცმანი</b></p>
         <h2 id="w-h"><span class="ln">Улица Горгиладзе,</span> <span class="ln">Батуми</span></h2>
       </div>
       <div class="w-side">
         <dl class="w-dl">
           <div><dt>Адрес</dt><dd>ул. Горгиладзе, Батуми</dd></div>
-          <div><dt>Часы</dt><dd>Ежедневно 10:00–21:00. Последняя стрижка начинается в 20:10.</dd></div>
+          <div><dt>Часы</dt><dd>Ежедневно 10:00–21:00</dd></div>
           <div><dt>Телефон</dt><dd><a href="tel:+995555000000">+995 555 00 00 00</a></dd></div>
         </dl>
         <div class="w-btns">
@@ -813,8 +787,6 @@ html:not(.js) .mbar{display:none}
 
 <footer class="foot">
   <p class="foot-brand">Лоцман</p>
-  <p class="demo">Демонстрационная работа студии <span class="nw">open-sites.io</span>. Бизнес вымышленный, цены — ориентир по рынку Батуми.</p>
-  <p class="credits">Фото: Unsplash и Pexels, свободные лицензии. Люди на фото не мастера и не клиенты. Сайт для своего барбершопа: <a href="https://t.me/open_sites">t.me/open_sites</a></p>
 </footer>
 
 <aside class="mbar away" id="mbar" aria-label="Быстрая запись">

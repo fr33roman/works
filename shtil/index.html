@@ -62,14 +62,14 @@ p,h2,h3,figure,dl,dd{margin:0}
 .sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 [id]{scroll-margin-top:24px}
-.skip{position:absolute;left:12px;top:-80px;background:var(--ink);color:var(--salt);padding:12px 18px;border-radius:999px;z-index:50}
+.skip{position:absolute;left:12px;top:-80px;background:var(--ink);color:var(--salt);padding:12px 18px;border-radius:14px;z-index:50}
 .skip:focus{top:12px}
 .grain{position:relative}
 .grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.13;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ============ buttons & links ============ */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:999px;
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:14px;
   background:var(--ink);color:var(--salt);font:500 16px/1 var(--sans);text-decoration:none;border:0;cursor:pointer;white-space:nowrap;
   transition:background-color .2s,color .2s}
 .btn:hover{background:#2B3D42}
@@ -144,7 +144,7 @@ html.js .hygro__static{display:none}
 /* ============ services ============ */
 .svc__h{grid-column:1/6;grid-row:1;align-self:end}
 .svc__note{grid-column:6/-1;grid-row:1;align-self:end;max-width:60ch;color:var(--pebble);font-size:17px}
-.photo{position:relative;overflow:hidden;background:var(--mist)}
+.photo{position:relative;overflow:hidden;background:var(--mist);border-radius:14px}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
 .cap{margin-top:14px;font-size:15px;line-height:1.45;color:var(--pebble);max-width:36ch}
 .svc__fan{grid-column:1/5;grid-row:2;align-self:start;margin-top:64px}
@@ -252,7 +252,7 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{position:relative;display:inline-flex}
 .chip input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
-.chip span{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border:1px solid var(--field);border-radius:999px;background:#fff;font-size:16px;cursor:pointer;white-space:nowrap;transition:background-color .15s,color .15s}
+.chip span{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border:1px solid var(--field);border-radius:14px;background:#fff;font-size:16px;cursor:pointer;white-space:nowrap;transition:background-color .15s,color .15s}
 .chip input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--salt)}
 .chip input:focus-visible+span{outline:2px solid var(--ink);outline-offset:3px}
 .consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:14px}
@@ -530,8 +530,8 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
           </div>
         </div>
         <div class="hygro__foot">
-          <p class="hygro__text hygro__live" id="hum-text" aria-live="polite">Обычный день у моря. Укладка без защиты теряет форму за 2–3 часа, брашинг с фиксацией обычно держится до вечера.</p>
-          <p class="hygro__text hygro__static">Влажность в Батуми обычно 70–80%. Укладка без защиты теряет форму за 2–3 часа, брашинг с фиксацией обычно держится до вечера.</p>
+          <p class="hygro__text hygro__live" id="hum-text" aria-live="polite">Обычный день у моря: укладка без защиты держится 2–3 часа.</p>
+          <p class="hygro__text hygro__static">В Батуми обычно 70–80%: укладка без защиты держится 2–3 часа.</p>
           <div class="hygro__actions">
             <a class="link" href="#uslugi">Услуги и цены</a>
           </div>
@@ -544,7 +544,6 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
   <section class="sec svc" id="uslugi" aria-labelledby="svc-h">
     <div class="grid">
       <h2 class="h2 svc__h" id="svc-h">Услуги и цены</h2>
-      <p class="svc__note">Цены в лари. «В кресле» — сколько длится визит. «Держится» — ориентир наших мастеров при обычной для Батуми влажности: многое зависит от волос и домашнего ухода. Где стоит «от», это цена для волос до плеч; точную мастер назовёт до начала работы.</p>
 
       <div class="grp grp--hair">
         <h3 class="h3">Волосы</h3>
@@ -569,7 +568,6 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
             src="https://images.unsplash.com/photo-1715220210514-5b52d4893f65?auto=format&rect=380,2280,3040,2432&w=960&q=78"
             alt="Веер прядей от чёрного через медь до светлого блонда, рядом ножницы и щипцы на сером бетоне">
         </div>
-        <figcaption class="cap">Оттенок подбираем по живым прядям у окна, при дневном свете. Фото в телефоне для этого не годится.</figcaption>
       </figure>
 
       <div class="grp grp--nails">
@@ -599,7 +597,6 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
             src="https://images.pexels.com/photos/3997388/pexels-photo-3997388.jpeg?auto=compress&cs=tinysrgb&w=1200"
             alt="Рука над белым полотенцем: короткие ногти без покрытия, безымянный покрыт красным лаком">
         </div>
-        <figcaption class="cap">Сомневаетесь в оттенке? Мастер сначала покроет один ноготь, и вы посмотрите цвет у окна.</figcaption>
       </figure>
     </div>
   </section>
@@ -608,7 +605,7 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
   <section class="sec hum" id="vlazhnost" aria-labelledby="hum-h">
     <div class="grid">
       <h2 class="h2 hum__h" id="hum-h">Что выдерживает батумскую влажность</h2>
-      <p class="hum__lede">Обычная влажность в Батуми — 70–80%. Волосы впитывают влагу из воздуха, и укладка возвращается к естественной форме: прямые волосы теряют гладкость, вьющиеся пушатся. Остановить это нельзя, отложить можно.</p>
+      <p class="hum__lede">Волосы впитывают влагу из воздуха и возвращаются к своей форме. Остановить это нельзя, отложить можно.</p>
 
       <figure class="ruler" aria-labelledby="ruler-cap">
         <div class="ruler__head">
@@ -656,18 +653,15 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
             <div class="rr__track" aria-hidden="true"><span class="rr__bar" style="--a:90.24%;--b:95.27%"></span></div>
           </li>
         </ul>
-        <p class="ruler__foot">Шкала времени сжата: каждое деление длиннее предыдущего. Это ориентир мастеров салона, а не гарантия: под дождём, после моря и бассейна любая укладка сдаётся быстрее.</p>
       </figure>
 
       <div class="hum__note hum__note--a">
         <h3 class="h3">Перед записью</h3>
-        <p>На кератин и уход против пушения сначала приходите на консультацию: 15 минут, бесплатно. Мастер посмотрит волосы и скажет, нужна ли процедура.</p>
-        <p>Если хватит брашинга с фиксацией, так и скажем.</p>
+        <p>На кератин и уход — бесплатная консультация 15 минут. Если хватит брашинга, так и скажем.</p>
       </div>
       <div class="hum__note hum__note--b">
         <h3 class="h3">После салона</h3>
-        <p>После кератина нужен шампунь без сульфатов, иначе эффект смоется быстрее. Сколько не мыть волосы после процедуры, зависит от состава: мастер скажет в конце визита.</p>
-        <p>Укладку в дождь спрячьте под капюшон или платок: от прямой воды не спасает никакая фиксация.</p>
+        <p>После кератина — шампунь без сульфатов. В дождь укладку под капюшон: от прямой воды фиксация не спасает.</p>
       </div>
     </div>
   </section>
@@ -676,7 +670,6 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
   <section class="sec team" id="mastera" aria-labelledby="team-h">
     <div class="grid">
       <h2 class="h2 team__h" id="team-h">Мастера</h2>
-      <p class="team__note">Хотите к конкретному мастеру? Скажите администратору, когда он перезвонит подтвердить запись.</p>
       <ul class="team__list">
         <li class="m"><span class="m__name">Нино</span><span class="m__days">пн–пт</span><span class="m__spec">Стрижки и укладка, вьющиеся волосы</span></li>
         <li class="m"><span class="m__name">Мариам</span><span class="m__days">вт–сб</span><span class="m__spec">Цвет: корни, тон, аиртач, балаяж</span></li>
@@ -699,8 +692,7 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
       </div>
       <div class="atm__text">
         <h2 class="h2" id="atm-h">Кресла у окон</h2>
-        <p>Шесть кресел для волос и два стола для маникюра стоят вдоль окон: цвет волос и оттенок лака видно при дневном свете.</p>
-        <p>Музыка тихая, телевизора нет. Пока держится краска, нальём воды или чая из Чакви.</p>
+        <p>Шесть кресел для волос и два стола для маникюра вдоль окон: цвет видно при дневном свете. Музыка тихая, телевизора нет.</p>
       </div>
       <div class="atm__small photo grain">
         <img loading="lazy" decoding="async" width="900" height="1350"
@@ -717,7 +709,7 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
     <div class="grid">
       <div class="book__side">
         <h2 class="h2" id="book-h">Запись</h2>
-        <p class="book__note">Оставьте телефон, и администратор перезвонит подтвердить время. Цену окрашивания и кератина мастер назовёт после осмотра волос.</p>
+        <p class="book__note">Оставьте телефон — администратор перезвонит подтвердить время.</p>
         <dl class="contacts" id="kontakty">
           <div><dt>Адрес</dt><dd>ул. Пушкина, Батуми</dd></div>
           <div><dt>Часы работы</dt><dd>Ежедневно 10:00–21:00</dd></div>
@@ -780,12 +772,12 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
             <button class="btn" type="submit" id="send" disabled>Отправить заявку</button>
             <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
           </div>
-          <noscript><p class="noscript">Это демо-сайт, форма не отправляет данные. Сайт для своего салона: <a href="https://t.me/open_sites">t.me/open_sites</a></p></noscript>
+          <noscript><p class="noscript">Без JavaScript форма не отправляется — позвоните в салон.</p></noscript>
         </form>
 
         <div class="done" id="done" role="status" tabindex="-1" hidden>
-          <p class="done__big">Это демо-сайт.</p>
-          <p class="done__text">Хотите такой же для своего салона? <a href="https://t.me/open_sites" target="_blank" rel="noopener">→ t.me/open_sites</a></p>
+          <p class="done__big">Заявка принята.</p>
+          <p class="done__text">Администратор перезвонит подтвердить время.</p>
           <button class="link done__back" type="button" id="again">Вернуться к форме</button>
         </div>
       </div>
@@ -800,8 +792,6 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
       <span class="logo__ka" lang="ka">შტილი</span>
       <p>«Штиль», салон волос и ногтей. ул. Пушкина, Батуми, ежедневно 10:00–21:00</p>
     </div>
-    <p class="plate">Демонстрационная работа студии <span class="nw">open-sites.io</span>. Бизнес вымышленный, цены — ориентир по рынку Батуми. <a href="https://t.me/open_sites" target="_blank" rel="noopener">Сайт для своего салона: t.me/open_sites</a></p>
-    <p class="credits">Фото: Tim Foster, Lu и Courtney Spittle (Unsplash), cottonbro studio и Anna Nekrashevich (Pexels).</p>
   </div>
 </footer>
 
@@ -820,10 +810,10 @@ select.inp{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:poi
   var text = document.getElementById('hum-text');
 
   var BANDS = [
-    { max: 59,  fit: 'dry', t: 'Сухой день, в Батуми это редкость. Обычный брашинг продержится до вечера.' },
-    { max: 74,  fit: 'mid', t: 'Кончики начнут пушиться к обеду. Брашинг с термозащитой и фиксацией удержит форму дольше.' },
-    { max: 89,  fit: 'mid', t: 'Обычный день у моря. Укладка без защиты теряет форму за 2–3 часа, брашинг с фиксацией обычно держится до вечера.' },
-    { max: 100, fit: 'wet', t: 'Дождь с моря. Любая укладка сдастся за час-два. Пушение надолго уменьшит кератин: 2–3 месяца.' }
+    { max: 59,  fit: 'dry', t: 'Сухой день — редкость. Брашинг продержится до вечера.' },
+    { max: 74,  fit: 'mid', t: 'Кончики запушатся к обеду. Брашинг с фиксацией удержит дольше.' },
+    { max: 89,  fit: 'mid', t: 'Обычный день у моря: укладка без защиты держится 2–3 часа.' },
+    { max: 100, fit: 'wet', t: 'Дождь с моря: любая укладка сдастся за час-два.' }
   ];
 
   var target = 80, current = 80, raf = 0, introDone = false;

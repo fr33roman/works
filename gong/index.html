@@ -93,7 +93,15 @@ h3{font-family:var(--text);font-weight:600;font-size:18px;line-height:1.3}
 
 /* ============ 1. герой ============ */
 .hero{padding:clamp(26px,4vw,54px) var(--gut) clamp(24px,3vw,36px);max-width:1360px;margin:0 auto}
-h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line-height:.98;
+/* Правка 21.09: кадр боя на фоне первого экрана, затемнён и уходит в чёрный.
+   Сам заголовок стал чуть меньше — картинка забирает часть внимания. */
+.hero{position:relative;isolation:isolate}
+.hero__bg{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;
+  filter:grayscale(1) contrast(1.1) brightness(.5)}
+.hero__bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.72) 45%,var(--black) 100%)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(25.5px,4.8vw,78.2px);line-height:.98;
   letter-spacing:-.045em;max-width:15ch;text-transform:uppercase}
 .hero__lead{margin-top:20px;font-size:clamp(17px,1.5vw,20px);line-height:1.45;max-width:58ch;color:var(--ash)}
 .hero__lead b{color:var(--white);font-weight:500}
@@ -132,6 +140,15 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line
 .days{display:none}
 .grid7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
 .day{border-right:1px solid var(--line);min-width:0}
+/* Правка 21.09: в таблице много цифр, и она шумит. По умолчанию неделя
+   приглушена, при наведении подсвечивается только нужный день.
+   «Идёт сейчас» не гаснет никогда — это главное, что ищут глазами. */
+.grid7 .day{opacity:.42;transition:opacity .25s ease}
+.grid7:hover .day{opacity:.28}
+.grid7 .day:hover,.grid7 .day:focus-within{opacity:1}
+.grid7 .day:has(.ses.is-now){opacity:1}
+@media (hover:none){.grid7 .day,.grid7:hover .day{opacity:1}}
+@media (prefers-reduced-motion:reduce){.grid7 .day{transition:none}}
 .day:last-child{border-right:0}
 .day__h{padding:14px 12px 10px;border-bottom:1px solid var(--line);
   font-family:var(--disp);font-weight:700;font-size:14px;letter-spacing:-.02em;text-transform:uppercase}
@@ -205,6 +222,15 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line
 .coaches{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
 @media (min-width:620px){.coaches{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1100px){.coaches{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* Правка 21.09: у каждого тренера кадр в круглой рамке, имя под ним.
+   Лица не ставим: чужой человек в роли «нашего тренера» — обман, и это
+   прямо запрещено регламентом (SITE-FACTORY §6). Вместо лиц — снаряд
+   по специализации: перчатки, ринг, канаты, гантели. */
+.co__ph{display:block;width:104px;height:104px;border-radius:50%;overflow:hidden;
+  border:1px solid var(--line);margin-bottom:14px}
+.co__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 62%;transform:scale(1.25);
+  filter:grayscale(1) contrast(1.15) brightness(.85);transition:filter .3s ease,transform .3s ease}
+.co:hover .co__ph img{filter:grayscale(1) contrast(1.2) brightness(1);transform:scale(1.16)}
 .co{display:grid;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow-sm);padding:20px 18px;gap:6px;
   transition:transform .3s ease,box-shadow .3s ease}
@@ -216,7 +242,17 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line
 
 /* ============ зал ============ */
 .hall{display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px}
-@media (min-width:900px){.hall{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}}
+@media (min-width:900px){
+  /* Правка 21.09: левая колонка тянется на всю высоту кадров, табло занимает
+     остаток — так оно стоит ровно напротив фотографий. */
+  .hall{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:stretch}
+  .hall > div{display:flex;flex-direction:column}
+  .hall .tablo{flex:1;grid-template-rows:repeat(2,minmax(0,1fr))}
+  .hall .tablo li{display:flex;flex-direction:column;justify-content:center;padding:26px 18px}
+  .hall figure{display:flex;flex-direction:column}
+  .hall .ph1,.hall .ph2{flex:1;display:flex}
+  .hall .ph1 img,.hall .ph2 img{height:100%}
+}
 /* Табло: зал описан цифрами, как счёт на ринге. У «Суппорта» и «Кружка»
    этот блок решён по-другому — чертежом и строками с маркерами. */
 .tablo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);
@@ -226,10 +262,11 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.6vw,92px);line
   line-height:1;letter-spacing:-.05em}
 .tablo span{display:block;margin-top:10px;color:var(--ash);font-size:13.5px;line-height:1.35}
 .hall__cap{margin-top:16px;color:var(--ash);font-size:14px}
+.note .accent{color:var(--white);font-weight:600}
 .hall img{width:100%;object-fit:cover;border-radius:var(--r);
-  filter:grayscale(1) contrast(1.18) brightness(.9)}
+  filter:grayscale(1) contrast(1.05) brightness(1.15)}
 .hall .ph1 img{height:clamp(200px,26vw,320px)}
-.hall .ph2 img{height:clamp(140px,15vw,190px);margin-top:10px}
+.hall .ph2 img{height:clamp(200px,22vw,280px);margin-top:12px}
 figcaption{margin-top:10px;color:var(--ash);font-size:13px;line-height:1.45}
 
 /* ============ форма ============ */
@@ -293,6 +330,10 @@ fieldset.f{border:0;padding:0;margin:0}
 <main id="top">
   <!-- ============ 1. герой ============ -->
   <section class="hero" aria-labelledby="h1">
+    <div class="hero__bg" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1591117207239-788bf8de6c3b?auto=format&fit=crop&w=2000&q=70"
+        alt="" width="2000" height="1333" fetchpriority="high" decoding="async">
+    </div>
     <h1 id="h1">Приходите тренироваться, а не покупать абонемент</h1>
     <p class="hero__lead"><b>Первое занятие бесплатное.</b> Ниже — вся неделя и что идёт прямо сейчас.</p>
 
@@ -373,7 +414,6 @@ fieldset.f{border:0;padding:0;margin:0}
       </div>
 
     </div>
-    <p class="week__cap">Время батумское. Зал открыт 7:00–22:00, в воскресенье до 18:00.</p>
   </section>
 
   <!-- ============ 3. направления ============ -->
@@ -411,7 +451,7 @@ fieldset.f{border:0;padding:0;margin:0}
         <li class="r"><span class="r__n">Детский абонемент, восемь занятий</span><span class="r__a">группа по возрасту</span><span class="r__b">месяц</span><span class="r__s">120 лари</span></li>
         <li class="r"><span class="r__n">Персональная тренировка</span><span class="r__a">один на один, 60 минут</span><span class="r__b">по договорённости</span><span class="r__s">80 лари</span></li>
       </ul>
-      <p class="note" style="margin-top:20px">Заболели или уехали — заморозим абонемент до десяти дней, бесплатно.</p>
+      <p class="note" style="margin-top:20px">Заболели или уехали — заморозим абонемент до десяти дней, <b class="accent">бесплатно</b>.</p>
     </div>
   </section>
 
@@ -420,10 +460,10 @@ fieldset.f{border:0;padding:0;margin:0}
     <div class="sec__in">
       <h2 id="h-c">Тренеры</h2>
       <ul class="coaches">
-        <li class="co"><span class="co__n">Давид</span><span class="co__s">бокс, кикбоксинг, открытый спарринг</span><span class="co__d">пн, ср, чт, сб</span></li>
-        <li class="co"><span class="co__n">Ираклий</span><span class="co__s">грэпплинг, ММА</span><span class="co__d">вт, пт, вс</span></li>
-        <li class="co"><span class="co__n">Нана</span><span class="co__s">женская группа, общая физика</span><span class="co__d">утро пн–пт, вт, чт, вс</span></li>
-        <li class="co"><span class="co__n">Георгий</span><span class="co__s">детские группы</span><span class="co__d">пн–сб</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=600&q=74" alt="Боксёрские перчатки" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Давид</span><span class="co__s">бокс, кикбоксинг, открытый спарринг</span><span class="co__d">пн, ср, чт, сб</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1630174385975-a406e87cd47c?auto=format&fit=crop&w=600&q=74" alt="Боксёрский мешок на цепях" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Ираклий</span><span class="co__s">грэпплинг, ММА</span><span class="co__d">вт, пт, вс</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=74" alt="Силуэт в тёмном зале" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Нана</span><span class="co__s">женская группа, общая физика</span><span class="co__d">утро пн–пт, вт, чт, вс</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=600&q=74" alt="Ряд гантелей в зале" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Георгий</span><span class="co__s">детские группы</span><span class="co__d">пн–сб</span></li>
       </ul>
     </div>
   </section>
@@ -444,7 +484,7 @@ fieldset.f{border:0;padding:0;margin:0}
         </div>
         <figure>
           <div class="ph1"><img src="https://images.unsplash.com/photo-1716306886418-f84f6d4c2f3a?auto=format&fit=crop&w=1400&q=74" alt="Ряд боксёрских мешков в зале" width="1400" height="930" loading="lazy" decoding="async"></div>
-          <div class="ph2"><img src="https://images.unsplash.com/photo-1630174385975-a406e87cd47c?auto=format&fit=crop&w=1400&q=74" alt="Мешок на цепях у светлой стены" width="1400" height="930" loading="lazy" decoding="async"></div>
+          <div class="ph2"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=1400&q=74" alt="Силуэт со штангой в тёмном зале" width="1400" height="930" loading="lazy" decoding="async"></div>
         </figure>
       </div>
     </div>

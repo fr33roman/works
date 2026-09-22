@@ -13,4 +13,5 @@ Disallow: /kruzhok/
 Disallow: /ohapka/
 Disallow: /veranda/
 Disallow: /ladon/
+Disallow: /motorika/
 Sitemap: https://fr33roman.github.io/works/sitemap.xml

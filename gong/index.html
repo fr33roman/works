@@ -77,7 +77,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
   padding:10px var(--gut);background:rgba(0,0,0,.92);border-bottom:1px solid var(--line);
   backdrop-filter:blur(8px)}
-.mark{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.02em;text-decoration:none;min-height:44px;display:inline-flex;align-items:center;padding:8px 0}
+/* Правка 22.09 (решение Романа): название зала красным. Красный до этого был
+   сигналом «идёт сейчас» и больше нигде не встречался — теперь он ещё и в шапке. */
+.mark{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.02em;text-decoration:none;
+  color:var(--red);min-height:44px;display:inline-flex;align-items:center;padding:8px 0}
 .nav{display:none;gap:22px;margin-left:auto;font-size:15px;color:var(--ash)}
 .nav a{text-decoration:none}
 .nav a:hover{color:var(--white)}
@@ -97,10 +100,13 @@ h3{font-family:var(--text);font-weight:600;font-size:18px;line-height:1.3}
    Сам заголовок стал чуть меньше — картинка забирает часть внимания. */
 .hero{position:relative;isolation:isolate}
 .hero__bg{position:absolute;inset:0;z-index:-1;overflow:hidden}
+/* Правка 22.09: кадр было почти не разглядеть — поднята яркость и снята часть
+   затемнения. Чёрно-белым оставлен намеренно: это палитра работы по матрице.
+   Затемнение в середине держим сильнее краёв — там лежит белый заголовок. */
 .hero__bg img{width:100%;height:100%;object-fit:cover;object-position:50% 35%;
-  filter:grayscale(1) contrast(1.1) brightness(.5)}
+  filter:grayscale(1) contrast(1.2) brightness(.86)}
 .hero__bg::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.72) 45%,var(--black) 100%)}
+  background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.62) 45%,var(--black) 100%)}
 h1{font-family:var(--disp);font-weight:800;font-size:clamp(25.5px,4.8vw,78.2px);line-height:.98;
   letter-spacing:-.045em;max-width:15ch;text-transform:uppercase}
 .hero__lead{margin-top:20px;font-size:clamp(17px,1.5vw,20px);line-height:1.45;max-width:58ch;color:var(--ash)}
@@ -223,18 +229,22 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(25.5px,4.8vw,78.2px);
 @media (min-width:620px){.coaches{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1100px){.coaches{grid-template-columns:repeat(4,minmax(0,1fr))}}
 /* Правка 21.09: у каждого тренера кадр в круглой рамке, имя под ним.
-   Лица не ставим: чужой человек в роли «нашего тренера» — обман, и это
-   прямо запрещено регламентом (SITE-FACTORY §6). Вместо лиц — снаряд
-   по специализации: перчатки, ринг, канаты, гантели. */
+   Правка 22.09 (решение Романа): на демо ставим лица. Раньше здесь стоял снаряд
+   вместо лица по регламенту SITE-FACTORY §7.5 — но зал без людей читается холодным,
+   а бизнес тут вымышленный целиком, включая имена. Для живого клиента на это место
+   идут ЕГО фотографии: сток здесь показывает клиенту будущий вид, а не выдаёт
+   чужого человека за сотрудника.
+   Наведение: кадр наливается цветом. На телефоне наведения нет — там цвет сразу. */
 .co__ph{display:block;width:104px;height:104px;border-radius:50%;overflow:hidden;
   border:1px solid var(--line);margin-bottom:14px}
-.co__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 62%;transform:scale(1.25);
-  filter:grayscale(1) contrast(1.15) brightness(.85);transition:filter .3s ease,transform .3s ease}
-.co:hover .co__ph img{filter:grayscale(1) contrast(1.2) brightness(1);transform:scale(1.16)}
+.co__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;transform:scale(1.06);
+  filter:grayscale(1) contrast(1.12) brightness(.92);transition:filter .3s ease,transform .3s ease}
+.co:hover .co__ph img{filter:grayscale(0) contrast(1.04) brightness(1.06);transform:scale(1.14)}
+@media (hover:none){.co__ph img{filter:grayscale(0) contrast(1.04) brightness(1.02)}}
 .co{display:grid;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow-sm);padding:20px 18px;gap:6px;
-  transition:transform .3s ease,box-shadow .3s ease}
-.co:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.co:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(255,255,255,.34)}
 .co__n{font-family:var(--disp);font-weight:700;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.04em;line-height:1}
 .co__d{display:inline-block;margin-top:8px;padding:5px 11px;border-radius:999px;
   background:rgba(255,255,255,.08);color:var(--white);font-size:13px;white-space:nowrap;justify-self:start}
@@ -242,6 +252,10 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(25.5px,4.8vw,78.2px);
 
 /* ============ зал ============ */
 .hall{display:grid;grid-template-columns:1fr;gap:26px;margin-top:24px}
+/* Правка 22.09: кадры были разной высоты, а зазор задавался отступом у нижнего —
+   правая колонка выходила длиннее табло. Теперь высоты равны, зазор общий. */
+.hall figure{display:flex;flex-direction:column;gap:14px}
+.hall .ph1 img,.hall .ph2 img{height:clamp(190px,21vw,266px)}
 @media (min-width:900px){
   /* Правка 21.09: левая колонка тянется на всю высоту кадров, табло занимает
      остаток — так оно стоит ровно напротив фотографий. */
@@ -265,8 +279,6 @@ h1{font-family:var(--disp);font-weight:800;font-size:clamp(25.5px,4.8vw,78.2px);
 .note .accent{color:var(--white);font-weight:600}
 .hall img{width:100%;object-fit:cover;border-radius:var(--r);
   filter:grayscale(1) contrast(1.05) brightness(1.15)}
-.hall .ph1 img{height:clamp(200px,26vw,320px)}
-.hall .ph2 img{height:clamp(200px,22vw,280px);margin-top:12px}
 figcaption{margin-top:10px;color:var(--ash);font-size:13px;line-height:1.45}
 
 /* ============ форма ============ */
@@ -460,10 +472,10 @@ fieldset.f{border:0;padding:0;margin:0}
     <div class="sec__in">
       <h2 id="h-c">Тренеры</h2>
       <ul class="coaches">
-        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=600&q=74" alt="Боксёрские перчатки" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Давид</span><span class="co__s">бокс, кикбоксинг, открытый спарринг</span><span class="co__d">пн, ср, чт, сб</span></li>
-        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1630174385975-a406e87cd47c?auto=format&fit=crop&w=600&q=74" alt="Боксёрский мешок на цепях" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Ираклий</span><span class="co__s">грэпплинг, ММА</span><span class="co__d">вт, пт, вс</span></li>
-        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=74" alt="Силуэт в тёмном зале" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Нана</span><span class="co__s">женская группа, общая физика</span><span class="co__d">утро пн–пт, вт, чт, вс</span></li>
-        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=600&q=74" alt="Ряд гантелей в зале" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Георгий</span><span class="co__s">детские группы</span><span class="co__d">пн–сб</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=74" alt="Давид" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Давид</span><span class="co__s">бокс, кикбоксинг, открытый спарринг</span><span class="co__d">пн, ср, чт, сб</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=74" alt="Ираклий" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Ираклий</span><span class="co__s">грэпплинг, ММА</span><span class="co__d">вт, пт, вс</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=74" alt="Нана" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Нана</span><span class="co__s">женская группа, общая физика</span><span class="co__d">утро пн–пт, вт, чт, вс</span></li>
+        <li class="co"><span class="co__ph"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=600&q=74" alt="Георгий" width="600" height="600" loading="lazy" decoding="async"></span><span class="co__n">Георгий</span><span class="co__s">детские группы</span><span class="co__d">пн–сб</span></li>
       </ul>
     </div>
   </section>
@@ -480,11 +492,10 @@ fieldset.f{border:0;padding:0;margin:0}
             <li><b>6+2</b><span>мешка и груши на пневмоподвесе</span></li>
             <li><b>2</b><span>раздевалки с душем, детская отдельная</span></li>
           </ul>
-          <p class="hall__cap">Вода и бинты на ресепшене — бесплатно.</p>
         </div>
         <figure>
           <div class="ph1"><img src="https://images.unsplash.com/photo-1716306886418-f84f6d4c2f3a?auto=format&fit=crop&w=1400&q=74" alt="Ряд боксёрских мешков в зале" width="1400" height="930" loading="lazy" decoding="async"></div>
-          <div class="ph2"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=1400&q=74" alt="Силуэт со штангой в тёмном зале" width="1400" height="930" loading="lazy" decoding="async"></div>
+          <div class="ph2"><img src="https://images.unsplash.com/photo-1623874514711-0f321325f318?auto=format&fit=crop&w=1400&q=74" alt="Зал под высоким потолком: скамьи и стойки вдоль стены" width="1400" height="930" loading="lazy" decoding="async"></div>
         </figure>
       </div>
     </div>
@@ -534,7 +545,7 @@ fieldset.f{border:0;padding:0;margin:0}
             </div>
             <div class="send">
               <button class="btn" type="submit" id="send" disabled>Записаться на пробную</button>
-              <p class="send__hint" id="send-hint">Кнопка заработает, когда отметите согласие.</p>
+              <p class="send__hint" id="send-hint"></p>
             </div>
           </form>
 
@@ -719,8 +730,7 @@ fieldset.f{border:0;padding:0;margin:0}
   var done = document.getElementById('done');
   function sync() {
     send.disabled = !agree.checked;
-    hint.textContent = agree.checked ? 'Это демо-сайт: заявка никуда не уйдёт.'
-                                     : 'Кнопка заработает, когда отметите согласие.';
+    hint.textContent = agree.checked ? 'Перезвоним в течение дня.' : '';
   }
   agree.addEventListener('change', sync);
   sync();

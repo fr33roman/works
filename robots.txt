@@ -14,4 +14,7 @@ Disallow: /ohapka/
 Disallow: /veranda/
 Disallow: /ladon/
 Disallow: /motorika/
+Disallow: /graf/
+Disallow: /miya/
+Disallow: /vera-dental/
 Sitemap: https://fr33roman.github.io/works/sitemap.xml

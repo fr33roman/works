@@ -499,6 +499,116 @@ html:not(.js) .mbar{display:none}
   .b-sel b{font-size:27px}
 }
 @media (prefers-reduced-motion:reduce){ .mbar,.mbar.away{transition:none} }
+
+/* ═══════════ Правки 24.09 (пакет «Указки» 16:05) ═══════════ */
+
+/* 1. Прайс: вкладки по разделам, строка под мышью подсвечивается.
+   Без скрипта вкладок нет — таблица показывается целиком, как раньше. */
+.ptabs{display:none}
+.js .ptabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.ptab{font:600 15px/1.1 var(--f-text);color:var(--hull);background:transparent;cursor:pointer;
+  border:1.5px solid rgba(22,35,58,.3);border-radius:var(--r-flap);padding:11px 16px;min-height:44px;
+  transition:background .2s,color .2s,border-color .2s}
+.ptab:hover{border-color:var(--hull)}
+.ptab[aria-selected="true"]{background:var(--hull);color:var(--paper);border-color:var(--hull)}
+.plist--one .grp{display:none}
+.plist thead th:first-child,.plist .grp th,.plist tr:not(.grp) > th[scope="row"]{padding-left:14px}
+.plist thead th:last-child,.plist tr:not(.grp) > td:last-child{padding-right:14px}
+.plist tr:not(.grp) > th,.plist tr:not(.grp) > td{padding-top:14px;padding-bottom:15px}
+.plist tbody tr:not(.grp){transition:background .25s ease,opacity .25s ease}
+.plist tbody tr:not(.grp) > th[scope="row"]{transition:box-shadow .25s ease}
+@media (hover:hover){
+  .plist tbody:hover tr:not(.grp){opacity:.55}
+  .plist tbody tr:not(.grp):hover{opacity:1;background:rgba(22,35,58,.07)}
+  .plist tbody tr:not(.grp):hover > th[scope="row"]{box-shadow:inset 3px 0 0 var(--hull)}
+}
+@media(max-width:600px){
+  .js .ptabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:calc(var(--gut) * -1);padding-right:var(--gut)}
+  .js .ptabs::-webkit-scrollbar{display:none}
+  .ptab{flex:none;padding:11px 14px}
+  .plist thead th:first-child,.plist .grp th,.plist tr:not(.grp) > th[scope="row"]{padding-left:8px}
+  .plist thead th:last-child,.plist tr:not(.grp) > td:last-child{padding-right:8px}
+}
+
+/* 2. Визит: у каждого шага вся полоска визита — от 18:55 до выхода. Пройденное
+   до шага — светлее, отрезок самого шага — ярко. Наведение подсвечивает шаг. */
+.g-track{background-image:none}
+.g-track::before{content:"";position:absolute;left:0;right:0;top:9px;height:4px;border-radius:2px;
+  background:rgba(228,228,222,.12)}
+.g-track::after{display:none}
+.g-done{position:absolute;left:0;top:9px;height:4px;width:calc(var(--s) * 1%);border-radius:2px;
+  background:rgba(228,228,222,.3);transition:background .3s ease}
+.g-bar{top:6px;height:10px;border-radius:2px;opacity:.85;transition:opacity .3s ease,box-shadow .3s ease,transform .3s ease}
+.gantt li{transition:opacity .3s ease,background .3s ease}
+@media(min-width:601px){.gantt li,.axis{padding-left:12px;padding-right:12px}}
+@media (hover:hover){
+  .gantt:hover li{opacity:.5}
+  .gantt li:hover{opacity:1;background:rgba(228,228,222,.05)}
+  .gantt li:hover .g-bar{opacity:1;transform:scaleY(1.25);
+    box-shadow:0 0 0 3px rgba(228,228,222,.14),0 0 22px rgba(228,228,222,.45)}
+  .gantt li:hover .g-done{background:rgba(228,228,222,.45)}
+}
+
+/* 3. Лента работ: восемь кадров вместо двух крупных. В общем дуотоне сайта,
+   при наведении кадр проявляется в цвете. */
+.cuts{margin-top:88px}
+.cuts-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scrollbar-width:none;padding-bottom:4px;outline-offset:6px}
+.cuts-track::-webkit-scrollbar{display:none}
+.cut{flex:0 0 clamp(200px,21vw,270px);margin:0;scroll-snap-align:start}
+.cut .ph{aspect-ratio:4/5}
+.cut .ph img{transition:transform .6s ease,filter .6s ease}
+.cut .duo::before,.cut .duo::after{transition:opacity .6s ease}
+.cuts-foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px 32px;margin-top:24px}
+.cuts-note{font-size:17px;line-height:1.5;color:var(--steel);max-width:40em}
+.cuts-note b{display:block;font:600 30px/1.05 var(--f-disp);color:var(--paper);margin-bottom:6px}
+.cuts-nav{display:flex;gap:10px}
+.cuts-btn{width:48px;height:48px;border:1.5px solid var(--rule-d);border-radius:var(--r-flap);background:transparent;
+  color:var(--paper);font:600 20px/1 var(--f-text);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}
+.cuts-btn:hover{background:rgba(228,228,222,.08);border-color:var(--paper)}
+.cuts-btn:disabled{opacity:.35;cursor:default}
+@media (hover:hover){
+  .cut:hover .duo::before,.cut:hover .duo::after{opacity:0}
+  .cut:hover .ph img{filter:none;transform:scale(1.04)}
+}
+@media(max-width:600px){.cuts{margin-top:56px}.cut{flex-basis:62vw}.cuts-note b{font-size:26px}}
+
+/* 4. Мастера: четыре квадратные карточки с фото. Наведение — карточка приподнимается,
+   по ней проходит блик, фото проявляется в цвете. */
+.m-grid{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.mc{position:relative;display:flex;flex-direction:column;background:#ECECE6;border:1px solid var(--rule-l);
+  border-radius:4px;overflow:hidden;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+.mc-ph{position:relative;aspect-ratio:1/1}
+.mc-ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .6s ease}
+.mc-ph.duo::before,.mc-ph.duo::after{transition:opacity .6s ease}
+.mc-b{display:flex;flex-direction:column;gap:4px;padding:16px 16px 18px;flex:1}
+.mc-lvl{font:500 14px/1.3 var(--f-text);color:var(--graphite)}
+.mc-name{font:700 36px/1 var(--f-disp);letter-spacing:-.01em;color:var(--hull)}
+.mc-best{font-size:15px;line-height:1.4;color:var(--hull);margin-top:6px}
+.mc-lang{font-size:14px;color:var(--graphite);margin-top:auto;padding-top:12px}
+.mc::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
+  background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.3) 50%,transparent 65%);
+  background-size:250% 100%;background-position:130% 0}
+@media (hover:hover){
+  .mc:hover{transform:translateY(-4px);border-color:var(--hull);box-shadow:0 18px 34px -18px rgba(22,35,58,.55)}
+  .mc:hover .mc-ph.duo::before,.mc:hover .mc-ph.duo::after{opacity:0}
+  .mc:hover .mc-ph img{filter:none;transform:scale(1.04)}
+  .mc:hover::after{opacity:1;animation:mcShine 1.1s ease forwards}
+}
+@keyframes mcShine{to{background-position:-30% 0}}
+@media(max-width:1023px){.m-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+@media(max-width:600px){.mc-b{padding:12px 12px 14px}.mc-name{font-size:30px}.mc-best{font-size:14px}}
+
+/* 5. Зал: у каждого пункта свой значок — тонкая линия, как на табличках порта. */
+.z-facts > div{position:relative;padding-left:60px}
+.z-ico{position:absolute;left:0;top:-6px;width:44px;height:44px;border:1px solid var(--rule-d);border-radius:50%;
+  display:grid;place-items:center;color:var(--paper)}
+.z-ico svg{width:22px;height:22px}
+
+@media (prefers-reduced-motion:reduce){
+  .g-bar,.gantt li,.cut .ph img,.mc,.mc-ph img{transition:none}
+  .mc:hover::after{animation:none;opacity:0}
+}
 </style>
 </head>
 <body>
@@ -593,13 +703,20 @@ html:not(.js) .mbar{display:none}
         <p>Минуты — от кресла до выхода, мытьё и укладка уже внутри.</p>
       </div>
       <div class="price-main">
-        <table class="plist">
+        <div class="ptabs" role="tablist" aria-label="Разделы прайса">
+          <button type="button" role="tab" class="ptab" aria-selected="true" aria-controls="plist" data-g="cut">Стрижки</button>
+          <button type="button" role="tab" class="ptab" aria-selected="false" aria-controls="plist" data-g="beard" tabindex="-1">Борода и бритьё</button>
+          <button type="button" role="tab" class="ptab" aria-selected="false" aria-controls="plist" data-g="grey" tabindex="-1">Седина</button>
+          <button type="button" role="tab" class="ptab" aria-selected="false" aria-controls="plist" data-g="combo" tabindex="-1">Вместе</button>
+          <button type="button" role="tab" class="ptab" aria-selected="false" aria-controls="plist" data-g="all" tabindex="-1">Всё сразу</button>
+        </div>
+        <table class="plist" id="plist">
           <caption class="vh">Услуги барбершопа «Лоцман»: длительность в минутах и цена в лари у барбера и у старшего барбера</caption>
           <colgroup><col><col class="c-min"><col class="c-p1"><col class="c-p2"></colgroup>
           <thead>
             <tr><th scope="col">Услуга</th><th scope="col" class="c-min">Минут</th><th scope="col">Барбер</th><th scope="col"><span class="l-long">Старший барбер</span><span class="l-short">Старший</span></th></tr>
           </thead>
-          <tbody>
+          <tbody data-g="cut">
             <tr class="grp"><th scope="rowgroup" colspan="4">Стрижки</th></tr>
             <tr><th scope="row"><span class="s-n">Стрижка</span><span class="s-m">50 минут</span></th><td class="c-min">50</td><td>50</td><td>60</td></tr>
             <tr><th scope="row"><span class="s-n">Фейд</span><span class="s-m">60 минут</span></th><td class="c-min">60</td><td>55</td><td>65</td></tr>
@@ -607,17 +724,17 @@ html:not(.js) .mbar{display:none}
             <tr><th scope="row"><span class="s-n">Детская стрижка</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>35</td><td>40</td></tr>
             <tr><th scope="row"><span class="s-n">Отец и сын</span><span class="s-m">90 минут</span></th><td class="c-min">90</td><td>70</td><td>85</td></tr>
           </tbody>
-          <tbody>
+          <tbody data-g="beard">
             <tr class="grp"><th scope="rowgroup" colspan="4">Борода и бритьё</th></tr>
             <tr><th scope="row"><span class="s-n">Борода</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>35</td><td>45</td></tr>
             <tr><th scope="row"><span class="s-n">Бритьё</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>50</td><td>60</td></tr>
           </tbody>
-          <tbody>
+          <tbody data-g="grey">
             <tr class="grp"><th scope="rowgroup" colspan="4">Седина</th></tr>
             <tr><th scope="row"><span class="s-n">Камуфляж седины, голова</span><span class="s-m">40 минут</span></th><td class="c-min">40</td><td>45</td><td>55</td></tr>
             <tr><th scope="row"><span class="s-n">Камуфляж седины, борода</span><span class="s-m">30 минут</span></th><td class="c-min">30</td><td>35</td><td>45</td></tr>
           </tbody>
-          <tbody>
+          <tbody data-g="combo">
             <tr class="grp"><th scope="rowgroup" colspan="4">Вместе</th></tr>
             <tr><th scope="row"><span class="s-n">Стрижка и борода</span><span class="s-m">80 минут</span></th><td class="c-min">80</td><td>80</td><td>95</td></tr>
             <tr><th scope="row"><span class="s-n">Фейд и бритьё</span><span class="s-m">100 минут</span></th><td class="c-min">100</td><td>100</td><td>115</td></tr>
@@ -637,29 +754,64 @@ html:not(.js) .mbar{display:none}
     </div>
 
     <ol class="gantt">
-      <li style="--s:0;--e:9.09"><span class="g-t"><time>18:55</time></span><span class="g-n">Приходите за пять минут</span><span class="g-d">Куртка на вешалку, вода и чай на стойке.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:9.09;--e:18.18"><span class="g-t"><time>19:00</time></span><span class="g-n">Разговор</span><span class="g-d">Длину договариваете в миллиметрах насадки. Можно показать фото.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:18.18;--e:78.18"><span class="g-t"><time>19:05</time></span><span class="g-n">Стрижка</span><span class="g-d">Бока машинкой, верх ножницами, линия роста шаветкой.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:78.18;--e:96.36"><span class="g-t"><time>19:38</time></span><span class="g-n">Мытьё и укладка</span><span class="g-d">Смываем волоски, сушим феном, показываем укладку.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
-      <li style="--s:96.36;--e:100"><span class="g-t"><time>19:48</time></span><span class="g-n">Оплата</span><span class="g-d">Картой или наличными. Следующую запись ставим сразу.</span><span class="g-track" aria-hidden="true"><span class="g-bar"></span></span></li>
+      <li style="--s:0;--e:9.09"><span class="g-t"><time>18:55</time></span><span class="g-n">Приходите за пять минут</span><span class="g-d">Куртка на вешалку, вода и чай на стойке.</span><span class="g-track" aria-hidden="true"><span class="g-done"></span><span class="g-bar"></span></span></li>
+      <li style="--s:9.09;--e:18.18"><span class="g-t"><time>19:00</time></span><span class="g-n">Разговор</span><span class="g-d">Длину договариваете в миллиметрах насадки. Можно показать фото.</span><span class="g-track" aria-hidden="true"><span class="g-done"></span><span class="g-bar"></span></span></li>
+      <li style="--s:18.18;--e:78.18"><span class="g-t"><time>19:05</time></span><span class="g-n">Стрижка</span><span class="g-d">Бока машинкой, верх ножницами, линия роста шаветкой.</span><span class="g-track" aria-hidden="true"><span class="g-done"></span><span class="g-bar"></span></span></li>
+      <li style="--s:78.18;--e:96.36"><span class="g-t"><time>19:38</time></span><span class="g-n">Мытьё и укладка</span><span class="g-d">Смываем волоски, сушим феном, показываем укладку.</span><span class="g-track" aria-hidden="true"><span class="g-done"></span><span class="g-bar"></span></span></li>
+      <li style="--s:96.36;--e:100"><span class="g-t"><time>19:48</time></span><span class="g-n">Оплата</span><span class="g-d">Картой или наличными. Следующую запись ставим сразу.</span><span class="g-track" aria-hidden="true"><span class="g-done"></span><span class="g-bar"></span></span></li>
     </ol>
     <div class="axis" aria-hidden="true"><span class="axis-scale"><span style="left:0">18:55</span><span style="left:27.27%">19:10</span><span style="left:54.55%">19:25</span><span style="left:100%">19:50, выход</span></span></div>
 
-    <div class="stills">
-      <figure class="st-a">
-        <div class="ph duo r45"><img loading="lazy" decoding="async" width="900" height="1125"
-          alt="Мастер держит расчёску и филировочные ножницы у густого тёмного верха, у виска короткий переход"
-          src="https://images.unsplash.com/photo-1657105052497-f996284ffff8?rect=0,1120,4480,5600&amp;w=900&amp;q=70&amp;auto=format"
-          srcset="https://images.unsplash.com/photo-1657105052497-f996284ffff8?rect=0,1120,4480,5600&amp;w=500&amp;q=70&amp;auto=format 500w, https://images.unsplash.com/photo-1657105052497-f996284ffff8?rect=0,1120,4480,5600&amp;w=900&amp;q=70&amp;auto=format 900w"
-          sizes="(max-width: 600px) 46vw, (max-width: 1023px) 40vw, 30vw"></div>
-      </figure>
-      <figure class="st-b">
-        <div class="ph duo r45 p11"><img loading="lazy" decoding="async" width="700" height="1022"
+    <div class="cuts">
+      <div class="cuts-track" id="cutsTrack" tabindex="0" role="region" aria-label="Примеры наших стрижек, лента листается вбок">
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
+          alt="Укладка с объёмом наверху и густая оформленная борода, вид в профиль"
+          src="https://images.unsplash.com/photo-1630827020718-3433092696e7?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format"
+          srcset="https://images.unsplash.com/photo-1630827020718-3433092696e7?w=360&amp;h=450&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 360w, https://images.unsplash.com/photo-1630827020718-3433092696e7?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
+          alt="Мастер подравнивает ножницами густую бороду клиента"
+          src="https://images.unsplash.com/photo-1599011176306-4a96f1516d4d?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format"
+          srcset="https://images.unsplash.com/photo-1599011176306-4a96f1516d4d?w=360&amp;h=450&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 360w, https://images.unsplash.com/photo-1599011176306-4a96f1516d4d?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
+          alt="Машинка выводит плавный переход на затылке"
+          src="https://images.unsplash.com/photo-1648221122323-572c13a31663?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format"
+          srcset="https://images.unsplash.com/photo-1648221122323-572c13a31663?w=360&amp;h=450&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 360w, https://images.unsplash.com/photo-1648221122323-572c13a31663?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
+          alt="Мастер держит расчёску и филировочные ножницы у густого тёмного верха"
+          src="https://images.unsplash.com/photo-1657105052497-f996284ffff8?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format"
+          srcset="https://images.unsplash.com/photo-1657105052497-f996284ffff8?w=360&amp;h=450&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 360w, https://images.unsplash.com/photo-1657105052497-f996284ffff8?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
+          alt="Мальчик в накидке после стрижки с аккуратной укладкой"
+          src="https://images.unsplash.com/photo-1704072650662-76df3af134a7?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format"
+          srcset="https://images.unsplash.com/photo-1704072650662-76df3af134a7?w=360&amp;h=450&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 360w, https://images.unsplash.com/photo-1704072650662-76df3af134a7?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
+          alt="Короткая стрижка: мастер машинкой ровняет линию надо лбом"
+          src="https://images.unsplash.com/photo-1640301133543-41fe25ad6450?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format"
+          srcset="https://images.unsplash.com/photo-1640301133543-41fe25ad6450?w=360&amp;h=450&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 360w, https://images.unsplash.com/photo-1640301133543-41fe25ad6450?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
           alt="Руки мастера шаветкой выводят линию роста волос на виске"
-          src="https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
-          srcset="https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400 400w, https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700 700w"
-          sizes="(max-width: 600px) 46vw, (max-width: 1023px) 32vw, 260px"></div>
-      </figure>
+          src="https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;fit=crop&amp;w=560&amp;h=700"
+          srcset="https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;fit=crop&amp;w=360&amp;h=450 360w, https://images.pexels.com/photos/10775082/pexels-photo-10775082.jpeg?auto=compress&amp;cs=tinysrgb&amp;fit=crop&amp;w=560&amp;h=700 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+        <figure class="cut"><div class="ph duo"><img loading="lazy" decoding="async" width="560" height="700"
+          alt="Фейд с выбритым узором на виске и зачёсанный назад верх"
+          src="https://images.unsplash.com/photo-1568339434343-2a640a1a9946?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format"
+          srcset="https://images.unsplash.com/photo-1568339434343-2a640a1a9946?w=360&amp;h=450&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 360w, https://images.unsplash.com/photo-1568339434343-2a640a1a9946?w=560&amp;h=700&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w"
+          sizes="(max-width: 600px) 62vw, 270px"></div></figure>
+      </div>
+      <div class="cuts-foot">
+        <p class="cuts-note"><b>Примеры наших работ</b>Главное для нас — результат, с которым вы выходите из кресла.</p>
+        <div class="cuts-nav">
+          <button type="button" class="cuts-btn" id="cutsPrev" aria-label="Предыдущие фото">←</button>
+          <button type="button" class="cuts-btn" id="cutsNext" aria-label="Следующие фото">→</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -668,11 +820,47 @@ html:not(.js) .mbar{display:none}
       <h2 id="m-h">Мастера</h2>
       <p>Не знаете, к кому записаться, — напишите в заявке, что хотите.</p>
     </div>
-    <ul class="m-list">
-      <li class="m"><span class="m-name">Давид</span><span class="m-lvl">Старший барбер</span><span class="m-best">Фейды от 0,5 мм, жёсткие кудрявые волосы</span><span class="m-lang">рус · груз · англ</span></li>
-      <li class="m"><span class="m-name">Лаша</span><span class="m-lvl">Старший барбер</span><span class="m-best">Опасная бритва, густые бороды, седина</span><span class="m-lang">груз · рус · тур</span></li>
-      <li class="m"><span class="m-name">Артём</span><span class="m-lvl">Барбер</span><span class="m-best">Классика ножницами, удлинённый верх, дети</span><span class="m-lang">рус · англ</span></li>
-      <li class="m"><span class="m-name">Нико</span><span class="m-lvl">Барбер</span><span class="m-best">Короткие стрижки под насадку, камуфляж седины</span><span class="m-lang">груз · рус · англ</span></li>
+    <ul class="m-grid">
+      <li class="mc">
+        <div class="mc-ph duo"><img loading="lazy" decoding="async" width="560" height="560" alt="Давид, старший барбер, стрижёт кудрявые волосы клиента"
+          src="https://images.unsplash.com/photo-1787008543379-91aaa64b0003?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format" srcset="https://images.unsplash.com/photo-1787008543379-91aaa64b0003?w=320&amp;h=320&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 320w, https://images.unsplash.com/photo-1787008543379-91aaa64b0003?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w" sizes="(max-width: 1023px) 46vw, 280px"></div>
+        <div class="mc-b">
+          <span class="mc-lvl">Старший барбер</span>
+          <span class="mc-name">Давид</span>
+          <span class="mc-best">Фейды от 0,5 мм, жёсткие кудрявые волосы</span>
+          <span class="mc-lang">рус · груз · англ</span>
+        </div>
+      </li>
+      <li class="mc">
+        <div class="mc-ph duo"><img loading="lazy" decoding="async" width="560" height="560" alt="Лаша, старший барбер, в кожаном фартуке"
+          src="https://images.unsplash.com/photo-1717700921740-a1440f3b89a4?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format" srcset="https://images.unsplash.com/photo-1717700921740-a1440f3b89a4?w=320&amp;h=320&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 320w, https://images.unsplash.com/photo-1717700921740-a1440f3b89a4?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w" sizes="(max-width: 1023px) 46vw, 280px"></div>
+        <div class="mc-b">
+          <span class="mc-lvl">Старший барбер</span>
+          <span class="mc-name">Лаша</span>
+          <span class="mc-best">Опасная бритва, густые бороды, седина</span>
+          <span class="mc-lang">груз · рус · тур</span>
+        </div>
+      </li>
+      <li class="mc">
+        <div class="mc-ph duo"><img loading="lazy" decoding="async" width="560" height="560" alt="Артём, барбер, стоит в зале, скрестив руки"
+          src="https://images.unsplash.com/photo-1771594836579-af129894a49c?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format" srcset="https://images.unsplash.com/photo-1771594836579-af129894a49c?w=320&amp;h=320&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 320w, https://images.unsplash.com/photo-1771594836579-af129894a49c?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w" sizes="(max-width: 1023px) 46vw, 280px"></div>
+        <div class="mc-b">
+          <span class="mc-lvl">Барбер</span>
+          <span class="mc-name">Артём</span>
+          <span class="mc-best">Классика ножницами, удлинённый верх, дети</span>
+          <span class="mc-lang">рус · англ</span>
+        </div>
+      </li>
+      <li class="mc">
+        <div class="mc-ph duo"><img loading="lazy" decoding="async" width="560" height="560" alt="Нико, барбер, в клетчатой рубашке в зале барбершопа"
+          src="https://images.unsplash.com/photo-1771594836586-837aa05be563?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format" srcset="https://images.unsplash.com/photo-1771594836586-837aa05be563?w=320&amp;h=320&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 320w, https://images.unsplash.com/photo-1771594836586-837aa05be563?w=560&amp;h=560&amp;fit=crop&amp;crop=faces&amp;q=70&amp;auto=format 560w" sizes="(max-width: 1023px) 46vw, 280px"></div>
+        <div class="mc-b">
+          <span class="mc-lvl">Барбер</span>
+          <span class="mc-name">Нико</span>
+          <span class="mc-best">Короткие стрижки под насадку, камуфляж седины</span>
+          <span class="mc-lang">груз · рус · англ</span>
+        </div>
+      </li>
     </ul>
   </section>
 
@@ -688,10 +876,10 @@ html:not(.js) .mbar{display:none}
       <h2 id="z-h">Зал</h2>
       <p class="z-lead">Четыре кресла у высоких окон. Мойка за перегородкой — фен не мешает разговору.</p>
       <dl class="z-facts">
-        <div><dt>Воздух</dt><dd>Кондиционер и осушитель: укладку проверяем в сухом зале.</dd></div>
-        <div><dt>Бритьё</dt><dd>Пар и горячее полотенце. Лезвие меняем при вас.</dd></div>
-        <div><dt>Пока ждёте</dt><dd>Вода и чай из Чакви.</dd></div>
-        <div><dt>С ребёнком</dt><dd>Подушка на кресло и тихая машинка.</dd></div>
+        <div><dt><span class="z-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12.5h15a3 3 0 1 1-3 3"/><path d="M3 16.5h6.5"/></svg></span>Воздух</dt><dd>Кондиционер и осушитель: укладку проверяем в сухом зале.</dd></div>
+        <div><dt><span class="z-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l6.2-6.2"/><path d="M10.2 13.8 18.6 5.4a2.1 2.1 0 0 1 3 3L13 17z"/><path d="M14.4 9.6l2 2"/></svg></span>Бритьё</dt><dd>Пар и горячее полотенце. Лезвие меняем при вас.</dd></div>
+        <div><dt><span class="z-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5h11V13a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M15.5 10.5h1.7a2.3 2.3 0 0 1 0 4.6h-2"/><path d="M8 3.5c-.9 1.1.9 2.1 0 3.2M11.5 3.5c-.9 1.1.9 2.1 0 3.2"/><path d="M4 21h13"/></svg></span>Пока ждёте</dt><dd>Вода и чай из Чакви.</dd></div>
+        <div><dt><span class="z-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5.5" r="2.5"/><path d="M12 8.5v6"/><path d="M8 11.5l4-1.6 4 1.6"/><path d="M9.3 21l2.7-6.5 2.7 6.5"/></svg></span>С ребёнком</dt><dd>Подушка на кресло и тихая машинка.</dd></div>
       </dl>
     </div>
   </section>
@@ -740,8 +928,7 @@ html:not(.js) .mbar{display:none}
           <p id="c-text"><label for="f-ok">Согласен на обработку персональных данных в соответствии с</label> <a href="#" id="policy">политикой обработки персональных данных</a></p>
         </div>
         <div class="b-actions">
-          <button class="btn btn-dark b-submit" type="submit" id="bSubmit" disabled aria-describedby="bHint">Отправить заявку</button>
-          <p class="b-hint" id="bHint">Кнопка станет активной, когда вы отметите согласие.</p>
+          <button class="btn btn-dark b-submit" type="submit" id="bSubmit" disabled>Отправить заявку</button>
         </div>
         <noscript><p class="fld-wide">Без JavaScript форма не отправляется. Позвоните: +995 555 00 00 00.</p></noscript>
         <div class="b-done" id="bDone" tabindex="-1" role="status" hidden>
@@ -1045,7 +1232,7 @@ html:not(.js) .mbar{display:none}
   /* ---------- форма ---------- */
   var form = document.getElementById('bookForm'), ok = document.getElementById('f-ok'),
       submit = document.getElementById('bSubmit'), hint = document.getElementById('bHint'), done = document.getElementById('bDone');
-  function consent(){ submit.disabled = !ok.checked; hint.hidden = ok.checked; }
+  function consent(){ submit.disabled = !ok.checked; if (hint) hint.hidden = ok.checked; }
   ok.addEventListener('change', consent);
   consent();
   document.getElementById('policy').addEventListener('click', function(e){ e.preventDefault(); });
@@ -1062,6 +1249,72 @@ html:not(.js) .mbar{display:none}
     document.documentElement.classList.remove('js');
     if (window.console) console.warn('Лоцман: скрипт остановлен, показана текстовая версия', err);
   }
+})();
+</script>
+<script>
+/* Правки 24.09: вкладки прайса и лента работ. Отдельно от основного скрипта:
+   если что-то здесь не сработает, табло и форма продолжат работать. */
+(function(){
+  'use strict';
+  var tabs = [].slice.call(document.querySelectorAll('.ptab'));
+  var table = document.getElementById('plist');
+  var groups = table ? [].slice.call(table.querySelectorAll('tbody[data-g]')) : [];
+  function show(g){
+    tabs.forEach(function(t){
+      var on = t.getAttribute('data-g') === g;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    groups.forEach(function(b){ b.hidden = !(g === 'all' || b.getAttribute('data-g') === g); });
+    if (table) table.classList.toggle('plist--one', g !== 'all');
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ show(t.getAttribute('data-g')); });
+    t.addEventListener('keydown', function(e){
+      var j = e.key === 'ArrowRight' ? (i + 1) % tabs.length : e.key === 'ArrowLeft' ? (i - 1 + tabs.length) % tabs.length : -1;
+      if (j < 0) return;
+      e.preventDefault();
+      tabs[j].focus();
+      show(tabs[j].getAttribute('data-g'));
+    });
+  });
+  if (tabs.length && groups.length) show('cut');
+
+  var track = document.getElementById('cutsTrack');
+  if (!track) return;
+  var prev = document.getElementById('cutsPrev'), next = document.getElementById('cutsNext');
+  function step(){
+    var c = track.querySelector('.cut');
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+    return c ? c.getBoundingClientRect().width + gap : 300;
+  }
+  function atEnd(){ return track.scrollLeft + track.clientWidth >= track.scrollWidth - 4; }
+  function sync(){
+    if (prev) prev.disabled = track.scrollLeft <= 4;
+    if (next) next.disabled = atEnd();
+  }
+  function go(dir){ track.scrollBy({left: dir * step(), behavior: 'smooth'}); }
+  if (prev) prev.addEventListener('click', function(){ go(-1); });
+  if (next) next.addEventListener('click', function(){ go(1); });
+  track.addEventListener('scroll', function(){ window.requestAnimationFrame(sync); }, {passive: true});
+  window.addEventListener('resize', sync);
+  sync();
+
+  /* Тихая прокрутка: раз в 3,5 секунды на кадр вперёд, в конце — к началу.
+     Стоит, пока человек смотрит ленту, и совсем выключена, если анимации в системе отключены. */
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)'), hold = false;
+  ['mouseenter', 'focusin', 'touchstart', 'pointerdown'].forEach(function(ev){
+    track.addEventListener(ev, function(){ hold = true; }, {passive: true});
+  });
+  ['mouseleave', 'focusout'].forEach(function(ev){
+    track.addEventListener(ev, function(){ hold = false; });
+  });
+  setInterval(function(){
+    if (hold || calm.matches || document.hidden) return;
+    var r = track.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    if (atEnd()) track.scrollTo({left: 0, behavior: 'smooth'}); else go(1);
+  }, 3500);
 })();
 </script>
 </body>

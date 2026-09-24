@@ -274,6 +274,23 @@ figcaption{margin-top:10px;color:var(--soft);font-size:13px;line-height:1.5}
   .pr li.is-key span:last-child{font-size:19px}
 }
 
+/* Правка 24.09: при наведении прайс мягко переливается — по рамке медленно бежит
+   блик в цветах сайта, мох переходит в абрикос. Приём с концепта open-sites.io,
+   но спокойнее: оборот 3,6 с и мягкое появление, чтобы не спорить с детской темой. */
+@property --kr{syntax:"<angle>";inherits:false;initial-value:0deg}
+.pr{position:relative;transition:box-shadow .5s ease}
+.pr::before{content:"";position:absolute;inset:0;z-index:1;padding:2px;border-radius:15px;
+  pointer-events:none;opacity:0;
+  background:conic-gradient(from var(--kr),transparent 0 52%,rgba(79,111,82,.8) 68%,
+    rgba(224,138,76,.85) 82%,transparent 96%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  transition:opacity .6s ease}
+.pr:hover{box-shadow:0 16px 36px -16px rgba(79,111,82,.5)}
+.pr:hover::before{opacity:1;animation:krRing 3.6s linear infinite}
+@keyframes krRing{to{--kr:360deg}}
+@media (prefers-reduced-motion:reduce){.pr:hover::before{animation:none;opacity:.7}}
+
 /* ============ форма ============ */
 .book{display:grid;grid-template-columns:1fr;gap:26px;margin-top:22px}
 @media (min-width:1000px){.book{grid-template-columns:minmax(0,1fr) 280px;gap:44px}}

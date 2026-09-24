@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MIYA — салон красоты в Москве | стрижка, окрашивание, маникюр, уход</title>
 <meta name="description" content="Салон красоты MIYA: парикмахерский зал, ногтевой сервис и уход за кожей в пяти минутах от центра. Первый визит — скидка 15%.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://fr33roman.github.io/miya/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="MIYA — салон красоты">
+<meta property="og:description" content="Парикмахерский зал, ногтевой сервис и уход за кожей в пяти минутах от центра. Первый визит — скидка 15%.">
+<meta property="og:url" content="https://fr33roman.github.io/miya/">
+<meta property="og:image" content="https://fr33roman.github.io/miya/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <!-- Демонстрационная работа студии open-sites.io. Бизнес вымышленный. Стиль Kit №7 «Нежный бьюти-editorial». -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -293,6 +304,99 @@
     .mnav-foot{opacity:1;transform:none}
     .mq{animation:none!important}
   }
+
+  /* ═══════════ Правки 24.09 (пакет «Указки» 16:09) ═══════════ */
+  /* Картинки брали высоту из атрибута height (1125 и 600 px) и растягивали блоки:
+     отсюда огромное фото в первом экране и пустота в услугах. */
+  .arch img,.capfig img{height:auto}
+
+  /* 1. Первый экран: фото примерно вдвое меньше — как у «Веры-дентал». */
+  .hero-photo{width:min(78%,320px)}
+  @media(min-width:900px){.hero-photo{width:min(100%,380px);padding-top:40px}}
+
+  /* 2. Услуги: четыре карточки в рамке. Наведение — карточка приподнимается,
+     фото приближается, кнопка «Записаться» этой карточки заливается и пульсирует. */
+  .entries{display:grid;grid-template-columns:1fr;gap:18px;border-bottom:0;margin-top:30px}
+  .entries .entry{position:relative;display:flex;flex-direction:column;gap:0;padding:0;
+    border:1px solid var(--line);border-radius:var(--r);background:var(--cream-2);box-shadow:var(--shadow-sm);
+    overflow:hidden;align-items:stretch;transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s}
+  /* старая журнальная раскладка ставила align-items:center — картинка без загрузки сжималась в ноль */
+  .entries .entry .capfig{width:100%}
+  .entries .entry-num{position:absolute;top:14px;left:14px;z-index:3;margin:0;padding:6px 14px;
+    border-radius:30px;background:rgba(250,248,241,.92);font-size:1.05rem;color:var(--accent-dk)}
+  .entries .entry .capfig{border-radius:0;box-shadow:none;margin:0}
+  .entries .capfig img{aspect-ratio:16/10}
+  .entries .entry .entry-body{margin:0;padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+  .entries .entry-body p{max-width:none}
+  .entries .entry-foot{margin-top:auto;padding-top:18px}
+  @media(min-width:700px){.entries{grid-template-columns:1fr 1fr;gap:22px}}
+  @media (hover:hover){
+    .entries .entry:hover{transform:translateY(-5px);border-color:rgba(125,140,92,.6);box-shadow:var(--shadow)}
+    .entries .entry:hover .capfig img{transform:scale(1.05)}
+    .entries .entry:hover .capfig::after{opacity:1}
+    .entries .entry:hover .capfig figcaption{opacity:1;transform:none}
+    .entries .entry:hover .btn--ghost{background:var(--accent);color:var(--cream-2);border-color:var(--accent);
+      animation:svcPulse 1.6s var(--ease) infinite}
+  }
+  @keyframes svcPulse{
+    0%{box-shadow:0 0 0 0 rgba(125,140,92,.55);scale:1}
+    45%{scale:1.05}
+    70%{box-shadow:0 0 0 14px rgba(125,140,92,0);scale:1}
+    100%{box-shadow:0 0 0 0 rgba(125,140,92,0);scale:1}}
+
+  /* 4. Кнопка «Записаться» в шапке раз в 4,5 секунды делает толчок, кольцо и перелив. */
+  .nav-cta{position:relative;overflow:hidden;isolation:isolate}
+  @media (prefers-reduced-motion:no-preference){
+    .nav-cta{animation:ctaBeat 4.5s cubic-bezier(.3,.7,.4,1) 1.5s infinite}
+    .nav-cta::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+      background:linear-gradient(105deg,transparent 28%,rgba(250,248,241,.5) 44%,rgba(192,165,100,.62) 52%,transparent 68%);
+      background-size:260% 100%;background-repeat:no-repeat;background-position:130% 0;
+      animation:ctaShine 4.5s ease-in-out 1.5s infinite}
+  }
+  @keyframes ctaBeat{
+    0%,62%,100%{scale:1;box-shadow:0 12px 26px -12px rgba(95,110,69,.7),0 0 0 0 rgba(125,140,92,0)}
+    68%{scale:1.07;box-shadow:0 12px 26px -12px rgba(95,110,69,.7),0 0 0 0 rgba(125,140,92,.55)}
+    76%{scale:.98}
+    84%{scale:1.03}
+    90%{scale:1;box-shadow:0 12px 26px -12px rgba(95,110,69,.7),0 0 0 14px rgba(125,140,92,0)}}
+  @keyframes ctaShine{0%,54%{background-position:130% 0}86%,100%{background-position:-30% 0}}
+
+  /* 5. Отзывы лентой: на компьютере по два, на телефоне по одному, листаются сами. */
+  .rev-car{max-width:1040px;margin:0 auto}
+  .rev-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    scrollbar-width:none;outline-offset:6px}
+  .rev-track::-webkit-scrollbar{display:none}
+  .rev-car .rev{flex:0 0 100%;scroll-snap-align:start;padding:58px 10px 6px}
+  @media(min-width:900px){
+    .rev-car .rev{flex-basis:50%;padding:70px 44px 6px}
+    .rev-car .rev:nth-child(odd){box-shadow:inset -1px 0 0 var(--line)}
+  }
+  .rev-ctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:30px}
+  .rev-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--accent);background:transparent;
+    color:var(--accent-dk);font:inherit;font-size:1.1rem;cursor:pointer;transition:background .3s,color .3s}
+  .rev-btn:hover{background:var(--accent);color:var(--cream-2)}
+  @media(max-width:899px){.rev-car .rev{padding:58px 14px 6px}.rev-car .rev::before{left:2px}}
+  .rev-num{min-width:56px;text-align:center;font-family:"Playfair Display",Georgia,serif;font-style:italic;color:var(--accent-dk)}
+
+  /* 6. «Почему мы» — в рамке; номера переливаются золотом и оливой, строка
+     откликается на наведение. */
+  .why-list{max-width:980px;margin:0 auto;border:1px solid var(--line);border-radius:26px;
+    background:rgba(250,248,241,.72);box-shadow:var(--shadow-sm);overflow:hidden}
+  .why-list .wrow{padding-left:clamp(20px,3.4vw,44px);padding-right:clamp(20px,3.4vw,44px);transition:background .4s var(--ease)}
+  .why-list .wrow:first-child{border-top:0}
+  .wnum>span{background:linear-gradient(100deg,var(--accent-lt) 0%,var(--gold) 30%,var(--accent) 50%,var(--gold) 70%,var(--accent-lt) 100%);
+    background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    -webkit-text-fill-color:transparent;animation:numShine 6s ease-in-out infinite}
+  @media (hover:hover){
+    .why-list .wrow:hover{background:rgba(125,140,92,.07)}
+    .why-list .wrow:hover .wnum>span{animation-duration:1.6s}
+  }
+  @keyframes numShine{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+
+  @media (prefers-reduced-motion:reduce){
+    .entries .entry,.why-list .wrow{transition:none}
+    .entries .entry:hover .btn--ghost,.wnum>span{animation:none}
+  }
 </style>
 </head>
 <body>
@@ -342,7 +446,7 @@
     <div class="hero-photo">
       <div id="heroPar">
         <figure class="arch imgr" style="--d:.25s">
-          <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=900&auto=format&fit=crop" alt="Модель с нежным макияжем — забота о коже" width="900" height="1125">
+          <img src="https://images.unsplash.com/photo-1670201203116-26644750a726?w=800&h=1000&fit=crop&crop=faces&q=80&auto=format" alt="Девушка с жемчужной заколкой в волосах касается щеки: ровная сияющая кожа" width="800" height="1000">
         </figure>
       </div>
       <div class="hero-chip fade" style="--d:.95s"><b>Первый визит −15%</b><span>по онлайн-записи</span></div>
@@ -470,19 +574,54 @@
       <span class="eyebrow fade">Отзывы</span>
       <h2><span class="msk" style="--d:.1s"><span>Гости о нас</span></span></h2>
     </div>
-    <p class="rev-note reveal"><span class="fade">Отзывы демонстрационные</span></p>
-    <div class="rev-wrap">
-      <article class="rev reveal">
-        <p class="fade">Хожу к&nbsp;Алине на&nbsp;маникюр полгода — ни&nbsp;одного скола. Салон уютный, кофе вкусный 🙂</p>
-        <b class="fade" style="--d:.2s">Мария</b>
-        <div class="stars fade" style="--d:.3s" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
-      </article>
-      <div class="rev-line" aria-hidden="true"></div>
-      <article class="rev reveal">
-        <p class="fade" style="--d:.15s">Окрашивание сделали ровно как на&nbsp;референсе. Наконец-то мой салон.</p>
-        <b class="fade" style="--d:.35s">Ксения</b>
-        <div class="stars fade" style="--d:.45s" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
-      </article>
+    <div class="rev-car reveal" role="region" aria-label="Отзывы гостей, листаются вбок">
+      <div class="rev-track" id="revTrack" tabindex="0">
+        <article class="rev">
+          <p>Хожу к&nbsp;Алине на&nbsp;маникюр полгода&nbsp;— ни&nbsp;одного скола. Салон уютный, кофе вкусный 🙂</p>
+          <b>Мария</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+        <article class="rev">
+          <p>Окрашивание сделали ровно как на&nbsp;референсе. Наконец-то мой салон.</p>
+          <b>Ксения</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+        <article class="rev">
+          <p>После зимы кожа была сухая и&nbsp;тусклая. Косметолог подобрала уход, через месяц подруги спросили, где я&nbsp;отдыхала.</p>
+          <b>Ольга</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+        <article class="rev">
+          <p>Стриглась у&nbsp;Дарьи: спросила, как я&nbsp;укладываюсь по&nbsp;утрам, и&nbsp;сделала форму под мои десять минут.</p>
+          <b>Анна</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+        <article class="rev">
+          <p>Записалась онлайн на&nbsp;восемь утра перед работой&nbsp;— подтвердили сразу, приняли минута в&nbsp;минуту.</p>
+          <b>Екатерина</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+        <article class="rev">
+          <p>Из&nbsp;тёмного в&nbsp;блонд за&nbsp;два визита, как и&nbsp;обещали на&nbsp;консультации. Волосы живые, не&nbsp;ломаются.</p>
+          <b>Виктория</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+        <article class="rev">
+          <p>Ходим с&nbsp;дочкой вместе: ей&nbsp;маникюр, мне окрашивание. Помнят, что я&nbsp;пью зелёный чай без сахара.</p>
+          <b>Наталья</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+        <article class="rev">
+          <p>Пришла к&nbsp;Алине по&nbsp;совету подруги. Покрытие держится третью неделю, форма ровная.</p>
+          <b>Софья</b>
+          <div class="stars" role="img" aria-label="Оценка 5 из 5">★★★★★</div>
+        </article>
+      </div>
+      <div class="rev-ctrl fade">
+        <button type="button" class="rev-btn" id="revPrev" aria-label="Предыдущие отзывы">←</button>
+        <span class="rev-num" id="revNum">1 / 4</span>
+        <button type="button" class="rev-btn" id="revNext" aria-label="Следующие отзывы">→</button>
+      </div>
     </div>
   </div>
 </section>
@@ -533,9 +672,8 @@
           <button type="submit" class="btn btn--solid" id="submitBtn" disabled style="width:100%">Записаться со скидкой 15%</button>
         </form>
         <div class="demo-note sheet" id="demoNote" role="status">
-          <h3>Спасибо, что заглянули 🌿</h3>
-          <p>Это демонстрационный сайт: бланк записи ничего никуда не&nbsp;отправляет, ваши данные остались только у&nbsp;вас. Если вам близка такая тишина и&nbsp;мягкость — сделаем такой же для вашего дела.</p>
-          <a class="btn btn--solid" href="https://t.me/open_sites" target="_blank" rel="noopener">Написать нам → t.me/open_sites</a>
+          <h3>Спасибо, заявка принята 🌿</h3>
+          <p>Администратор подберёт удобное время и&nbsp;подтвердит запись сообщением.</p>
         </div>
       </div>
     </div>
@@ -568,9 +706,6 @@
       <a href="#reviews">Отзывы</a>
       <a href="#form">Запись</a>
     </nav>
-    <div class="demo-plate">
-      Демонстрационная работа студии <a href="https://t.me/open_sites" target="_blank" rel="noopener">open-sites.io</a>. Бизнес вымышленный.
-    </div>
   </div>
 </footer>
 
@@ -691,6 +826,47 @@
     },{passive:true});
     updPar();
   }
+})();
+</script>
+<script>
+/* Правки 24.09: лента отзывов. Отдельно от основного скрипта сайта. */
+(function(){
+  'use strict';
+  var track = document.getElementById('revTrack');
+  if (!track) return;
+  var slides = [].slice.call(track.children);
+  var prev = document.getElementById('revPrev'), next = document.getElementById('revNext'), num = document.getElementById('revNum');
+  function w(){ return slides[0].getBoundingClientRect().width || track.clientWidth; }
+  function per(){ return Math.max(1, Math.round(track.clientWidth / w())); }
+  function pages(){ return Math.ceil(slides.length / per()); }
+  function page(){ return Math.round(track.scrollLeft / (w() * per())); }
+  function go(p){
+    var n = pages();
+    p = ((p % n) + n) % n;
+    track.scrollTo({left: p * per() * w(), behavior: 'smooth'});
+  }
+  function sync(){ if (num) num.textContent = Math.min(page() + 1, pages()) + ' / ' + pages(); }
+  if (prev) prev.addEventListener('click', function(){ go(page() - 1); });
+  if (next) next.addEventListener('click', function(){ go(page() + 1); });
+  track.addEventListener('scroll', function(){ window.requestAnimationFrame(sync); }, {passive: true});
+  window.addEventListener('resize', sync);
+  sync();
+
+  /* Сама листается раз в 6 секунд; стоит, пока человек читает, и выключена,
+     если анимации в системе отключены. */
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)'), hold = false;
+  ['mouseenter', 'focusin', 'touchstart', 'pointerdown'].forEach(function(ev){
+    track.addEventListener(ev, function(){ hold = true; }, {passive: true});
+  });
+  ['mouseleave', 'focusout'].forEach(function(ev){
+    track.addEventListener(ev, function(){ hold = false; });
+  });
+  setInterval(function(){
+    if (hold || calm.matches || document.hidden) return;
+    var r = track.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    go(page() + 1);
+  }, 6000);
 })();
 </script>
 </body>
